@@ -1,0 +1,33 @@
+c2fs
+SMBD=active
+TARGET         SOURCE   FSTYPE OPTIONS
+/mnt/c2_public /dev/sdb ext4   rw,relatime,stripe=8191
+drwxrws--- 5 root    c2_file_users 4096 Mar 12 03:36 /mnt/c2_public
+drwx--x--x 8 odengiz c2_file_users 4096 Mar 11 23:59 /mnt/c2_public/Private
+drwxrws--- 2 odengiz c2_file_users 4096 Mar 14 14:38 /mnt/c2_public/Public
+== root crontab ==
+0 2 * * * /usr/local/bin/c2_site1_sync.sh >> /var/log/c2_site1_sync.log 2>&1
+== sync log tail ==
+[2026-03-15 02:03:22] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-15 02:03:22] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-15 02:03:31] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-15 02:03:31] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-15 02:03:34] Sync completed successfully
+[2026-03-15 02:03:34] Sync completed successfully
+[2026-03-16 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-16 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-16 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-16 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+ssh: connect to host 172.30.64.146 port 22: No route to host
+tar: This does not look like a tar archive
+tar: Exiting with failure status due to previous errors
+[2026-03-17 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-17 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-17 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-17 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+ssh: connect to host 172.30.64.146 port 22: No route to host
+tar: This does not look like a tar archive
+tar: Exiting with failure status due to previous errors
+
+[stderr]
+[sudo] password for odengiz: 

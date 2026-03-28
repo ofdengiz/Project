@@ -1,0 +1,52 @@
+C1 RDP Diagnostic
+Generated: 2026-03-17 21:40:00
+
+Scope
+- C1DC1: 172.30.65.2
+- C1DC2: 172.30.65.3
+- C1FS: 172.30.65.4
+- C1Web: 172.30.65.162
+
+Key finding
+- The problem is split into two categories:
+  - C1DC1, C1DC2, and C1FS are reachable over RDP from the Ubuntu jump.
+  - The Windows jump is selecting the wrong interface for C1DC1, C1DC2, and C1FS.
+  - C1Web is down/unreachable even from the Ubuntu jump, so it is a separate host/path problem.
+
+Evidence from Ubuntu jump
+- C1DC1: ping OK, TCP 3389 OK, TCP 445 OK
+- C1DC2: ping OK, TCP 3389 OK, TCP 445 OK
+- C1FS: ping OK, TCP 3389 OK, TCP 445 OK
+- C1Web: ping FAIL, TCP 3389 FAIL, TCP 80 FAIL
+
+Evidence files
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw\ubuntu_jump_service_blocks.txt
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw\ubuntu_jump_crosscheck.json
+
+Evidence from Windows jump
+- Windows jump has two active default routes with the same metric:
+  - 0.0.0.0/0 via 172.30.65.177 on Purple
+  - 0.0.0.0/0 via 172.20.20.1 on Blue
+- For C1DC1, C1DC2, and C1FS, Windows selected InterfaceAlias=Blue during Test-NetConnection.
+- Those tests failed for both ping and TCP 3389.
+- For C1Web, Windows selected InterfaceAlias=Purple, but the target still failed.
+
+Windows jump evidence files
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw\winjump_rdp_diag.txt
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw\winjump_rdp_diag.json
+
+Interpretation
+- C1DC1, C1DC2, and C1FS are not failing because their RDP listeners are down.
+- They are failing from the Windows jump because the jump is routing those targets out the Blue interface instead of Purple.
+- C1Web is a genuine service/path outage and needs separate investigation.
+
+Most likely fix for the jump box
+- Add specific routes for Site 2 internal subnets through the Purple gateway 172.30.65.177.
+- Or lower the Purple interface metric so 172.30.65.x destinations prefer Purple instead of Blue.
+
+Suggested route scope
+- 172.30.65.0/26 via 172.30.65.177
+- 172.30.65.64/26 via 172.30.65.177
+- 172.30.65.160/29 via 172.30.65.177
+- 172.30.65.168/29 via 172.30.65.177
+

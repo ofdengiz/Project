@@ -1,0 +1,40 @@
+c2idm2
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens18            UP             172.30.65.67/26 fe80::be24:11ff:fea8:de15/64 
+active
+plink.exe : ERROR(<class 'samba.drs_utils.drsException'>): DRS connection to c2idm2.c2.local failed - drsException: 
+DRS connection to c2idm2.c2.local failed: (3221225506, '{Access Denied} A process has requested access to an object 
+but has not been granted those access rights.')
+At line:2 char:8
++ $out = & 'C:\Program Files\PuTTY\plink.exe' -batch -hostkey 'ssh-ed25 ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ERROR(<class 's...ccess rights.'):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "/usr/lib/python3/dist-packages/samba/netcmd/drs.py", line 55, in drsuapi_connect
+    (ctx.drsuapi, ctx.drsuapi_handle, ctx.bind_supported_extensions) = drs_utils.drsuapi_connect(ctx.server, ctx.lp, 
+ctx.creds)
+  File "/usr/lib/python3/dist-packages/samba/drs_utils.py", line 71, in drsuapi_connect
+    raise drsException("DRS connection to %s failed: %s" % (server, e))
+Using domain server:
+Name: 127.0.0.1
+Address: 127.0.0.1#53
+Aliases: 
+
+archive.ubuntu.com has address 185.125.190.82
+archive.ubuntu.com has address 91.189.92.23
+archive.ubuntu.com has address 185.125.190.81
+archive.ubuntu.com has address 185.125.190.83
+archive.ubuntu.com has address 91.189.92.22
+archive.ubuntu.com has address 91.189.92.24
+archive.ubuntu.com has address 91.189.91.81
+archive.ubuntu.com has address 91.189.91.82
+archive.ubuntu.com has IPv6 address 2620:2d:4002:1::102
+archive.ubuntu.com has IPv6 address 2a06:bc80:0:1000::17
+archive.ubuntu.com has IPv6 address 2620:2d:4002:1::101
+archive.ubuntu.com has IPv6 address 2a06:bc80:0:1000::16
+archive.ubuntu.com has IPv6 address 2620:2d:4000:1::101
+archive.ubuntu.com has IPv6 address 2a06:bc80:0:1000::18
+archive.ubuntu.com has IPv6 address 2620:2d:4000:1::103
+archive.ubuntu.com has IPv6 address 2620:2d:4000:1::102
+

@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "exit_code": 0,
+  "host": "100.82.97.92",
+  "stdout": "mspubuntujump\nmspadmin\n== opnsense gui probes ==\nOPNsense_80=OK\nOPNsense_443=FAIL\n== internal windows/web probes ==\nHOST=172.30.65.2\nPING=OK\nTCP80=FAIL\nTCP3389=OK\nTCP445=OK\n\nHOST=172.30.65.3\nPING=OK\nTCP80=FAIL\nTCP3389=OK\nTCP445=OK\n\nHOST=172.30.65.4\nPING=OK\nTCP80=FAIL\nTCP3389=OK\nTCP445=OK\n\nHOST=172.30.65.162\nPING=FAIL\nTCP80=FAIL\nTCP3389=FAIL\nTCP445=FAIL\n\nHOST=172.30.65.170\nPING=FAIL\nTCP80=FAIL\nTCP3389=FAIL\nTCP445=FAIL\n\n",
+  "stderr": ""
+}

@@ -1,0 +1,15 @@
+Hostname,Internal IP,Access Method,Username,Role / Notes,,,,,Password for All
+MSPUbuntuJump,172.30.65.179,SSH,admin,MSP Linux bastion host,,,,,Cisco123!
+Jump64,172.30.65.178,RDP,Administrator,MSP Windows jump host,,,,,
+S2Veeam,172.30.65.180,RDP,Administrator,Site 2 Veeam server,,,,,
+C2IdM1,172.30.65.66,SSH,admin,Company 2 identity DNS and DHCP node,,,,,
+C2IdM2,172.30.65.67,SSH,admin,Company 2 identity DNS and DHCP node,,,,,
+C2FS,172.30.65.68,SSH,admin,Company 2 file server,,,,,
+C2LinuxClient,172.30.65.70,SSH,admin,Company 2 Linux client,,,,,
+C2WebServer,172.30.65.170,SSH,admin,Company 2 internal web server,,,,,
+C1DC1,172.30.65.2,Internal service host,C1\Administrator,Company 1 domain controller,,,,,
+C1DC2,172.30.65.3,Internal service host,C1\Administrator,Company 1 domain controller,,,,,
+C1FS,172.30.65.4,Internal service host,C1\Administrator,Company 1 file server,,,,,
+C1WindowsClient,172.30.65.11,Internal client,C1\Administrator,Company 1 Windows client,,,,,
+C1UbuntuClient,172.30.65.36,Internal client,Administrator,Company 1 Linux client,,,,,
+C1WebServer,172.30.65.162,Internal service host,Administrator,Company 1 internal web server,,,,,

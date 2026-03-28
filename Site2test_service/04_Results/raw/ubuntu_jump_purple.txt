@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "error": "Authentication failed.",
+  "command": "ping -c 2 172.30.65.177 || true; ip neigh show 172.30.65.177 || true; ping -c 2 172.30.65.66 || true; ping -c 2 172.30.65.67 || true; ping -c 2 172.30.65.68 || true"
+}

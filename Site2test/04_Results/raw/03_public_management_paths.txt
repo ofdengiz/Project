@@ -1,0 +1,41 @@
+=== Windows Jump RDP 33464 ===
+
+
+ComputerName     : 10.50.17.31
+RemoteAddress    : 10.50.17.31
+RemotePort       : 33464
+InterfaceAlias   : Ethernet 2
+SourceAddress    : 10.66.28.104
+TcpTestSucceeded : True
+
+
+
+
+=== Ubuntu Jump SSH 33564 ===
+
+
+ComputerName     : 10.50.17.31
+RemoteAddress    : 10.50.17.31
+RemotePort       : 33564
+InterfaceAlias   : Ethernet 2
+SourceAddress    : 10.66.28.104
+TcpTestSucceeded : True
+
+
+
+
+=== C1 Web Public 33465 ===
+
+
+ComputerName           : 10.50.17.31
+RemoteAddress          : 10.50.17.31
+RemotePort             : 33465
+InterfaceAlias         : Ethernet 2
+SourceAddress          : 10.66.28.104
+PingSucceeded          : True
+PingReplyDetails (RTT) : 18 ms
+TcpTestSucceeded       : False
+
+
+
+

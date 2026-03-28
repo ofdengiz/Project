@@ -1,0 +1,33 @@
+--- PAGE 1 ---
+Hostseat 1 Role Hotseat 2 Role 
+Company 1 & 
+MSP
+Company 2 & 
+MSP
+MSP Site 1 MSP Site 2
+Company 1 & 
+MSP
+Company 2 & 
+MSP
+Site 1 Physical 
+Inspection
+MSP
+Company 1 Company 2
+Service Block 1
+Service Block 2
+Service Block 3
+Service Block 4
+Service Block 5
+VEEAM
+Misc
+DHCP
+Site 1 Hypervisor
+Replicated File 
+Server 
+ISCSI
+vRouter
+Remote Access
+Account 
+Administration
+DNS
+HTTPS

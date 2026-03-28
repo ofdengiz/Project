@@ -1,0 +1,123 @@
+[command]
+hostname; whoami; echo '== ROUTES =='; ip route; echo '== COMPANY1_PORTS =='; for t in "172.30.65.2 53" "172.30.65.2 88" "172.30.65.2 389" "172.30.65.2 445" "172.30.65.2 3389" "172.30.65.2 5985" "172.30.65.3 53" "172.30.65.3 88" "172.30.65.3 389" "172.30.65.3 445" "172.30.65.3 3389" "172.30.65.3 5985" "172.30.65.4 445" "172.30.65.4 3389" "172.30.65.4 5985" "172.30.65.11 3389" "172.30.65.36 22" "172.30.65.162 443" "172.30.65.162 3389" "172.30.65.162 5985" "172.30.65.186 3260"; do set -- $t; echo TARGET=$1:$2; nc -zvw4 $1 $2; done; echo '== DNS_VIA_C2IDM1 =='; nslookup c1-webserver.c1.local 172.30.65.66; nslookup c2-webserver.c2.local 172.30.65.66; echo '== WEB_HOSTNAME_BEHAVIOR =='; curl -k -I --resolve c1-webserver.c1.local:443:172.30.65.162 https://c1-webserver.c1.local; curl -k -I https://172.30.65.162; curl -k -I --resolve c2-webserver.c2.local:443:172.30.65.170 https://c2-webserver.c2.local; echo '== SAN_PROBES =='; for h in 172.30.65.186 172.30.65.194; do echo SAN=$h; ping -c 1 -W 1 $h || true; nc -zvw4 $h 3260; done
+
+[stdout]
+mspubuntujump
+mspadmin
+== ROUTES ==
+default via 172.30.65.177 dev ens18 proto static 
+172.30.65.176/29 dev ens18 proto kernel scope link src 172.30.65.179 
+== COMPANY1_PORTS ==
+TARGET=172.30.65.2:53
+TARGET=172.30.65.2:88
+TARGET=172.30.65.2:389
+TARGET=172.30.65.2:445
+TARGET=172.30.65.2:3389
+TARGET=172.30.65.2:5985
+TARGET=172.30.65.3:53
+TARGET=172.30.65.3:88
+TARGET=172.30.65.3:389
+TARGET=172.30.65.3:445
+TARGET=172.30.65.3:3389
+TARGET=172.30.65.3:5985
+TARGET=172.30.65.4:445
+TARGET=172.30.65.4:3389
+TARGET=172.30.65.4:5985
+TARGET=172.30.65.11:3389
+TARGET=172.30.65.36:22
+TARGET=172.30.65.162:443
+TARGET=172.30.65.162:3389
+TARGET=172.30.65.162:5985
+TARGET=172.30.65.186:3260
+== DNS_VIA_C2IDM1 ==
+Server:		172.30.65.66
+Address:	172.30.65.66#53
+
+Name:	c1-webserver.c1.local
+Address: 172.30.64.162
+Name:	c1-webserver.c1.local
+Address: 172.30.65.162
+
+Server:		172.30.65.66
+Address:	172.30.65.66#53
+
+Name:	c2-webserver.c2.local
+Address: 172.30.64.170
+Name:	c2-webserver.c2.local
+Address: 172.30.65.170
+
+== WEB_HOSTNAME_BEHAVIOR ==
+HTTP/2 200 
+content-length: 11022
+content-type: text/html
+last-modified: Mon, 09 Feb 2026 02:39:06 GMT
+accept-ranges: bytes
+etag: "ac6edd426d99dc1:0"
+server: Microsoft-IIS/10.0
+date: Tue, 24 Mar 2026 07:39:17 GMT
+
+HTTP/2 404 
+content-length: 315
+content-type: text/html; charset=us-ascii
+server: Microsoft-HTTPAPI/2.0
+date: Tue, 24 Mar 2026 07:39:17 GMT
+
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Tue, 24 Mar 2026 04:39:24 GMT
+Content-Type: text/html
+Content-Length: 7311
+Last-Modified: Fri, 20 Mar 2026 21:22:54 GMT
+Connection: keep-alive
+ETag: "69bdbaae-1c8f"
+Accept-Ranges: bytes
+
+== SAN_PROBES ==
+SAN=172.30.65.186
+PING 172.30.65.186 (172.30.65.186) 56(84) bytes of data.
+
+--- 172.30.65.186 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+SAN=172.30.65.194
+PING 172.30.65.194 (172.30.65.194) 56(84) bytes of data.
+
+--- 172.30.65.194 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+
+
+[stderr]
+Connection to 172.30.65.2 53 port [tcp/domain] succeeded!
+Connection to 172.30.65.2 88 port [tcp/kerberos] succeeded!
+Connection to 172.30.65.2 389 port [tcp/ldap] succeeded!
+Connection to 172.30.65.2 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.2 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.2 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.3 53 port [tcp/domain] succeeded!
+Connection to 172.30.65.3 88 port [tcp/kerberos] succeeded!
+Connection to 172.30.65.3 389 port [tcp/ldap] succeeded!
+Connection to 172.30.65.3 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.3 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.3 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.4 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.4 3389 port [tcp/ms-wbt-server] succeeded!
+nc: connect to 172.30.65.4 port 5985 (tcp) timed out: Operation now in progress
+Connection to 172.30.65.11 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.36 22 port [tcp/ssh] succeeded!
+Connection to 172.30.65.162 443 port [tcp/https] succeeded!
+Connection to 172.30.65.162 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.162 5985 port [tcp/*] succeeded!
+nc: connect to 172.30.65.186 port 3260 (tcp) timed out: Operation now in progress
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   315    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+nc: connect to 172.30.65.186 port 3260 (tcp) timed out: Operation now in progress
+nc: connect to 172.30.65.194 port 3260 (tcp) timed out: Operation now in progress
+

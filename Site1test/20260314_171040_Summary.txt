@@ -1,0 +1,23 @@
+Site 1 Central Test Toolkit Summary
+Generated: 2026-03-14 17:10:40
+Toolkit Version: 1.0
+
+[PASS] Server2 iSCSI target inventory
+[PASS] Server2 disk and volume summary
+[PASS] C1-DC1 iSCSI initiator summary
+[PASS] C1-DC2 iSCSI initiator summary
+[FAIL] C2-DC1 iSCSI and Gluster summary
+[FAIL] C2-DC2 iSCSI and Gluster summary
+[PASS] Server2 Veeam services and repository drives
+[FAIL] C1-Client1 backup agent footprint
+[PASS] Site 2 offsite repository control port
+[FAIL] Jumpbox Ubuntu Grafana and InfluxDB health
+[PASS] Cockpit HTTPS endpoint
+[FAIL] C2-DC1 Cockpit service state
+[PASS] Windows Admin Center HTTPS endpoint
+[FAIL] Jumpbox Windows Admin Center service
+[PASS] Site 2 repository VPN path (6160)
+[PASS] SSH to Jumpbox Ubuntu
+[PASS] SSH to C2-DC1
+[PASS] RDP to C1-DC1
+[PASS] RDP to Server2

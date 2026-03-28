@@ -1,0 +1,27 @@
+=== Session started: 2026-03-25T19:09:46 ===
+2026-03-25T19:09:51 | PASS | Service Block 4 / Replicated File Server | C1-DC1 | C1 DFS namespace and replication summary
+2026-03-25T19:09:54 | PASS | Service Block 4 / Replicated File Server | C1-DC1 | C1 SMB share definitions
+2026-03-25T19:10:00 | PASS | Service Block 4 / ISCSI | C1-DC1 | C1-DC1 iSCSI initiator summary
+2026-03-25T19:10:07 | PASS | Service Block 4 / ISCSI | C1-DC2 | C1-DC2 iSCSI initiator summary
+2026-03-25T19:10:19 | PASS | Service Block 4 / ISCSI | C1-Client1 | C1-Client1 iSCSI initiator summary
+2026-03-25T19:10:22 | PASS | Service Block 4 / ISCSI | C1-Client2 | C1-Client2 iSCSI initiator summary
+2026-03-25T19:10:22 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 mounted share summary
+2026-03-25T19:10:25 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 per-user share mount summary
+2026-03-25T19:10:30 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 public share create-and-visibility summary
+2026-03-25T19:10:34 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 private share create-and-isolation summary
+2026-03-25T19:10:42 | PASS | Service Block 4 / Replicated File Server | C1-Client1 | C1-Client1 mapped drive context summary
+2026-03-25T19:10:45 | PASS | Service Block 4 / Replicated File Server | Site 1 C1-DC1 | C1 DFS namespace target-set summary
+2026-03-25T19:11:06 | FAIL | Service Block 4 / Hotseat 1 / Site 2 Company 1 file path | Site 2 C1FS | Site 2 C1FS server role and storage summary
+2026-03-25T19:11:06 | REVIEW | Service Block 4 / Hotseat 1 / Site 2 Company 1 client | Site 2 C1WindowsClient | Site 2 C1WindowsClient interactive share workflow (manual)
+2026-03-25T19:11:09 | PASS | Service Block 4 / Replicated File Server and ISCSI | C2-DC1 | C2 Gluster, Samba, and iSCSI primary summary
+2026-03-25T19:11:11 | PASS | Service Block 4 / Replicated File Server and ISCSI | C2-DC2 | C2 secondary storage node summary
+2026-03-25T19:11:14 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 mounted share summary
+2026-03-25T19:11:17 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 per-user share mount summary
+2026-03-25T19:11:22 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 public share create-and-visibility summary
+2026-03-25T19:11:26 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 private share create-and-isolation summary
+2026-03-25T19:11:30 | PASS | Service Block 4 / Hotseat 1 / Site 2 Company 1 file path | MSPUbuntuJump -> Site 2 C1 file path | Site 2 Company 1 file-path and SAN-isolation summary
+2026-03-25T19:11:32 | PASS | Service Block 4 / Hotseat 2 / Site 2 Company 2 file path | Site 2 C2FS | Site 2 C2FS storage chain summary
+2026-03-25T19:11:38 | PASS | Service Block 4 / Hotseat 2 / Site 2 Company 2 client | Site 2 C2LinuxClient | Site 2 C2LinuxClient hostname-based SMB browse summary
+2026-03-25T19:11:41 | PASS | Service Block 4 / Hotseat 2 / Site 2 Company 2 client | Site 2 C2LinuxClient | Site 2 C2LinuxClient per-user share access summary
+2026-03-25T19:11:42 | PASS | Service Block 4 / Hotseat 2 / Site 2 Company 2 client | Site 2 C2LinuxClient | Site 2 C2LinuxClient public share create-and-visibility summary
+2026-03-25T19:11:43 | PASS | Service Block 4 / Hotseat 2 / Site 2 Company 2 client | Site 2 C2LinuxClient | Site 2 C2LinuxClient private share create-and-isolation summary

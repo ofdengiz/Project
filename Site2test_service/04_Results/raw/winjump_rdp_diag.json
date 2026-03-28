@@ -1,0 +1,82 @@
+﻿{
+    "ComputerName":  "JUMP64",
+    "Domain":  "WORKGROUP",
+    "IpConfig":  "\r\nWindows IP Configuration\r\n\r\n   Host Name . . . . . . . . . . . . : Jump64\r\n   Primary Dns Suffix  . . . . . . . : \r\n   Node Type . . . . . . . . . . . . : Hybrid\r\n   IP Routing Enabled. . . . . . . . : No\r\n   WINS Proxy Enabled. . . . . . . . : No\r\n   DNS Suffix Search List. . . . . . : tail82e06d.ts.net\r\n\r\nUnknown adapter Tailscale:\r\n\r\n   Connection-specific DNS Suffix  . : tail82e06d.ts.net\r\n   Description . . . . . . . . . . . : Tailscale Tunnel\r\n   Physical Address. . . . . . . . . : \r\n   DHCP Enabled. . . . . . . . . . . : No\r\n   Autoconfiguration Enabled . . . . : Yes\r\n   IPv6 Address. . . . . . . . . . . : fd7a:115c:a1e0::801:25a9(Preferred) \r\n   Link-local IPv6 Address . . . . . : fe80::99d0:ec2d:b2e7:536b%29(Preferred) \r\n   IPv4 Address. . . . . . . . . . . : 100.97.37.83(Preferred) \r\n   Subnet Mask . . . . . . . . . . . : 255.255.255.255\r\n   Default Gateway . . . . . . . . . : \r\n   DNS Servers . . . . . . . . . . . : fec0:0:0:ffff::1%1\r\n                                       fec0:0:0:ffff::2%1\r\n                                       fec0:0:0:ffff::3%1\r\n   NetBIOS over Tcpip. . . . . . . . : Disabled\r\n   Connection-specific DNS Suffix Search List :\r\n                                       tail82e06d.ts.net\r\n\r\nEthernet adapter Blue:\r\n\r\n   Connection-specific DNS Suffix  . : \r\n   Description . . . . . . . . . . . : Red Hat VirtIO Ethernet Adapter\r\n   Physical Address. . . . . . . . . : BC-24-11-21-C1-54\r\n   DHCP Enabled. . . . . . . . . . . : No\r\n   Autoconfiguration Enabled . . . . : Yes\r\n   IPv4 Address. . . . . . . . . . . : 172.20.64.254(Preferred) \r\n   Subnet Mask . . . . . . . . . . . : 255.255.0.0\r\n   Default Gateway . . . . . . . . . : 172.20.20.1\r\n   DNS Servers . . . . . . . . . . . : 172.16.10.53\r\n   NetBIOS over Tcpip. . . . . . . . : Enabled\r\n\r\nEthernet adapter Purple:\r\n\r\n   Connection-specific DNS Suffix  . : \r\n   Description . . . . . . . . . . . : Red Hat VirtIO Ethernet Adapter #2\r\n   Physical Address. . . . . . . . . : BC-24-11-3C-C5-3D\r\n   DHCP Enabled. . . . . . . . . . . : No\r\n   Autoconfiguration Enabled . . . . : Yes\r\n   IPv4 Address. . . . . . . . . . . : 172.30.65.178(Preferred) \r\n   Subnet Mask . . . . . . . . . . . : 255.255.255.248\r\n   Default Gateway . . . . . . . . . : 172.30.65.177\r\n   DNS Servers . . . . . . . . . . . : 172.30.65.177\r\n   NetBIOS over Tcpip. . . . . . . . : Enabled\r\n",
+    "Routes":  "===========================================================================\r\nInterface List\r\n 29...........................Tailscale Tunnel\r\n 13...bc 24 11 21 c1 54 ......Red Hat VirtIO Ethernet Adapter\r\n 11...bc 24 11 3c c5 3d ......Red Hat VirtIO Ethernet Adapter #2\r\n  1...........................Software Loopback Interface 1\r\n===========================================================================\r\n\r\nIPv4 Route Table\r\n===========================================================================\r\nActive Routes:\r\nNetwork Destination        Netmask          Gateway       Interface  Metric\r\n          0.0.0.0          0.0.0.0    172.30.65.177    172.30.65.178    271\r\n          0.0.0.0          0.0.0.0      172.20.20.1    172.20.64.254    271\r\n     100.82.97.92  255.255.255.255         On-link      100.97.37.83      5\r\n     100.97.37.83  255.255.255.255         On-link      100.97.37.83    261\r\n  100.100.100.100  255.255.255.255         On-link      100.97.37.83      5\r\n   100.101.182.29  255.255.255.255         On-link      100.97.37.83      5\r\n        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331\r\n        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331\r\n  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331\r\n       172.20.0.0      255.255.0.0         On-link     172.20.64.254    271\r\n    172.20.64.254  255.255.255.255         On-link     172.20.64.254    271\r\n   172.20.255.255  255.255.255.255         On-link     172.20.64.254    271\r\n    172.30.65.176  255.255.255.248         On-link     172.30.65.178    271\r\n    172.30.65.178  255.255.255.255         On-link     172.30.65.178    271\r\n    172.30.65.183  255.255.255.255         On-link     172.30.65.178    271\r\n        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331\r\n        224.0.0.0        240.0.0.0         On-link     172.30.65.178    271\r\n        224.0.0.0        240.0.0.0         On-link     172.20.64.254    271\r\n  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331\r\n  255.255.255.255  255.255.255.255         On-link     172.30.65.178    271\r\n  255.255.255.255  255.255.255.255         On-link     172.20.64.254    271\r\n===========================================================================\r\nPersistent Routes:\r\n  Network Address          Netmask  Gateway Address  Metric\r\n          0.0.0.0          0.0.0.0      172.20.20.1  Default \r\n          0.0.0.0          0.0.0.0    172.30.65.177  Default \r\n===========================================================================\r\n\r\nIPv6 Route Table\r\n===========================================================================\r\nActive Routes:\r\n If Metric Network Destination      Gateway\r\n  1    331 ::1/128                  On-link\r\n 29      5 fd7a:115c:a1e0::/48      fd7a:115c:a1e0::53\r\n 29      5 fd7a:115c:a1e0::53/128   On-link\r\n 29    261 fd7a:115c:a1e0::801:25a9/128\r\n                                    On-link\r\n  1    331 ff00::/8                 On-link\r\n===========================================================================\r\nPersistent Routes:\r\n  None\r\n",
+    "Arp":  "\r\nInterface: 172.30.65.178 --- 0xb\r\n  Internet Address      Physical Address      Type\r\n  172.30.65.177         bc-24-11-90-a5-0a     dynamic   \r\n  172.30.65.180         bc-24-11-b1-65-19     dynamic   \r\n  172.30.65.183         ff-ff-ff-ff-ff-ff     static    \r\n  224.0.0.22            01-00-5e-00-00-16     static    \r\n  224.0.0.251           01-00-5e-00-00-fb     static    \r\n  224.0.0.252           01-00-5e-00-00-fc     static    \r\n  239.255.255.250       01-00-5e-7f-ff-fa     static    \r\n\r\nInterface: 172.20.64.254 --- 0xd\r\n  Internet Address      Physical Address      Type\r\n  172.20.20.1           00-35-1a-4e-f9-d9     dynamic   \r\n  172.20.64.1           bc-24-11-c4-73-1d     dynamic   \r\n  172.20.65.1           bc-24-11-c4-73-1d     dynamic   \r\n  172.20.255.255        ff-ff-ff-ff-ff-ff     static    \r\n  224.0.0.22            01-00-5e-00-00-16     static    \r\n  224.0.0.251           01-00-5e-00-00-fb     static    \r\n  224.0.0.252           01-00-5e-00-00-fc     static    \r\n  239.255.255.250       01-00-5e-7f-ff-fa     static    \r\n\r\nInterface: 100.97.37.83 --- 0x1d\r\n  Internet Address      Physical Address      Type\r\n  100.101.182.29                              dynamic   \r\n  224.0.0.22                                  static    \r\n  224.0.0.251                                 static    \r\n  224.0.0.252                                 static    \r\n  239.255.255.250                             static    \r\n",
+    "Profiles":  [
+                     {
+                         "InterfaceAlias":  "Tailscale",
+                         "InterfaceIndex":  29,
+                         "NetworkCategory":  1,
+                         "IPv4Connectivity":  3,
+                         "IPv6Connectivity":  1
+                     },
+                     {
+                         "InterfaceAlias":  "Blue",
+                         "InterfaceIndex":  13,
+                         "NetworkCategory":  1,
+                         "IPv4Connectivity":  4,
+                         "IPv6Connectivity":  1
+                     },
+                     {
+                         "InterfaceAlias":  "Purple",
+                         "InterfaceIndex":  11,
+                         "NetworkCategory":  1,
+                         "IPv4Connectivity":  4,
+                         "IPv6Connectivity":  1
+                     }
+                 ],
+    "Tests":  [
+                  {
+                      "Name":  "OPNsenseMSP",
+                      "Host":  "172.30.65.177",
+                      "Port":  443,
+                      "PingSucceeded":  true,
+                      "TcpSucceeded":  false,
+                      "InterfaceAlias":  "Purple",
+                      "SourceAddress":  null,
+                      "RemoteAddress":  "172.30.65.177"
+                  },
+                  {
+                      "Name":  "C1DC1",
+                      "Host":  "172.30.65.2",
+                      "Port":  3389,
+                      "PingSucceeded":  false,
+                      "TcpSucceeded":  false,
+                      "InterfaceAlias":  "Blue",
+                      "SourceAddress":  null,
+                      "RemoteAddress":  "172.30.65.2"
+                  },
+                  {
+                      "Name":  "C1DC2",
+                      "Host":  "172.30.65.3",
+                      "Port":  3389,
+                      "PingSucceeded":  false,
+                      "TcpSucceeded":  false,
+                      "InterfaceAlias":  "Blue",
+                      "SourceAddress":  null,
+                      "RemoteAddress":  "172.30.65.3"
+                  },
+                  {
+                      "Name":  "C1FS",
+                      "Host":  "172.30.65.4",
+                      "Port":  3389,
+                      "PingSucceeded":  false,
+                      "TcpSucceeded":  false,
+                      "InterfaceAlias":  "Blue",
+                      "SourceAddress":  null,
+                      "RemoteAddress":  "172.30.65.4"
+                  },
+                  {
+                      "Name":  "C1Web",
+                      "Host":  "172.30.65.162",
+                      "Port":  3389,
+                      "PingSucceeded":  false,
+                      "TcpSucceeded":  false,
+                      "InterfaceAlias":  "Purple",
+                      "SourceAddress":  null,
+                      "RemoteAddress":  "172.30.65.162"
+                  }
+              ]
+}

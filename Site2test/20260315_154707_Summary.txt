@@ -1,0 +1,43 @@
+Site 2 Validation Summary
+Generated: 2026-03-15 15:47:07
+
+PASS
+- Ubuntu MSP jump is reachable and has the expected Site 2 management address `172.30.65.179/29`.
+- Public management paths work for both jumpboxes:
+  - `10.50.17.31:33464` Windows jump RDP
+  - `10.50.17.31:33564` Ubuntu jump SSH
+- `C1DC1` and `C1DC2` both responded on the expected Windows/DC management and identity ports: `53`, `88`, `135`, `389`, `445`, `3389`, `5985`.
+- `C1FS` responded on the expected file/admin ports: `135`, `445`, `3389`, `5985`.
+- `C2IdM1` and `C2IdM2` both showed:
+  - correct host identity
+  - correct `172.30.65.66/26` and `172.30.65.67/26` addressing
+  - active `samba-ad-dc`
+  - successful recursive DNS lookup for `archive.ubuntu.com`
+  - successful privileged replication output with `0 consecutive failure(s)` in the captured section
+- `C2FS` showed:
+  - `smbd` active
+  - `/dev/sdb` mounted on `/mnt/c2_public`
+  - sync script present at `/usr/local/bin/c2_site1_sync.sh`
+  - recent sync log entries ending in `Sync completed successfully`
+- `C2LinuxClient` showed:
+  - correct `172.30.65.70/26` addressing
+  - `employee1@c2.local` resolves successfully
+  - DNS servers `172.30.65.66` and `172.30.65.67`
+- Inter-site path from the Ubuntu jump to Site 1 DCs was healthy for expected ports:
+  - Site 1 C1 DCs `172.30.64.130` and `172.30.64.131`: `53`, `88`, `389`, `445`, `3389`
+  - Site 1 C2 DCs `172.30.64.146` and `172.30.64.147`: `22`, `53`, `88`, `389`, `445`
+
+FAIL
+- Public path `10.50.17.31:33465` for C1 Web failed.
+- Internal HTTP request to `172.30.65.162` from the Ubuntu jump timed out.
+- Site 2 Veeam host `172.30.65.180` did not respond on ping, failed same-subnet neighbor resolution, and did not respond on tested management/control ports from the Ubuntu jump.
+
+REVIEW
+- Direct WMI/RPC automation to the Windows jump from the local workstation was unavailable during this run, so Windows jump evidence is based on public RDP reachability rather than deep host interrogation.
+- `192.168.64.20` was not reachable from the Ubuntu jump on the tested ports. This may be acceptable if the intended path is limited to the Site 2 Veeam host rather than the general MSP jump network.
+
+Additional raw evidence
+- `04_Results/raw/09_c1web_diagnosis.txt`
+- `04_Results/raw/10_veeam_diagnosis.txt`
+- `04_Results/raw/11_c2idm1_repl_root.txt`
+- `04_Results/raw/12_c2idm2_repl_root.txt`

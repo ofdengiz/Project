@@ -1,0 +1,10 @@
+=== Session started: 2026-03-25T12:24:11 ===
+2026-03-25T12:24:11 | PASS | Service Block 1 / Remote Access | WindowsJump64 | RDP to Windows jump over Tailscale
+2026-03-25T12:24:12 | PASS | Service Block 1 / Remote Access | MSPUbuntuJump | SSH to Ubuntu jump over Tailscale
+2026-03-25T12:24:12 | PASS | Service Block 1 / Remote Access | Teacher Edge -> WindowsJump64 | Public RDP to Windows jump
+2026-03-25T12:24:12 | PASS | Service Block 1 / Remote Access | Teacher Edge -> MSPUbuntuJump | Public SSH to Ubuntu jump
+2026-03-25T12:24:17 | FAIL | Service Block 2 / HTTP | Teacher Edge -> C1Web | Public HTTP to C1 Web
+2026-03-25T12:24:33 | FAIL | Service Block 1 / Remote Access | MSPUbuntuJump | SSH to MSP Ubuntu Jump
+2026-03-25T12:24:33 | PASS | Service Block 3 / vRouter policy | MSPUbuntuJump | MSP Ubuntu jump purple path health
+2026-03-25T12:24:33 | PASS | Service Block 3 / Blue Network | MSPUbuntuJump | MSP Ubuntu jump blue path health
+2026-03-25T12:27:03 | FAIL | Service Block 1 / Remote Access | WindowsJump64 | Windows jump remote collector

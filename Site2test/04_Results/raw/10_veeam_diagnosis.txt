@@ -1,0 +1,13 @@
+PING 172.30.65.180 (172.30.65.180) 56(84) bytes of data.
+
+--- 172.30.65.180 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1010ms
+
+--- neigh 180 ---
+172.30.65.180 dev ens18  FAILED
+--- ports 180 ---
+PORT 135 FAIL
+PORT 445 FAIL
+PORT 3389 FAIL
+PORT 5985 FAIL
+PORT 6160 FAIL

@@ -1,0 +1,52 @@
+c2fs
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens18            UP             172.30.65.195/29 fe80::be24:11ff:feae:e6b5/64 
+ens19            UP             172.30.65.68/26 fe80::be24:11ff:fe3e:39ae/64 
+active
+/dev/sdb on /mnt/c2_public type ext4 (rw,relatime,stripe=8191)
+NAME                      FSTYPE      FSVER            LABEL                           UUID                                   FSAVAIL FSUSE% MOUNTPOINTS
+loop0                     squashfs    4.0                                                                                           0   100% /snap/core20/2717
+loop1                     squashfs    4.0                                                                                           0   100% /snap/core20/2318
+loop2                     squashfs    4.0                                                                                           0   100% /snap/lxd/38469
+loop3                     squashfs    4.0                                                                                           0   100% /snap/snapd/21759
+loop4                     squashfs    4.0                                                                                           0   100% /snap/lxd/38331
+loop5                     squashfs    4.0                                                                                           0   100% /snap/snapd/25935
+sda                                                                                                                                          
++-sda1                                                                                                                                       
++-sda2                    ext4        1.0                                              1aac290d-fb72-4319-bb3f-dbb19ca8cbc0      1.5G     8% /boot
++-sda3                    LVM2_member LVM2 001                                         ikBN12-5JHh-q4v9-xoVS-2vMv-mKpr-eRCXgx                
+  +-ubuntu--vg-ubuntu--lv ext4        1.0                                              0209f937-10d6-448d-8653-9634955ce59d      5.6G    37% /
+sdb                       ext4        1.0                                              f4e8ddf4-be7b-49a9-8083-d381dc1c29df    148.4G     0% /mnt/c2_public
+sr0                       iso9660     Joliet Extension Ubuntu-Server 22.04.5 LTS amd64 2024-09-11-18-46-48-00                                
+drwxrws--- 5 root c2_file_users 4096 Mar 12 03:36 /mnt/c2_public
+plink.exe : ls: cannot access '/mnt/c2_public/Public': Permission denied
+At line:2 char:8
++ $out = & 'C:\Program Files\PuTTY\plink.exe' -batch -hostkey 'ssh-ed25 ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ls: cannot acce...rmission denied:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ls: cannot access '/mnt/c2_public/Private': Permission denied
+c2_file_users:x:3013:
+-rwx------ 1 root root 1460 Mar 12 05:09 /usr/local/bin/c2_site1_sync.sh
+[2026-03-14 02:00:02] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-14 02:00:02] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-14 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-14 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-14 02:00:03] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-14 02:00:03] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-14 02:00:04] Sync completed successfully
+[2026-03-14 02:00:04] Sync completed successfully
+[2026-03-15 02:00:31] Starting Site1 -> Site2 C2 sync
+[2026-03-15 02:00:31] Starting Site1 -> Site2 C2 sync
+[2026-03-15 02:00:31] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-15 02:00:31] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-15 02:03:22] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-15 02:03:22] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-15 02:03:22] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-15 02:03:22] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-15 02:03:31] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-15 02:03:31] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-15 02:03:34] Sync completed successfully
+[2026-03-15 02:03:34] Sync completed successfully
+

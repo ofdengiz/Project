@@ -1,0 +1,147 @@
+c2idm1
+SAMBA_AD=active
+DHCP=active
+== users ==
+Administrator
+employee1
+Guest
+admin
+krbtgt
+employee2
+== groups ==
+Incoming Forest Trust Builders
+RAS and IAS Servers
+Remote Desktop Users
+Event Log Readers
+Administrators
+Cryptographic Operators
+Distributed COM Users
+DnsAdmins
+IIS_IUSRS
+Group Policy Creator Owners
+Domain Controllers
+Server Operators
+Domain Computers
+Windows Authorization Access Group
+c2_file_users
+Cert Publishers
+Network Configuration Operators
+Enterprise Admins
+Account Operators
+Pre-Windows 2000 Compatible Access
+Certificate Service DCOM Access
+Enterprise Read-only Domain Controllers
+DnsUpdateProxy
+Print Operators
+Protected Users
+Read-only Domain Controllers
+Terminal Server License Servers
+Replicator
+Domain Users
+Backup Operators
+Domain Guests
+Guests
+Users
+Domain Admins
+Schema Admins
+Allowed RODC Password Replication Group
+Performance Log Users
+Denied RODC Password Replication Group
+Performance Monitor Users
+== dhcp snippets ==
+10:failover peer "dhcp-failover" {
+14:    peer address 172.30.65.67;
+15:    peer port 647;
+24:subnet 172.30.65.64 netmask 255.255.255.192 {
+27:        failover peer "dhcp-failover";
+== dns lookups ==
+172.30.65.67    c2idm2.c2.local
+64.233.178.139  STREAM google.com
+64.233.178.139  DGRAM  
+64.233.178.139  RAW    
+64.233.178.138  STREAM 
+64.233.178.138  DGRAM  
+== replication ==
+Default-First-Site-Name\C2IDM1
+DSA Options: 0x00000001
+DSA object GUID: ccea3965-4c9c-419b-8d2c-df2197a7f6bc
+DSA invocationId: 334b32e7-58a4-44fa-a383-f3189c67448e
+
+==== INBOUND NEIGHBORS ====
+
+DC=DomainDnsZones,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC1 via RPC
+		DSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9
+		Last attempt @ Wed Mar 18 01:23:26 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:26 2026 UTC
+
+DC=DomainDnsZones,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC2 via RPC
+		DSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708
+		Last attempt @ Wed Mar 18 01:23:26 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:26 2026 UTC
+
+DC=ForestDnsZones,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC1 via RPC
+		DSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9
+		Last attempt @ Wed Mar 18 01:23:27 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:27 2026 UTC
+
+DC=ForestDnsZones,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC2 via RPC
+		DSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708
+		Last attempt @ Wed Mar 18 01:23:27 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:27 2026 UTC
+
+CN=Schema,CN=Configuration,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC1 via RPC
+		DSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9
+		Last attempt @ Wed Mar 18 01:23:27 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:27 2026 UTC
+
+CN=Schema,CN=Configuration,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC2 via RPC
+		DSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708
+		Last attempt @ Wed Mar 18 01:23:27 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:27 2026 UTC
+
+DC=c2,DC=local
+	Default-First-Site-Name\C2-DC1 via RPC
+		DSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9
+		Last attempt @ Wed Mar 18 01:23:28 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:28 2026 UTC
+
+DC=c2,DC=local
+	Default-First-Site-Name\C2-DC2 via RPC
+		DSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708
+		Last attempt @ Wed Mar 18 01:23:28 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:28 2026 UTC
+
+CN=Configuration,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC1 via RPC
+		DSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9
+		Last attempt @ Wed Mar 18 01:23:28 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:28 2026 UTC
+
+CN=Configuration,DC=c2,DC=local
+	Default-First-Site-Name\C2-DC2 via RPC
+		DSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708
+		Last attempt @ Wed Mar 18 01:23:28 2026 UTC was successful
+		0 consecutive failure(s).
+		Last success @ Wed Mar 18 01:23:28 2026 UTC
+
+==== OUTBOUND NEIGHBORS ====
+
+DC=DomainDnsZones,DC=c2,DC=local
+
+[stderr]
+[sudo] password for ofdengiz: 

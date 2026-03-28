@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "error": "Authentication failed.",
+  "command": "hostname; whoami; ip -4 a; ip route"
+}

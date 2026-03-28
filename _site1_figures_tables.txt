@@ -1,0 +1,151 @@
+Figure 1. Overall Site 1 network topology .... PAGEREF fig_01 \h9
+Figure 2. VLAN routing and firewall flow design .... PAGEREF fig_02 \h9
+Figure 3. Directory services architecture .... PAGEREF fig_03 \h11
+Figure 3A. Site 1 rack installation (rear view) .... PAGEREF fig_3a_rear_rack_view \h13
+Figure 3B. Site 1 rack installation (front view) .... PAGEREF fig_3b_front_drive_layout \h14
+Figure 4. Proxmox VE management interface .... PAGEREF fig_04 \h15
+Figure 5. Virtual machine logical layout .... PAGEREF fig_05 \h17
+Figure 6. Server2 storage volume presentation .... PAGEREF fig_06 \h23
+Figure 7. Server2 network interface layout .... PAGEREF fig_07 \h23
+Figure 8. Veeam backup overview .... PAGEREF fig_08 \h25
+Figure 8A. Primary Veeam job status .... 23
+Figure 8B. Site 1 to Site 2 backup copy job .... 24
+Figure 8C. Remote backup copy inventory .... 25
+Figure 9. Group Policy desktop branding evidence .... PAGEREF fig_09 \h28
+Figure 10. Grafana infrastructure dashboard .... PAGEREF fig_10 \h29
+Figure 11. Cockpit administration overview .... PAGEREF fig_11 \h30
+Figure 12. Cockpit web terminal .... PAGEREF fig_12 \h30
+Figure 13. Windows Admin Center connection inventory .... PAGEREF fig_13 \h31
+Figure 14. Windows Admin Center server overview .... PAGEREF fig_14 \h31
+Figure 15. Site 1 OpenVPN client status .... 29
+Figure 16. Site 2 OpenVPN server status .... 30
+Figure 17. Firewall-centered security segmentation .... 31
+Table 1. Technology stack summary .... PAGEREF tbl_01 \h7
+Table 2. VLAN and gateway design .... PAGEREF tbl_02 \h10
+Table 3. Identity services summary .... PAGEREF tbl_03 \h10
+Table 4. Platform and service choice rationale .... PAGEREF tbl_04 \h11
+Table 5. Service stacking rationale .... PAGEREF tbl_05 \h12
+Table 5A. Physical server hardware summary .... PAGEREF tbl_5a_physical_server_hardware \h12
+Table 6. Management endpoints .... PAGEREF tbl_06 \h14
+Table 7. Company 1 virtual machine inventory .... PAGEREF tbl_07 \h15
+Table 8. Company 2 virtual machine inventory .... PAGEREF tbl_08 \h16
+Table 9. Shared administrative systems .... PAGEREF tbl_09 \h16
+Table 10. Company 1 domain controllers .... PAGEREF tbl_10 \h17
+Table 11. Company 2 domain controllers .... PAGEREF tbl_11 \h17
+Table 12. Company 1 DHCP scope summary .... PAGEREF tbl_12 \h18
+Table 13. Company 2 DHCP scope summary .... PAGEREF tbl_13 \h18
+Table 13A. Company 1 file service access control summary .... 17
+Table 14B. Company 2 service stack summary .... 19
+Table 14A. Company 2 replicated file service summary .... 18
+Table 14. Server2 volume layout .... PAGEREF tbl_14 \h21
+Table 15. Company 1 iSCSI targets .... PAGEREF tbl_15 \h21
+Table 16. Company 2 iSCSI targets .... PAGEREF tbl_16 \h22
+Table 17. SAN VLAN design .... PAGEREF tbl_17 \h22
+Table 18. Storage server SAN interfaces .... PAGEREF tbl_18 \h22
+Table 19. Backup infrastructure components .... PAGEREF tbl_19 \h23
+Table 20. Backup repository layout .... PAGEREF tbl_20 \h23
+Table 21. Backup scope by class .... 22
+Table 22. Group Policy branding configuration summary .... PAGEREF tbl_22 \h27
+Table 23. Grafana dashboard metrics .... PAGEREF tbl_23 \h28
+Table 24. Cockpit management features .... PAGEREF tbl_24 \h29
+Table 25. Windows Admin Center managed systems .... PAGEREF tbl_25 \h30
+Table 26. Windows Admin Center capabilities .... PAGEREF tbl_26 \h30
+Table 27. Inter-site VPN routing and firewall control summary .... 30
+Table 28. Recommended operational checks .... PAGEREF tbl_28 \h33
+Table 29. Primary failure domains .... PAGEREF tbl_29 \h34
+Table 30. Known limitations and unresolved items .... PAGEREF tbl_30 \h35
+Table A1. Full VLAN addressing matrix .... PAGEREF tbl_a1 \h36
+Table B1. Documented DHCP scope .... PAGEREF tbl_b1 \h36
+Table C1. Storage server interfaces .... PAGEREF tbl_c1 \h37
+Table C2. iSCSI target mappings .... PAGEREF tbl_c2 \h37
+Table D1. Backup repository volumes .... PAGEREF tbl_d1 \h37
+Table D2. Veeam backup file types .... PAGEREF tbl_d2 \h37
+Table 1 gives a high-level summary of the core service layers in the environment so the reader can understand the technology stack before moving into detailed design sections.
+Table 1. Technology stack summary
+Figure 1 provides the high-level topology view of the full Site 1 environment, while Figure 2 shows how routing and policy enforcement are concentrated on OPNsense.
+Figure 1. Overall Site 1 network topology
+Figure 2. VLAN routing and firewall flow design
+Table 2 lists the VLAN IDs, address ranges, associated routed gateway or direct-access note, and the intended traffic type for each network segment. The table is the addressing baseline that future support changes must preserve.
+Table 2. VLAN and gateway design
+Table 3 provides the tenant-level identity summary, including the directory platform, domain name, controller assignments, and major identity functions delivered to each organization.
+Table 3. Identity services summary
+Table 3 summarizes the tenant identity model, and Figure 3 visualizes how the two domains remain logically independent while still sharing the same underlying infrastructure.
+Figure 3. Directory services architecture
+Table 4. Platform and service choice rationale
+Table 5. Service stacking rationale
+Table 5A. Physical server hardware summary
+Figure 3A shows the rear rack view of the two HP DL380 Gen8 hosts used in Site 1, while Figure 3B shows the front chassis and drive layout.
+Figure 3A. Site 1 rack installation (rear view)
+Figure 3B. Site 1 rack installation (front view)
+Table 6 identifies the primary management endpoints that an administrator is expected to use. Tables 7, 8, and 9 then break the workload inventory into Company 1 systems, Company 2 systems, and shared administrative nodes. Figure 4 shows the actual Proxmox management interface, and Figure 5 summarizes the logical VM layout hosted on the platform.
+Table 6. Management endpoints
+Figure 4 shows the Proxmox management interface that administrators use to control these workloads from the management network.
+Figure 4. Proxmox VE management interface
+Table 7. Company 1 virtual machine inventory
+Table 8. Company 2 virtual machine inventory
+Table 9. Shared administrative systems
+Figure 5 complements the inventory tables by showing how the tenant workloads are grouped logically inside the shared virtualization platform.
+Figure 5. Virtual machine logical layout
+Table 10. Company 1 domain controllers
+Table 11. Company 2 domain controllers
+Table 12. Company 1 DHCP scope summary
+Table 13. Company 2 DHCP scope summary
+Table 13A. Company 1 file service access control summary
+Table 14A. Company 2 replicated file service summary
+Table 14B. Company 2 service stack summary
+Table 14. Server2 volume layout
+Table 15. Company 1 iSCSI targets
+Table 16. Company 2 iSCSI targets
+Table 17. SAN VLAN design
+Table 18. Storage server SAN interfaces
+Figure 6 confirms the storage volume presentation on Server2, and Figure 7 shows the network-side interface arrangement that supports management traffic, Company 1 SAN presentation, and Company 2 SAN presentation as separate paths.
+Figure 6. Server2 storage volume presentation
+Figure 7. Server2 network interface layout
+Table 19. Backup infrastructure components
+Table 20. Backup repository layout
+Table 21. Backup scope by class
+Figure 8A. Primary Veeam job status
+Figure 8A shows the primary Veeam jobs on Server2, including the Proxmox VE jobs for both tenants, Jumpbox Win10, OPNsense, and the enabled C1-Client1 agent-based file backup policy.
+Figure 8. Veeam backup overview
+Figure 8 provides the overall Veeam console view for this section. Figures 8A through 8C serve as supporting evidence for the primary job set, the Site1-to-Site2 copy session, and the remote copy inventory.
+Figure 8B. Site 1 to Site 2 backup copy job
+Figure 8B shows the Immediate backup copy job configured to transfer data to Site2-Offsite-SharedRepo, the SMB shared-folder repository backed by \\172.30.65.180\Site1OffsiteFromServer2$\Repo.
+Figure 8C. Remote backup copy inventory
+Figure 8C shows the remote copy target now represented by Site2-Offsite-SharedRepo on 172.30.65.180, using the R:-based shared repository path \\172.30.65.180\Site1OffsiteFromServer2$\Repo.
+Table 22 summarizes the configuration used to deliver this policy, and Figure 9 shows the result captured from the administrative interface. Together they demonstrate that the feature is not only conceptual, but actually implemented.
+Table 22. Group Policy branding configuration summary
+Figure 9 is the evidence screenshot for the Group Policy implementation described in Table 22.
+Figure 9. Group Policy desktop branding evidence
+Table 23 lists the key metrics exposed through the dashboard, and Figure 10 shows how those metrics are presented to an operator during routine monitoring from the Ubuntu jumpbox monitoring stack.
+Table 23. Grafana dashboard metrics
+Figure 10 shows the live Grafana dashboard view for the Proxmox environment, including host resource usage, workload counts, and interface activity collected through the local InfluxDB metrics service.
+Figure 10. Grafana infrastructure dashboard
+Table 24 summarizes the management capabilities delivered by Cockpit. Figure 11 shows the overview page available to an administrator, and Figure 12 shows the browser-based terminal used for direct command-line tasks.
+Table 24. Cockpit management features
+Figure 11. Cockpit administration overview
+Figure 12. Cockpit web terminal
+Table 25. Windows Admin Center managed systems
+Table 26. Windows Admin Center capabilities
+Figure 13. Windows Admin Center connection inventory
+Figure 14. Windows Admin Center server overview
+Figure 15. Site 1 OpenVPN client status
+Figure 15 shows Site 1 operating as the OpenVPN client with the Site1-to-Site2 instance connected to the remote peer at 10.50.17.31. The tunnel-side IPv4 address is reported as 192.168.65.2 and the session status is shown as connected.
+Figure 16. Site 2 OpenVPN server status
+Figure 16 shows Site 2 operating as the OpenVPN server with the common name site1-openvpn-client connected from 10.50.10.33:7429. The active tunnel-side IPv4 address is 192.168.65.2 and the session status is shown as ok.
+Table 27 summarizes the single inter-site VPN, the routed prefixes it carries, and the firewall-controlled exception used for Veeam offsite copy. Figure 17 reinforces that traffic control remains centered on the firewall.
+Table 27. Inter-site VPN routing and firewall control summary
+Figure 17 complements Table 27 by showing the firewall-centered view of segmentation and controlled traffic flow.
+Figure 17. Firewall-centered security segmentation
+Table 28 translates the design into daily, weekly, and monthly duties so that the report is useful during actual operations rather than only during grading.
+Table 28. Recommended operational checks
+Table 29 identifies the systems that would cause the largest operational impact if they failed, which helps prioritize incident response and escalation.
+Table 29. Primary failure domains
+Table 30. Known limitations and unresolved items
+Table A1 is the full addressing reference used by the environment and should be treated as the source of truth for VLAN-to-subnet mapping. In addition to the tenant VLANs, the table also records the separate 192.168.64.0/24 shared infrastructure and WAN-side management segment that carries OPNsense WAN connectivity, Proxmox management access, Server2 management, and hardware iLO access.
+Table A1. Full VLAN addressing matrix
+Table B1 captures the documented DHCP client scopes for both tenant networks so that support staff can quickly confirm the expected lease ranges delivered to Company 1 and Company 2 clients.
+Table B1. Documented DHCP scope
+Table C1. Storage server interfaces
+Table C2. iSCSI target mappings
+Table D1. Backup repository volumes
+Table D2. Veeam backup file types

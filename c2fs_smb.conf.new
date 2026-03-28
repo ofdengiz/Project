@@ -1,0 +1,34 @@
+[global]
+   workgroup = C2
+   realm = C2.LOCAL
+   security = ADS
+   server role = member server
+   kerberos method = secrets and keytab
+   winbind use default domain = yes
+   winbind refresh tickets = yes
+   idmap config * : backend = tdb
+   idmap config * : range = 3000-7999
+   template shell = /bin/bash
+   template homedir = /home/%U
+   obey pam restrictions = no
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   logging = file
+
+[C2_Public]
+   path = /mnt/c2_public/Public
+   browseable = yes
+   read only = no
+   valid users = @c2_file_users
+   force group = c2_file_users
+   create mask = 0770
+   directory mask = 0770
+
+[C2_Private]
+   path = /mnt/c2_public/Private/%U
+   browseable = no
+   read only = no
+   valid users = %U
+   force group = c2_file_users
+   create mask = 0700
+   directory mask = 0700

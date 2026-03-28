@@ -1,0 +1,113 @@
+{
+  "generated": "2026-03-23 19:42:56",
+  "jump": {
+    "jump_identity": {
+      "command": "hostname; whoami; ip -4 a; ip route",
+      "rc": 0,
+      "stdout": "mspubuntujump\nmspadmin\n1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000\n    inet 127.0.0.1/8 scope host lo\n       valid_lft forever preferred_lft forever\n2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000\n    altname enp0s18\n    inet 172.30.65.179/29 brd 172.30.65.183 scope global ens18\n       valid_lft forever preferred_lft forever\n3: tailscale0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq_codel state UNKNOWN group default qlen 500\n    inet 100.82.97.92/32 scope global tailscale0\n       valid_lft forever preferred_lft forever\ndefault via 172.30.65.177 dev ens18 proto static \n172.30.65.176/29 dev ens18 proto kernel scope link src 172.30.65.179 \n",
+      "stderr": ""
+    },
+    "c1_hostname_https": {
+      "command": "curl -k -I https://c1-webserver.c1.local",
+      "rc": 0,
+      "stdout": "HTTP/2 200 \r\ncontent-length: 11022\r\ncontent-type: text/html\r\nlast-modified: Mon, 09 Feb 2026 02:39:06 GMT\r\naccept-ranges: bytes\r\netag: \"ac6edd426d99dc1:0\"\r\nserver: Microsoft-IIS/10.0\r\ndate: Tue, 24 Mar 2026 02:42:50 GMT\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "c1_pinned_https": {
+      "command": "curl -k -I --resolve c1-webserver.c1.local:443:172.30.65.162 https://c1-webserver.c1.local",
+      "rc": 0,
+      "stdout": "HTTP/2 200 \r\ncontent-length: 11022\r\ncontent-type: text/html\r\nlast-modified: Mon, 09 Feb 2026 02:39:06 GMT\r\naccept-ranges: bytes\r\netag: \"ac6edd426d99dc1:0\"\r\nserver: Microsoft-IIS/10.0\r\ndate: Tue, 24 Mar 2026 02:42:50 GMT\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "c1_raw_https": {
+      "command": "curl -k -I https://172.30.65.162",
+      "rc": 0,
+      "stdout": "HTTP/2 404 \r\ncontent-length: 315\r\ncontent-type: text/html; charset=us-ascii\r\nserver: Microsoft-HTTPAPI/2.0\r\ndate: Tue, 24 Mar 2026 02:42:50 GMT\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0   315    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "c2_hostname_https": {
+      "command": "curl -k -I https://c2-webserver.c2.local",
+      "rc": 0,
+      "stdout": "HTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Mon, 23 Mar 2026 23:42:58 GMT\r\nContent-Type: text/html\r\nContent-Length: 7311\r\nLast-Modified: Fri, 20 Mar 2026 21:22:54 GMT\r\nConnection: keep-alive\r\nETag: \"69bdbaae-1c8f\"\r\nAccept-Ranges: bytes\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "c2_pinned_https": {
+      "command": "curl -k -I --resolve c2-webserver.c2.local:443:172.30.65.170 https://c2-webserver.c2.local",
+      "rc": 0,
+      "stdout": "HTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Mon, 23 Mar 2026 23:42:58 GMT\r\nContent-Type: text/html\r\nContent-Length: 7311\r\nLast-Modified: Fri, 20 Mar 2026 21:22:54 GMT\r\nConnection: keep-alive\r\nETag: \"69bdbaae-1c8f\"\r\nAccept-Ranges: bytes\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "c2_raw_https": {
+      "command": "curl -k -I https://172.30.65.170",
+      "rc": 0,
+      "stdout": "HTTP/1.1 404 Not Found\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Mon, 23 Mar 2026 23:42:58 GMT\r\nContent-Type: text/html\r\nContent-Length: 162\r\nConnection: keep-alive\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0   162    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "c1_nslookup": {
+      "command": "nslookup c1-webserver.c1.local",
+      "rc": 0,
+      "stdout": "Server:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tc1-webserver.c1.local\nAddress: 172.30.64.162\nName:\tc1-webserver.c1.local\nAddress: 172.30.65.162\n\n",
+      "stderr": ""
+    },
+    "c2_nslookup": {
+      "command": "nslookup c2-webserver.c2.local",
+      "rc": 0,
+      "stdout": "Server:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tc2-webserver.c2.local\nAddress: 172.30.64.170\nName:\tc2-webserver.c2.local\nAddress: 172.30.65.170\n\n",
+      "stderr": ""
+    },
+    "veeam_ports": {
+      "command": "for p in 445 3389 9392 5985 10005 10006; do echo \"PORT=$p\"; nc -zvw5 172.30.65.180 $p; done",
+      "rc": 0,
+      "stdout": "PORT=445\nPORT=3389\nPORT=9392\nPORT=5985\nPORT=10005\nPORT=10006\n",
+      "stderr": "Connection to 172.30.65.180 445 port [tcp/microsoft-ds] succeeded!\nConnection to 172.30.65.180 3389 port [tcp/ms-wbt-server] succeeded!\nConnection to 172.30.65.180 9392 port [tcp/*] succeeded!\nConnection to 172.30.65.180 5985 port [tcp/*] succeeded!\nConnection to 172.30.65.180 10005 port [tcp/*] succeeded!\nConnection to 172.30.65.180 10006 port [tcp/*] succeeded!\n"
+    }
+  },
+  "hosts": {
+    "c2idm1": {
+      "host": "172.30.65.66",
+      "user": "ofdengiz",
+      "command": "hostname; systemctl is-active samba-ad-dc; systemctl is-active isc-dhcp-server; samba-tool drs showrepl | grep -E 'Default-First-Site-Name|consecutive failure|Last success' | head -n 20; samba-tool dns query 127.0.0.1 c2.local c2-webserver A -P",
+      "rc": 255,
+      "stdout": "c2idm1\nactive\nactive\n",
+      "stderr": "ERROR(<class 'samba.drs_utils.drsException'>): DRS connection to c2idm1.c2.local failed - drsException: DRS connection to c2idm1.c2.local failed: (3221225506, '{Access Denied} A process has requested access to an object but has not been granted those access rights.')\n  File \"/usr/lib/python3/dist-packages/samba/netcmd/drs.py\", line 55, in drsuapi_connect\n    (ctx.drsuapi, ctx.drsuapi_handle, ctx.bind_supported_extensions) = drs_utils.drsuapi_connect(ctx.server, ctx.lp, ctx.creds)\n  File \"/usr/lib/python3/dist-packages/samba/drs_utils.py\", line 71, in drsuapi_connect\n    raise drsException(\"DRS connection to %s failed: %s\" % (server, e))\nERROR(runtime): uncaught exception - (3221225690, 'Configuration information could not be read from the domain controller, either because the machine is unavailable or access has been denied.')\n  File \"/usr/lib/python3/dist-packages/samba/netcmd/__init__.py\", line 186, in _run\n    return self.run(*args, **kwargs)\n  File \"/usr/lib/python3/dist-packages/samba/netcmd/dns.py\", line 1002, in run\n    self.creds = credopts.get_credentials(self.lp)\n  File \"/usr/lib/python3/dist-packages/samba/getopt.py\", line 286, in get_credentials\n    self.creds.set_machine_account(lp)\n"
+    },
+    "c2idm2": {
+      "host": "172.30.65.67",
+      "user": "ofdengiz",
+      "command": "hostname; systemctl is-active samba-ad-dc; systemctl is-active isc-dhcp-server; samba-tool drs showrepl | grep -E 'Default-First-Site-Name|consecutive failure|Last success' | head -n 20; samba-tool dns query 127.0.0.1 c2.local c2-webserver A -P",
+      "rc": 255,
+      "stdout": "c2idm2\nactive\nactive\n",
+      "stderr": "ERROR(<class 'samba.drs_utils.drsException'>): DRS connection to c2idm2.c2.local failed - drsException: DRS connection to c2idm2.c2.local failed: (3221225506, '{Access Denied} A process has requested access to an object but has not been granted those access rights.')\n  File \"/usr/lib/python3/dist-packages/samba/netcmd/drs.py\", line 55, in drsuapi_connect\n    (ctx.drsuapi, ctx.drsuapi_handle, ctx.bind_supported_extensions) = drs_utils.drsuapi_connect(ctx.server, ctx.lp, ctx.creds)\n  File \"/usr/lib/python3/dist-packages/samba/drs_utils.py\", line 71, in drsuapi_connect\n    raise drsException(\"DRS connection to %s failed: %s\" % (server, e))\nERROR(runtime): uncaught exception - (3221225690, 'Configuration information could not be read from the domain controller, either because the machine is unavailable or access has been denied.')\n  File \"/usr/lib/python3/dist-packages/samba/netcmd/__init__.py\", line 186, in _run\n    return self.run(*args, **kwargs)\n  File \"/usr/lib/python3/dist-packages/samba/netcmd/dns.py\", line 1002, in run\n    self.creds = credopts.get_credentials(self.lp)\n  File \"/usr/lib/python3/dist-packages/samba/getopt.py\", line 286, in get_credentials\n    self.creds.set_machine_account(lp)\n"
+    },
+    "c2fs": {
+      "host": "172.30.65.68",
+      "user": "odengiz",
+      "command": "hostname; systemctl is-active smbd; findmnt /mnt/c2_public; ls -ld /mnt/c2_public /mnt/c2_public/Public /mnt/c2_public/Private; printf 'admin\n' | sudo -S tail -n 20 /var/log/c2_site1_sync.log",
+      "rc": 0,
+      "stdout": "c2fs\nactive\nTARGET         SOURCE   FSTYPE OPTIONS\n/mnt/c2_public /dev/sdb ext4   rw,relatime,stripe=8191\ndrwxrws--- 5 root c2_file_users 4096 Mar 23 14:03 /mnt/c2_public\n[2026-03-22 02:00:03] Mirroring staged Public into /mnt/c2_public/Public\n[2026-03-22 02:00:03] Mirroring staged Public into /mnt/c2_public/Public\n[2026-03-22 02:00:03] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-22 02:00:03] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-22 02:00:30] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-22 02:00:30] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-22 02:00:31] Sync completed successfully\r\n[2026-03-22 02:00:31] Sync completed successfully\r\n[2026-03-23 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-23 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-23 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\n[2026-03-23 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\n[2026-03-23 02:00:03] Mirroring staged Public into /mnt/c2_public/Public\n[2026-03-23 02:00:03] Mirroring staged Public into /mnt/c2_public/Public\n[2026-03-23 02:00:03] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-23 02:00:03] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-23 02:00:20] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-23 02:00:20] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-23 02:00:20] Sync completed successfully\r\n[2026-03-23 02:00:20] Sync completed successfully\r\n",
+      "stderr": "ls: cannot access '/mnt/c2_public/Public': Permission denied\nls: cannot access '/mnt/c2_public/Private': Permission denied\n[sudo] password for odengiz: "
+    },
+    "c2linuxclient": {
+      "host": "172.30.65.70",
+      "user": "odengiz",
+      "command": "hostname; realm list; getent passwd employee1@c2.local; getent passwd employee2@c2.local; nslookup c1-webserver.c1.local; nslookup c2-webserver.c2.local; resolvectl status | sed -n '1,40p'",
+      "rc": 0,
+      "stdout": "c2linuxclient\nc2.local\n  type: kerberos\n  realm-name: C2.LOCAL\n  domain-name: c2.local\n  configured: kerberos-member\n  server-software: active-directory\n  client-software: sssd\n  required-package: sssd-tools\n  required-package: sssd\n  required-package: libnss-sss\n  required-package: libpam-sss\n  required-package: adcli\n  required-package: samba-common-bin\n  login-formats: %U@c2.local\n  login-policy: allow-realm-logins\nemployee1@c2.local:*:952001106:952000513:employee1:/home/employee1@c2.local:/bin/bash\nemployee2@c2.local:*:952001110:952000513:employee2:/home/employee2@c2.local:/bin/bash\nServer:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tc1-webserver.c1.local\nAddress: 172.30.64.162\nName:\tc1-webserver.c1.local\nAddress: 172.30.65.162\n\nServer:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tc2-webserver.c2.local\nAddress: 172.30.64.170\nName:\tc2-webserver.c2.local\nAddress: 172.30.65.170\n\nGlobal\n         Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported\n  resolv.conf mode: stub\n\nLink 2 (ens18)\n    Current Scopes: DNS\n         Protocols: +DefaultRoute -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported\nCurrent DNS Server: 172.30.65.67\n       DNS Servers: 172.30.65.66 172.30.65.67\n        DNS Domain: ~c2.local ~c1.local\n     Default Route: yes\n",
+      "stderr": ""
+    }
+  },
+  "local": {
+    "public_site_head": {
+      "command": "curl.exe -I https://clearroots.omerdengiz.com",
+      "rc": 6,
+      "stdout": "",
+      "stderr": "  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current\n                                 Dload  Upload  Total   Spent   Left   Speed\n\n  0      0   0      0   0      0      0      0                              0curl: (6) Could not resolve host: clearroots.omerdengiz.com\n"
+    },
+    "public_dns": {
+      "command": "powershell -NoProfile -Command \"Resolve-DnsName clearroots.omerdengiz.com | Select-Object Name,Type,IPAddress | Format-Table -AutoSize\"",
+      "rc": 0,
+      "stdout": "\nName                      Type IPAddress\n----                      ---- ---------\nclearroots.omerdengiz.com  SOA          \n\n\n",
+      "stderr": ""
+    }
+  }
+}

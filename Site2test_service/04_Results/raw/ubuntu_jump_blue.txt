@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "error": "Authentication failed.",
+  "command": "ping -c 2 172.20.20.1 || true; ping -c 2 172.20.64.1 || true; ping -c 2 172.20.65.1 || true"
+}

@@ -1,0 +1,20 @@
+Default-First-Site-Name\C2IDM2
+DSA Options: 0x00000001
+DSA object GUID: bfaddcef-604c-4b3c-9d90-a8196fc5ca73
+DSA invocationId: 19efdd10-7f49-4169-a57e-f5f299e7979a
+
+==== INBOUND NEIGHBORS ====
+
+DC=DomainDnsZones,DC=c2,DC=local
+    Default-First-Site-Name\C2-DC2 via RPC
+        DSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708
+        Last attempt @ Sun Mar 15 19:59:37 2026 UTC was successful
+        0 consecutive failure(s).
+        Last success @ Sun Mar 15 19:59:37 2026 UTC
+
+DC=DomainDnsZones,DC=c2,DC=local
+    Default-First-Site-Name\C2-DC1 via RPC
+        DSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9
+        Last attempt @ Sun Mar 15 19:59:37 2026 UTC was successful
+        0 consecutive failure(s).
+        Last success @ Sun Mar 15 19:59:37 2026 UTC

@@ -1,0 +1,16 @@
+Generated CLI evidence images
+Output folder: C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2_CLI_Evidence_2026-03-27_193749
+
+Figure06_C2IdM1.png
+Figure07_C2IdM2.png
+Figure08_CrossDomainDNS.png
+Figure09_C2FS_iSCSI_Mount.png
+Figure10_C2FS_Shares_Sync.png
+Figure13_C1UbuntuClient_DualWeb.png
+Jump64_C1DC1_ServiceState.png
+Jump64_C1DC2_ServiceState.png
+Jump64_C1FS_StorageShares.png
+Jump64_C1WebServer_IIS.png
+Jump64_C1WindowsClient_Baseline.png
+Jump64_C1WindowsClient_WebProbe.png
+Jump64_S2Veeam_CLI.png

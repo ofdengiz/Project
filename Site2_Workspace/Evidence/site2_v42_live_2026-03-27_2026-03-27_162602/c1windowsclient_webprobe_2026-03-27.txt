@@ -1,0 +1,54 @@
+The command completed successfully.
+
+HOSTNAME 
+c1windowsclient
+WHOAMI 
+c1\administrator
+DNS1 
+Server:  UnKnown
+Address:  172.30.65.2
+
+Name:    c1-webserver.c1.local
+Addresses:  172.30.65.162
+	  172.30.64.162
+
+DNS2 
+Server:  UnKnown
+Address:  172.30.65.2
+
+Name:    c2-webserver.c2.local
+Addresses:  172.30.65.170
+	  172.30.64.170
+
+CURL1 
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 OK
+Content-Length: 11022
+Content-Type: text/html
+Last-Modified: Mon, 09 Feb 2026 02:39:06 GMT
+Accept-Ranges: bytes
+ETag: "ac6edd426d99dc1:0"
+Server: Microsoft-IIS/10.0
+Date: Fri, 27 Mar 2026 23:38:43 GMT
+
+CURL2 
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Fri, 27 Mar 2026 20:38:50 GMT
+Content-Type: text/html
+Content-Length: 7311
+Last-Modified: Fri, 20 Mar 2026 21:22:54 GMT
+Connection: keep-alive
+ETag: "69bdbaae-1c8f"
+Accept-Ranges: bytes
+
+\\172.30.65.11\c$ was deleted successfully.
+
+
+#< CLIXML
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="1"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="2"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>

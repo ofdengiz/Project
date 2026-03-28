@@ -1,0 +1,2 @@
+set -e
+sshpass -p 'Cisco123!' ssh -o StrictHostKeyChecking=no admin@172.30.65.70 "echo '== NETPLAN =='; printf '%s\n' 'Cisco123!' | sudo -S -p '' cat /etc/netplan/90-NM-64002eca-9493-3b7e-be64-07db9f81dd8b.yaml; echo '== NMCONN FILES =='; printf '%s\n' 'Cisco123!' | sudo -S -p '' find /etc/NetworkManager /run/NetworkManager -maxdepth 3 -type f \( -name '*.nmconnection' -o -name 'NetworkManager-intern.conf' \) -print 2>/dev/null; echo '== NETPLAN NMCLI =='; nmcli -g ipv4.dns-search connection show netplan-ens18"

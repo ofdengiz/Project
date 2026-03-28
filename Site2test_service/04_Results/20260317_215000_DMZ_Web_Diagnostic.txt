@@ -1,0 +1,56 @@
+DMZ Web Diagnostic
+Generated: 2026-03-17 21:50:00
+
+Targets
+- C1DMZ gateway: 172.30.65.161
+- C2DMZ gateway: 172.30.65.169
+- C1Web: 172.30.65.162
+- C2Web: 172.30.65.170
+
+Ubuntu jump findings
+- 172.30.65.161
+  - ping OK
+  - TCP 80 OK
+  - TCP 3389 FAIL
+  - TCP 445 FAIL
+- 172.30.65.169
+  - ping OK
+  - TCP 80 OK
+  - TCP 3389 FAIL
+  - TCP 445 FAIL
+- 172.30.65.162
+  - ping FAIL
+  - TCP 80 FAIL
+  - TCP 3389 FAIL
+  - TCP 445 FAIL
+- 172.30.65.170
+  - ping FAIL
+  - TCP 80 FAIL
+  - TCP 3389 FAIL
+  - TCP 445 FAIL
+
+Interpretation
+- Both DMZ gateways are alive and reachable from the approved Ubuntu jump workflow.
+- That means routing to both DMZ networks is working.
+- The actual web-host IPs (.162 and .170) do not answer even basic ping.
+- Because they also fail on all tested service ports, this points to a host-level problem, not a firewall-routing problem.
+
+Most likely causes
+1. The VM is powered off.
+2. The VM NIC is attached to the wrong Proxmox bridge.
+3. The guest has the wrong static IP.
+4. The guest OS is up but the NIC is disconnected/unconfigured.
+5. On a Windows guest, the host firewall or service stack is broken after boot.
+
+Recommended next checks
+1. In Proxmox, confirm the C1Web and C2Web VMs are powered on.
+2. Confirm each VM NIC is attached to the correct DMZ bridge.
+3. Use VM console to verify:
+   - IP address
+   - default gateway
+   - local web service status
+   - local ping to gateway
+
+Evidence
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw\ubuntu_jump_service_blocks.txt
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw\ubuntu_jump_crosscheck.json

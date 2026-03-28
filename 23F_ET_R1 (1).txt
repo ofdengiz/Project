@@ -1,0 +1,423 @@
+ET_R1#sh run
+Building configuration...
+
+Current configuration : 21526 bytes
+!
+! Last configuration change at 15:54:30 UTC Thu Oct 12 2023 by LATREMD
+! NVRAM config last updated at 15:54:35 UTC Thu Oct 12 2023 by LATREMD
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname ET_R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+ethernet lmi ce
+memory-size iomem 15
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+ip domain name et.lab
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+license udi pid CISCO2901/K9 sn FJC1953A0L7
+license accept end user agreement
+license boot suite FoundationSuiteK9
+license boot module c2900 technology-package securityk9
+!
+!
+username latremd privilege 15 password 7 106B3A21253107
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address dhcp
+ ip access-group 1 in
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 172.16.10.2 255.255.255.0
+ ip access-group et_access in
+ ip access-group et_access out
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/1.20
+ encapsulation dot1Q 20
+ ip address 172.20.20.1 255.255.0.0
+ ip access-group et_access in
+ ip access-group et_access out
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Serial0/0/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface FastEthernet0/3/0
+ no ip address
+!
+interface FastEthernet0/3/1
+ no ip address
+!
+interface FastEthernet0/3/2
+ no ip address
+!
+interface FastEthernet0/3/3
+ no ip address
+!
+interface FastEthernet0/3/4
+ no ip address
+!
+interface FastEthernet0/3/5
+ no ip address
+!
+interface FastEthernet0/3/6
+ no ip address
+!
+interface FastEthernet0/3/7
+ no ip address
+!
+interface FastEthernet0/3/8
+ no ip address
+!
+interface Vlan1
+ no ip address
+!
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source static tcp 172.16.10.20 3389 interface GigabitEthernet0/0 3389
+ip nat inside source list 1 interface GigabitEthernet0/0 overload
+ip nat inside source list 10 interface GigabitEthernet0/0 overload
+ip nat inside source list et_access interface GigabitEthernet0/0 overload
+ip nat inside source static tcp 172.20.50.254 3389 interface GigabitEthernet0/0 33350
+ip nat inside source static tcp 172.20.51.254 3389 interface GigabitEthernet0/0 33351
+ip nat inside source static tcp 172.20.52.254 3389 interface GigabitEthernet0/0 33352
+ip nat inside source static tcp 172.20.53.254 3389 interface GigabitEthernet0/0 33353
+ip nat inside source static tcp 172.20.54.254 3389 interface GigabitEthernet0/0 33354
+ip nat inside source static tcp 172.20.55.254 3389 interface GigabitEthernet0/0 33355
+ip nat inside source static tcp 172.20.56.254 3389 interface GigabitEthernet0/0 33356
+ip nat inside source static tcp 172.20.57.254 3389 interface GigabitEthernet0/0 33357
+ip nat inside source static tcp 172.20.58.254 3389 interface GigabitEthernet0/0 33358
+ip nat inside source static tcp 172.20.59.254 3389 interface GigabitEthernet0/0 33359
+ip nat inside source static tcp 172.20.60.254 3389 interface GigabitEthernet0/0 33360
+ip nat inside source static tcp 172.20.61.254 3389 interface GigabitEthernet0/0 33361
+ip nat inside source static tcp 172.20.62.254 3389 interface GigabitEthernet0/0 33362
+ip nat inside source static tcp 172.20.63.254 3389 interface GigabitEthernet0/0 33363
+ip nat inside source static tcp 172.20.64.254 3389 interface GigabitEthernet0/0 33364
+ip nat inside source static tcp 172.20.65.254 3389 interface GigabitEthernet0/0 33365
+ip nat inside source static tcp 172.20.66.254 3389 interface GigabitEthernet0/0 33366
+ip nat inside source static tcp 172.20.67.254 3389 interface GigabitEthernet0/0 33367
+ip nat inside source static tcp 172.20.68.254 3389 interface GigabitEthernet0/0 33368
+ip nat inside source static tcp 172.20.69.254 3389 interface GigabitEthernet0/0 33369
+ip nat inside source static tcp 172.20.70.254 3389 interface GigabitEthernet0/0 33370
+ip nat inside source static tcp 172.20.71.254 3389 interface GigabitEthernet0/0 33371
+ip nat inside source static tcp 172.20.72.254 3389 interface GigabitEthernet0/0 33372
+ip nat inside source static tcp 172.20.73.254 3389 interface GigabitEthernet0/0 33373
+ip nat inside source static tcp 172.20.74.254 3389 interface GigabitEthernet0/0 33374
+ip nat inside source static tcp 172.20.75.254 3389 interface GigabitEthernet0/0 33375
+ip nat inside source static tcp 172.20.76.254 3389 interface GigabitEthernet0/0 33376
+ip nat inside source static tcp 172.20.77.254 3389 interface GigabitEthernet0/0 33377
+ip nat inside source static tcp 172.20.78.254 3389 interface GigabitEthernet0/0 33378
+ip nat inside source static tcp 172.20.79.254 3389 interface GigabitEthernet0/0 33379
+ip nat inside source static tcp 172.20.80.254 3389 interface GigabitEthernet0/0 33380
+ip nat inside source static tcp 172.20.81.254 3389 interface GigabitEthernet0/0 33381
+ip nat inside source static tcp 172.20.82.254 3389 interface GigabitEthernet0/0 33382
+ip nat inside source static tcp 172.20.83.254 3389 interface GigabitEthernet0/0 33383
+ip nat inside source static tcp 172.20.84.254 3389 interface GigabitEthernet0/0 33384
+ip nat inside source static tcp 172.20.85.254 3389 interface GigabitEthernet0/0 33385
+ip nat inside source static tcp 172.20.86.254 3389 interface GigabitEthernet0/0 33386
+ip nat inside source static tcp 172.20.87.254 3389 interface GigabitEthernet0/0 33387
+ip nat inside source static tcp 172.20.88.254 3389 interface GigabitEthernet0/0 33388
+ip nat inside source static tcp 172.20.89.254 3389 interface GigabitEthernet0/0 33389
+ip nat inside source static tcp 172.20.90.254 3389 interface GigabitEthernet0/0 33390
+ip nat inside source static tcp 172.20.91.254 3389 interface GigabitEthernet0/0 33391
+ip nat inside source static tcp 172.20.92.254 3389 interface GigabitEthernet0/0 33392
+ip nat inside source static tcp 172.20.93.254 3389 interface GigabitEthernet0/0 33393
+ip nat inside source static tcp 172.20.94.254 3389 interface GigabitEthernet0/0 33394
+ip nat inside source static tcp 172.20.95.254 3389 interface GigabitEthernet0/0 33395
+ip nat inside source static tcp 172.20.96.254 3389 interface GigabitEthernet0/0 33396
+ip nat inside source static tcp 172.20.97.254 3389 interface GigabitEthernet0/0 33397
+ip nat inside source static tcp 172.20.98.254 3389 interface GigabitEthernet0/0 33398
+ip nat inside source static tcp 172.20.99.254 3389 interface GigabitEthernet0/0 33399
+ip nat inside source static tcp 172.20.48.254 3389 interface GigabitEthernet0/0 3348
+ip nat inside source static tcp 172.20.48.48 3389 interface GigabitEthernet0/0 33348
+ip nat inside source static tcp 172.20.49.254 3389 interface GigabitEthernet0/0 33349
+ip nat inside source static tcp 172.20.49.254 33449 interface GigabitEthernet0/0 33449
+ip nat inside source static tcp 172.20.49.254 33549 interface GigabitEthernet0/0 33549
+ip nat inside source static tcp 172.20.68.1 33468 interface GigabitEthernet0/0 33468
+ip nat inside source static tcp 172.20.65.1 33465 interface GigabitEthernet0/0 33465
+ip nat inside source static tcp 172.20.60.1 33460 interface GigabitEthernet0/0 33460
+ip nat inside source static tcp 172.20.65.1 33565 interface GigabitEthernet0/0 33565
+ip nat inside source static tcp 172.20.65.1 33665 interface GigabitEthernet0/0 33665
+ip nat inside source static tcp 172.20.61.1 33461 interface GigabitEthernet0/0 33461
+ip nat inside source static tcp 172.20.74.1 33474 interface GigabitEthernet0/0 33474
+ip nat inside source static tcp 172.20.74.1 33574 interface GigabitEthernet0/0 33574
+ip nat inside source static tcp 172.20.74.1 33674 interface GigabitEthernet0/0 33674
+ip nat inside source static tcp 172.20.74.1 33774 interface GigabitEthernet0/0 33774
+ip nat inside source static tcp 172.20.76.1 33476 interface GigabitEthernet0/0 33476
+ip nat inside source static tcp 172.20.76.1 33576 interface GigabitEthernet0/0 33576
+ip nat inside source static tcp 172.20.76.1 33676 interface GigabitEthernet0/0 33676
+ip nat inside source static tcp 172.20.58.1 33458 interface GigabitEthernet0/0 33458
+ip nat inside source static tcp 172.20.58.1 33558 interface GigabitEthernet0/0 33558
+ip nat inside source static tcp 172.20.58.1 33658 interface GigabitEthernet0/0 33658
+ip nat inside source static tcp 172.20.55.1 33455 interface GigabitEthernet0/0 33455
+ip nat inside source static tcp 172.20.55.1 33555 interface GigabitEthernet0/0 33555
+ip nat inside source static tcp 172.20.55.1 33655 interface GigabitEthernet0/0 33655
+ip nat inside source static tcp 172.20.68.1 33568 interface GigabitEthernet0/0 33568
+ip nat inside source static tcp 172.20.68.1 33668 interface GigabitEthernet0/0 33668
+ip nat inside source static tcp 172.20.61.1 33561 interface GigabitEthernet0/0 33561
+ip nat inside source static tcp 172.20.61.1 33661 interface GigabitEthernet0/0 33661
+ip nat inside source static tcp 172.20.57.1 33457 interface GigabitEthernet0/0 33457
+ip nat inside source static tcp 172.20.57.1 33557 interface GigabitEthernet0/0 33557
+ip nat inside source static tcp 172.20.57.1 33657 interface GigabitEthernet0/0 33657
+ip nat inside source static tcp 172.20.57.20 33757 interface GigabitEthernet0/0 33757
+ip nat inside source static tcp 172.20.57.20 33857 interface GigabitEthernet0/0 33857
+ip nat inside source static tcp 172.20.57.20 33957 interface GigabitEthernet0/0 33957
+ip nat inside source static tcp 172.20.59.1 33459 interface GigabitEthernet0/0 33459
+ip nat inside source static tcp 172.20.59.1 33559 interface GigabitEthernet0/0 33559
+ip nat inside source static tcp 172.20.59.1 33659 interface GigabitEthernet0/0 33659
+ip nat inside source static tcp 172.20.59.254 33759 interface GigabitEthernet0/0 33759
+ip nat inside source static tcp 172.20.63.1 33463 interface GigabitEthernet0/0 33463
+ip nat inside source static tcp 172.20.63.1 33563 interface GigabitEthernet0/0 33563
+ip nat inside source static tcp 172.20.63.1 33663 interface GigabitEthernet0/0 33663
+ip nat inside source static tcp 172.20.63.254 33763 interface GigabitEthernet0/0 33763
+ip nat inside source static tcp 172.20.68.1 33768 interface GigabitEthernet0/0 33768
+ip nat inside source static tcp 172.20.62.1 33462 interface GigabitEthernet0/0 33462
+ip nat inside source static tcp 172.20.62.1 33562 interface GigabitEthernet0/0 33562
+ip nat inside source static tcp 172.20.62.1 33662 interface GigabitEthernet0/0 33662
+ip nat inside source static tcp 172.20.72.1 33472 interface GigabitEthernet0/0 33472
+ip nat inside source static tcp 172.20.72.1 33572 interface GigabitEthernet0/0 33572
+ip nat inside source static tcp 172.20.72.1 33672 interface GigabitEthernet0/0 33672
+ip nat inside source static tcp 172.20.52.1 33452 interface GigabitEthernet0/0 33452
+ip nat inside source static tcp 172.20.52.1 33552 interface GigabitEthernet0/0 33552
+ip nat inside source static tcp 172.20.52.1 33652 interface GigabitEthernet0/0 33652
+ip nat inside source static tcp 172.20.64.1 33464 interface GigabitEthernet0/0 33464
+ip nat inside source static tcp 172.20.64.1 33564 interface GigabitEthernet0/0 33564
+ip nat inside source static tcp 172.20.64.1 33664 interface GigabitEthernet0/0 33664
+ip nat inside source static tcp 172.20.73.1 33473 interface GigabitEthernet0/0 33473
+ip nat inside source static tcp 172.20.73.1 33573 interface GigabitEthernet0/0 33573
+ip nat inside source static tcp 172.20.73.1 33673 interface GigabitEthernet0/0 33673
+ip nat inside source static tcp 172.20.85.1 33285 interface GigabitEthernet0/0 33285
+ip nat inside source static tcp 172.20.83.1 33483 interface GigabitEthernet0/0 33483
+ip nat inside source static tcp 172.20.84.1 33484 interface GigabitEthernet0/0 33484
+ip nat inside source static tcp 172.20.83.1 33583 interface GigabitEthernet0/0 33583
+ip nat inside source static tcp 172.20.69.54 3389 interface GigabitEthernet0/0 33969
+ip nat inside source static tcp 172.20.69.1 3389 interface GigabitEthernet0/0 33069
+ip nat inside source static tcp 172.20.53.1 33453 interface GigabitEthernet0/0 33453
+ip nat inside source static tcp 172.20.53.1 33553 interface GigabitEthernet0/0 33553
+ip nat inside source static tcp 172.20.51.254 22 interface GigabitEthernet0/0 33251
+ip nat inside source static tcp 172.20.51.1 33451 interface GigabitEthernet0/0 33451
+ip nat inside source static tcp 172.20.51.1 33551 interface GigabitEthernet0/0 33551
+ip nat inside source static tcp 172.20.51.1 33851 interface GigabitEthernet0/0 33851
+ip nat inside source static tcp 172.20.85.1 33485 interface GigabitEthernet0/0 33485
+ip nat inside source static tcp 172.20.85.1 33585 interface GigabitEthernet0/0 33585
+ip nat inside source static tcp 172.20.78.1 33478 interface GigabitEthernet0/0 33478
+ip nat inside source static tcp 172.20.78.1 33578 interface GigabitEthernet0/0 33578
+ip nat inside source static tcp 172.20.78.1 33678 interface GigabitEthernet0/0 33678
+ip nat inside source static tcp 172.20.79.1 33479 interface GigabitEthernet0/0 33479
+ip nat inside source static tcp 172.20.79.1 33579 interface GigabitEthernet0/0 33579
+ip nat inside source static tcp 172.20.54.1 33654 interface GigabitEthernet0/0 33654
+ip nat inside source static tcp 172.20.50.1 33450 interface GigabitEthernet0/0 33450
+ip nat inside source static tcp 172.20.54.1 33454 interface GigabitEthernet0/0 33454
+ip nat inside source static tcp 172.20.56.1 33456 interface GigabitEthernet0/0 33456
+ip nat inside source static tcp 172.20.66.1 33466 interface GigabitEthernet0/0 33466
+ip nat inside source static tcp 172.20.67.1 33467 interface GigabitEthernet0/0 33467
+ip nat inside source static tcp 172.20.69.1 33469 interface GigabitEthernet0/0 33469
+ip nat inside source static tcp 172.20.70.1 33470 interface GigabitEthernet0/0 33470
+ip nat inside source static tcp 172.20.71.1 33471 interface GigabitEthernet0/0 33471
+ip nat inside source static tcp 172.20.75.1 33475 interface GigabitEthernet0/0 33475
+ip nat inside source static tcp 172.20.77.1 33477 interface GigabitEthernet0/0 33477
+ip nat inside source static tcp 172.20.80.1 33480 interface GigabitEthernet0/0 33480
+ip nat inside source static tcp 172.20.81.1 33481 interface GigabitEthernet0/0 33481
+ip nat inside source static tcp 172.20.82.1 33482 interface GigabitEthernet0/0 33482
+ip nat inside source static tcp 172.20.86.1 33486 interface GigabitEthernet0/0 33486
+ip nat inside source static tcp 172.20.87.1 33487 interface GigabitEthernet0/0 33487
+ip nat inside source static tcp 172.20.88.1 33488 interface GigabitEthernet0/0 33488
+ip nat inside source static tcp 172.20.89.1 33489 interface GigabitEthernet0/0 33489
+ip nat inside source static tcp 172.20.90.1 33490 interface GigabitEthernet0/0 33490
+ip nat inside source static tcp 172.20.91.1 33491 interface GigabitEthernet0/0 33491
+ip nat inside source static tcp 172.20.92.1 33492 interface GigabitEthernet0/0 33492
+ip nat inside source static tcp 172.20.93.1 33493 interface GigabitEthernet0/0 33493
+ip nat inside source static tcp 172.20.94.1 33494 interface GigabitEthernet0/0 33494
+ip nat inside source static tcp 172.20.95.1 33495 interface GigabitEthernet0/0 33495
+ip nat inside source static tcp 172.20.96.1 33496 interface GigabitEthernet0/0 33496
+ip nat inside source static tcp 172.20.97.1 33497 interface GigabitEthernet0/0 33497
+ip nat inside source static tcp 172.20.98.1 33498 interface GigabitEthernet0/0 33498
+ip nat inside source static tcp 172.20.99.1 33499 interface GigabitEthernet0/0 33499
+ip nat inside source static tcp 172.20.50.1 33550 interface GigabitEthernet0/0 33550
+ip nat inside source static tcp 172.20.54.1 33554 interface GigabitEthernet0/0 33554
+ip nat inside source static tcp 172.20.56.1 33556 interface GigabitEthernet0/0 33556
+ip nat inside source static tcp 172.20.60.1 33560 interface GigabitEthernet0/0 33560
+ip nat inside source static tcp 172.20.66.1 33566 interface GigabitEthernet0/0 33566
+ip nat inside source static tcp 172.20.67.1 33567 interface GigabitEthernet0/0 33567
+ip nat inside source static tcp 172.20.69.1 33569 interface GigabitEthernet0/0 33569
+ip nat inside source static tcp 172.20.70.1 33570 interface GigabitEthernet0/0 33570
+ip nat inside source static tcp 172.20.71.1 33571 interface GigabitEthernet0/0 33571
+ip nat inside source static tcp 172.20.75.1 33575 interface GigabitEthernet0/0 33575
+ip nat inside source static tcp 172.20.77.1 33577 interface GigabitEthernet0/0 33577
+ip nat inside source static tcp 172.20.80.1 33580 interface GigabitEthernet0/0 33580
+ip nat inside source static tcp 172.20.81.1 33581 interface GigabitEthernet0/0 33581
+ip nat inside source static tcp 172.20.82.1 33582 interface GigabitEthernet0/0 33582
+ip nat inside source static tcp 172.20.84.1 33584 interface GigabitEthernet0/0 33584
+ip nat inside source static tcp 172.20.86.1 33586 interface GigabitEthernet0/0 33586
+ip nat inside source static tcp 172.20.87.1 33587 interface GigabitEthernet0/0 33587
+ip nat inside source static tcp 172.20.88.1 33588 interface GigabitEthernet0/0 33588
+ip nat inside source static tcp 172.20.89.1 33589 interface GigabitEthernet0/0 33589
+ip nat inside source static tcp 172.20.90.1 33590 interface GigabitEthernet0/0 33590
+ip nat inside source static tcp 172.20.91.1 33591 interface GigabitEthernet0/0 33591
+ip nat inside source static tcp 172.20.92.1 33592 interface GigabitEthernet0/0 33592
+ip nat inside source static tcp 172.20.93.1 33593 interface GigabitEthernet0/0 33593
+ip nat inside source static tcp 172.20.94.1 33594 interface GigabitEthernet0/0 33594
+ip nat inside source static tcp 172.20.95.1 33595 interface GigabitEthernet0/0 33595
+ip nat inside source static tcp 172.20.96.1 33596 interface GigabitEthernet0/0 33596
+ip nat inside source static tcp 172.20.97.1 33597 interface GigabitEthernet0/0 33597
+ip nat inside source static tcp 172.20.98.1 33598 interface GigabitEthernet0/0 33598
+ip nat inside source static tcp 172.20.99.1 33599 interface GigabitEthernet0/0 33599
+ip nat inside source static tcp 172.20.50.1 33650 interface GigabitEthernet0/0 33650
+ip nat inside source static tcp 172.20.51.1 33651 interface GigabitEthernet0/0 33651
+ip nat inside source static tcp 172.20.53.1 33653 interface GigabitEthernet0/0 33653
+ip nat inside source static tcp 172.20.56.1 33656 interface GigabitEthernet0/0 33656
+ip nat inside source static tcp 172.20.60.1 33660 interface GigabitEthernet0/0 33660
+ip nat inside source static tcp 172.20.66.1 33666 interface GigabitEthernet0/0 33666
+ip nat inside source static tcp 172.20.67.1 33667 interface GigabitEthernet0/0 33667
+ip nat inside source static tcp 172.20.69.1 33669 interface GigabitEthernet0/0 33669
+ip nat inside source static tcp 172.20.70.1 33670 interface GigabitEthernet0/0 33670
+ip nat inside source static tcp 172.20.71.1 33671 interface GigabitEthernet0/0 33671
+ip nat inside source static tcp 172.20.75.1 33675 interface GigabitEthernet0/0 33675
+ip nat inside source static tcp 172.20.77.1 33677 interface GigabitEthernet0/0 33677
+ip nat inside source static tcp 172.20.79.1 33679 interface GigabitEthernet0/0 33679
+ip nat inside source static tcp 172.20.80.1 33680 interface GigabitEthernet0/0 33680
+ip nat inside source static tcp 172.20.81.1 33681 interface GigabitEthernet0/0 33681
+ip nat inside source static tcp 172.20.82.1 33682 interface GigabitEthernet0/0 33682
+ip nat inside source static tcp 172.20.83.1 33683 interface GigabitEthernet0/0 33683
+ip nat inside source static tcp 172.20.84.1 33684 interface GigabitEthernet0/0 33684
+ip nat inside source static tcp 172.20.85.1 33685 interface GigabitEthernet0/0 33685
+ip nat inside source static tcp 172.20.86.1 33686 interface GigabitEthernet0/0 33686
+ip nat inside source static tcp 172.20.87.1 33687 interface GigabitEthernet0/0 33687
+ip nat inside source static tcp 172.20.88.1 33688 interface GigabitEthernet0/0 33688
+ip nat inside source static tcp 172.20.89.1 33689 interface GigabitEthernet0/0 33689
+ip nat inside source static tcp 172.20.90.1 33690 interface GigabitEthernet0/0 33690
+ip nat inside source static tcp 172.20.91.1 33691 interface GigabitEthernet0/0 33691
+ip nat inside source static tcp 172.20.92.1 33692 interface GigabitEthernet0/0 33692
+ip nat inside source static tcp 172.20.93.1 33693 interface GigabitEthernet0/0 33693
+ip nat inside source static tcp 172.20.94.1 33694 interface GigabitEthernet0/0 33694
+ip nat inside source static tcp 172.20.95.1 33695 interface GigabitEthernet0/0 33695
+ip nat inside source static tcp 172.20.96.1 33696 interface GigabitEthernet0/0 33696
+ip nat inside source static tcp 172.20.97.1 33697 interface GigabitEthernet0/0 33697
+ip nat inside source static tcp 172.20.99.1 33699 interface GigabitEthernet0/0 33699
+ip nat inside source static tcp 172.20.98.1 33698 interface GigabitEthernet0/0 33698
+ip ssh version 2
+!
+ip access-list extended et_access
+ permit ip any any
+!
+ipv6 ioam timestamp
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output lat pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ exec-timeout 100 39
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 100 39
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+ntp server 34.202.215.187 minpoll 10
+!
+end
+
+ET_R1#

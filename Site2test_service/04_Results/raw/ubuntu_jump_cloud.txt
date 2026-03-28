@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "error": "Authentication failed.",
+  "command": "cloud-init status --long || true; ls /etc/cloud/cloud.cfg.d"
+}

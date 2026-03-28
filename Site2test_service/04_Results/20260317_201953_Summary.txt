@@ -1,0 +1,151 @@
+Site 2 Service Block Test Toolkit Summary
+Generated: 2026-03-17 20:25:44
+Toolkit Version: 1.0
+
+[PASS] RDP to Windows jump over Tailscale
+Device:  WindowsJump64
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 100.97.37.83:3389
+Check:   Verify 100.97.37.83:3389 is reachable from the operator workstation.
+TCP reachable to 100.97.37.83:3389. RTT(ms)=37.5.
+
+[PASS] SSH to Ubuntu jump over Tailscale
+Device:  MSPUbuntuJump
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 100.82.97.92:22
+Check:   Verify 100.82.97.92:22 is reachable from the operator workstation.
+TCP reachable to 100.82.97.92:22. RTT(ms)=183.1.
+
+[PASS] Public RDP to Windows jump
+Device:  Teacher Edge -> WindowsJump64
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 10.50.17.31:33464
+Check:   Verify 10.50.17.31:33464 is reachable from the operator workstation.
+TCP reachable to 10.50.17.31:33464. RTT(ms)=24.1.
+
+[PASS] Public SSH to Ubuntu jump
+Device:  Teacher Edge -> MSPUbuntuJump
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 10.50.17.31:33564
+Check:   Verify 10.50.17.31:33564 is reachable from the operator workstation.
+TCP reachable to 10.50.17.31:33564. RTT(ms)=23.6.
+
+[FAIL] Public HTTP to C1 Web
+Device:  Teacher Edge -> C1Web
+Section: Service Block 2 / HTTP
+Method:  Local TCP
+Commands:
+  Test TCP 10.50.17.31:33465
+Check:   Verify 10.50.17.31:33465 is reachable from the operator workstation.
+TCP failed to 10.50.17.31:33465. RTT(ms)=5002.4. Error: timed out
+
+[PASS] SSH to MSP Ubuntu Jump
+Device:  MSPUbuntuJump
+Section: Service Block 1 / Remote Access
+Method:  Paramiko over Tailscale
+Commands:
+  ssh mspadmin@100.82.97.92
+Check:   Confirm direct SSH access to the MSP Ubuntu jump box.
+mspubuntujump
+mspadmin
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    altname enp0s18
+    inet 172.30.65.179/29 brd 172.30.65.183 scope global ens18
+       valid_lft forever preferred_lft forever
+3: tailscale0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq_codel state UNKNOWN group default qlen 500
+    inet 100.82.97.92/32 scope global tailscale0
+       valid_lft forever preferred_lft forever
+4: ens19: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    altname enp0s19
+    inet 172.20.65.254/16 brd 172.20.255.255 scope global ens19
+       valid_lft forever preferred_lft forever
+default via 172.30.65.177 dev ens18 proto static 
+8.8.8.8 via 172.20.20.1 dev ens19 proto static 
+172.20.0.0/16 dev ens19 proto kernel scope link src 172.20.65.254 
+172.30.65.176/29 dev ens18 proto kernel scope link src 172.30.65.179
+
+[PASS] MSP Ubuntu jump purple path health
+Device:  MSPUbuntuJump
+Section: Service Block 3 / vRouter policy
+Method:  SSH command
+Commands:
+  ping -c 2 172.30.65.177 || true; ip neigh show 172.30.65.177 || true; ping -c 2 172.30.65.66 || true; ping -c 2 172.30.65.67 || true; ping -c 2 172.30.65.68 || true
+Check:   Confirm the Ubuntu jump can resolve and reach the MSP/purple gateway and routed Site 2 hosts.
+PING 172.30.65.177 (172.30.65.177) 56(84) bytes of data.
+64 bytes from 172.30.65.177: icmp_seq=1 ttl=64 time=0.151 ms
+64 bytes from 172.30.65.177: icmp_seq=2 ttl=64 time=0.279 ms
+
+--- 172.30.65.177 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1018ms
+rtt min/avg/max/mdev = 0.151/0.215/0.279/0.064 ms
+172.30.65.177 dev ens18 lladdr bc:24:11:90:a5:0a REACHABLE
+PING 172.30.65.66 (172.30.65.66) 56(84) bytes of data.
+64 bytes from 172.30.65.66: icmp_seq=1 ttl=63 time=0.371 ms
+64 bytes from 172.30.65.66: icmp_seq=2 ttl=63 time=0.406 ms
+
+--- 172.30.65.66 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1020ms
+rtt min/avg/max/mdev = 0.371/0.388/0.406/0.017 ms
+PING 172.30.65.67 (172.30.65.67) 56(84) bytes of data.
+64 bytes from 172.30.65.67: icmp_seq=1 ttl=63 time=0.352 ms
+64 bytes from 172.30.65.67: icmp_seq=2 ttl=63 time=0.531 ms
+
+--- 172.30.65.67 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1022ms
+rtt min/avg/max/mdev = 0.352/0.441/0.531/0.089 ms
+PING 172.30.65.68 (172.30.65.68) 56(84) bytes of data.
+64 bytes from 172.30.65.68: icmp_seq=1 ttl=63 time=0.357 ms
+64 bytes from 172.30.65.68: icmp_seq=2 ttl=63 time=0.474 ms
+
+--- 172.30.65.68 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1022ms
+rtt min/avg/max/mdev = 0.357/0.415/0.474/0.058 ms
+
+[PASS] MSP Ubuntu jump blue path health
+Device:  MSPUbuntuJump
+Section: Service Block 3 / Blue Network
+Method:  SSH command
+Commands:
+  ping -c 2 172.20.20.1 || true; ping -c 2 172.20.64.1 || true; ping -c 2 172.20.65.1 || true
+Check:   Confirm the Ubuntu jump still reaches the blue network while Tailscale remains online.
+PING 172.20.20.1 (172.20.20.1) 56(84) bytes of data.
+64 bytes from 172.20.20.1: icmp_seq=1 ttl=255 time=1.18 ms
+64 bytes from 172.20.20.1: icmp_seq=2 ttl=255 time=0.660 ms
+
+--- 172.20.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.660/0.917/1.175/0.257 ms
+PING 172.20.64.1 (172.20.64.1) 56(84) bytes of data.
+64 bytes from 172.20.64.1: icmp_seq=1 ttl=63 time=0.820 ms
+64 bytes from 172.20.64.1: icmp_seq=2 ttl=63 time=0.834 ms
+
+--- 172.20.64.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1024ms
+rtt min/avg/max/mdev = 0.820/0.827/0.834/0.007 ms
+PING 172.20.65.1 (172.20.65.1) 56(84) bytes of data.
+64 bytes from 172.20.65.1: icmp_seq=1 ttl=63 time=0.375 ms
+64 bytes from 172.20.65.1: icmp_seq=2 ttl=63 time=0.767 ms
+
+--- 172.20.65.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1022ms
+rtt min/avg/max/mdev = 0.375/0.571/0.767/0.196 ms
+
+[FAIL] Windows jump remote collector
+Device:  WindowsJump64
+Section: Service Block 1 / Remote Access
+Method:  WMI registry return channel
+Commands:
+  Invoke-WmiMethod Win32_Process Create -> registry ResultB64
+Check:   Run the Site 2 collector on the Windows jump and retrieve JSON output.
+Collector did not finish successfully. Final registry status: None

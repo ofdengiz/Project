@@ -1,0 +1,76 @@
+
+PORT 22 FAIL
+plink.exe : bash: connect: Connection timed out
+At C:\Algonquin\Winter2026\Emerging_Tech\Project\tmp_site2_collect_tests.ps1:24 char:19
++ ...   $output = & $plink -batch -hostkey $hostKey -ssh "$jumpUser@$jumpHo ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (bash: connect: Connection timed out:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+bash: line 4: /dev/tcp/172.30.64.130/22: Connection timed out
+PORT 53 FAIL
+PORT 88 FAIL
+PORT 389 FAIL
+PORT 445 FAIL
+PORT 3389 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/172.30.64.130/6160: Connection timed out
+PORT 6160 FAIL
+
+PORT 22 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/172.30.64.131/22: Connection timed out
+PORT 53 FAIL
+PORT 88 FAIL
+PORT 389 FAIL
+PORT 445 FAIL
+PORT 3389 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/172.30.64.131/6160: Connection timed out
+PORT 6160 FAIL
+
+PORT 22 FAIL
+PORT 53 FAIL
+PORT 88 FAIL
+PORT 389 FAIL
+PORT 445 FAIL
+PORT 3389 FAIL
+bash: connect: Connection refused
+bash: line 4: /dev/tcp/172.30.64.146/3389: Connection refused
+bash: connect: Connection refused
+bash: line 4: /dev/tcp/172.30.64.146/6160: Connection refused
+PORT 6160 FAIL
+
+PORT 22 FAIL
+PORT 53 FAIL
+PORT 88 FAIL
+PORT 389 FAIL
+PORT 445 FAIL
+bash: connect: Connection refused
+PORT 3389 FAIL
+bash: line 4: /dev/tcp/172.30.64.147/3389: Connection refused
+PORT 6160 FAIL
+bash: connect: Connection refused
+bash: line 4: /dev/tcp/172.30.64.147/6160: Connection refused
+
+PORT 22 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/22: Connection timed out
+PORT 53 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/53: Connection timed out
+PORT 88 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/88: Connection timed out
+PORT 389 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/389: Connection timed out
+PORT 445 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/445: Connection timed out
+PORT 3389 FAIL
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/3389: Connection timed out
+bash: connect: Connection timed out
+bash: line 4: /dev/tcp/192.168.64.20/6160: Connection timed out
+PORT 6160 FAIL

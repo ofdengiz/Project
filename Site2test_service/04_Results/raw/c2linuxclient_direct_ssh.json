@@ -1,0 +1,9 @@
+{
+  "name": "c2linuxclient",
+  "host": "172.30.65.70",
+  "user": "odengiz",
+  "ok": true,
+  "exit_code": 0,
+  "stdout": "c2linuxclient\nc2.local\n  type: kerberos\n  realm-name: C2.LOCAL\n  domain-name: c2.local\n  configured: kerberos-member\n  server-software: active-directory\n  client-software: sssd\n  required-package: sssd-tools\n  required-package: sssd\n  required-package: libnss-sss\n  required-package: libpam-sss\n  required-package: adcli\n  required-package: samba-common-bin\n  login-formats: %U@c2.local\n  login-policy: allow-realm-logins\n",
+  "stderr": "id: \u2018employee1@c2.local\u2019: no such user\n"
+}

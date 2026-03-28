@@ -1,0 +1,1 @@
+[{"name":"ssh","available":true,"source":"C:\\Windows\\System32\\OpenSSH\\ssh.exe"},{"name":"plink","available":false,"source":{}}]

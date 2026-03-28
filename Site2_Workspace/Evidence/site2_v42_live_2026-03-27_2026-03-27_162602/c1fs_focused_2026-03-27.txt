@@ -1,0 +1,140 @@
+C1FS
+Microsoft Windows NT 10.0.20348.0
+
+
+Number         : 1
+FriendlyName   : MSFT Virtual HD
+Size           : 171640356864
+PartitionStyle : GPT
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Number         : 0
+FriendlyName   : QEMU QEMU HARDDISK
+Size           : 34359738368
+PartitionStyle : MBR
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+DriveLetter     : 
+FileSystemLabel : System Reserved
+FileSystem      : NTFS
+Size            : 104853504
+SizeRemaining   : 70389760
+PSComputerName  : 172.30.65.4
+RunspaceId      : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+DriveLetter     : 
+FileSystemLabel : 
+FileSystem      : NTFS
+Size            : 650113024
+SizeRemaining   : 120700928
+PSComputerName  : 172.30.65.4
+RunspaceId      : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+DriveLetter     : C
+FileSystemLabel : 
+FileSystem      : NTFS
+Size            : 33601613824
+SizeRemaining   : 18640658432
+PSComputerName  : 172.30.65.4
+RunspaceId      : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+DriveLetter     : F
+FileSystemLabel : SharedData
+FileSystem      : NTFS
+Size            : 171621478400
+SizeRemaining   : 170889261056
+PSComputerName  : 172.30.65.4
+RunspaceId      : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+DriveLetter     : D
+FileSystemLabel : 
+FileSystem      : 
+Size            : 0
+SizeRemaining   : 0
+PSComputerName  : 172.30.65.4
+RunspaceId      : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+DriveLetter     : E
+FileSystemLabel : 
+FileSystem      : 
+Size            : 0
+SizeRemaining   : 0
+PSComputerName  : 172.30.65.4
+RunspaceId      : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : ADMIN$
+Path           : C:\Windows
+Description    : Remote Admin
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : C$
+Path           : C:\
+Description    : Default share
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : F$
+Path           : F:\
+Description    : Default share
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : IPC$
+Path           : 
+Description    : Remote IPC
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : Priv_S2
+Path           : F:\Priv_S2
+Description    : 
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : PublicData
+Path           : F:\
+Description    : 
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : Pub_S2
+Path           : F:\Pub_S2
+Description    : 
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+PSComputerName          : 172.30.65.4
+RunspaceId              : 2d64da9c-6896-427c-be29-f46b5e32b9de
+AuthenticationType      : NONE
+InitiatorInstanceName   : ROOT\ISCSIPRT\0000_0
+InitiatorNodeAddress    : iqn.1991-05.com.microsoft:c1fs
+InitiatorPortalAddress  : 0.0.0.0
+InitiatorSideIdentifier : 400001370001
+IsConnected             : True
+IsDataDigest            : False
+IsDiscovered            : False
+IsHeaderDigest          : False
+IsPersistent            : True
+NumberOfConnections     : 1
+SessionIdentifier       : ffff97057e5ff010-4000013700000001
+TargetNodeAddress       : iqn.1991-05.com.microsoft:win-5p43jh50pmm-c1fs-data-target
+TargetSideIdentifier    : 0100
+
+Name           : LanmanServer
+Status         : Running
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+Name           : LanmanWorkstation
+Status         : Running
+PSComputerName : 172.30.65.4
+RunspaceId     : 2d64da9c-6896-427c-be29-f46b5e32b9de
+
+
+
+
+#< CLIXML
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="1"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="2"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="3"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="4"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-Disk | Select-Object Number,FriendlyName,Size,PartitionStyle</AV><AI>1091473930</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj><Obj S="progress" RefId="5"><TNRef RefId="0" /><MS><I64 N="SourceId">4</I64><PR N="Record"><AV>Get-Volume | Select-Object DriveLetter,FileSystemLabel,FileSystem,Size,SizeRemaining</AV><AI>660836885</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj><Obj S="progress" RefId="6"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="7"><TNRef RefId="0" /><MS><I64 N="SourceId">5</I64><PR N="Record"><AV>Get-SmbShare | Select-Object Name,Path,Description</AV><AI>1580805718</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj><Obj S="progress" RefId="8"><TNRef RefId="0" /><MS><I64 N="SourceId">6</I64><PR N="Record"><AV>Get-SmbSession | Select-Object ClientComputerName,ClientUserName,NumOpens</AV><AI>2052783795</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj><Obj S="progress" RefId="9"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="10"><TNRef RefId="0" /><MS><I64 N="SourceId">7</I64><PR N="Record"><AV>Get-IscsiSession</AV><AI>495097602</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj><Obj S="progress" RefId="11"><TNRef RefId="0" /><MS><I64 N="SourceId">8</I64><PR N="Record"><AV>Get-IscsiTarget</AV><AI>1964703382</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj><Obj S="progress" RefId="12"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>

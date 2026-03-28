@@ -1,0 +1,244 @@
+Generated: 2026-03-23 22:07:01
+== JUMP ==
+-- opnsense_mgmt (rc=0) --
+HTTP/1.1 403 Forbidden
+Set-Cookie: PHPSESSID=51cfd8d7981c86acf430012c87416024; path=/; HttpOnly; SameSite=Lax
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Content-type: text/html; charset=UTF-8
+Date: Tue, 24 Mar 2026 02:07:02 GMT
+Server: OPNsense
+[stderr] % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+Connection to 172.30.65.177 53 port [tcp/domain] succeeded!
+
+-- company1_cross_site (rc=0) --
+TARGET=172.30.65.2:3389
+TARGET=172.30.65.2:445
+TARGET=172.30.65.3:3389
+TARGET=172.30.65.3:445
+TARGET=172.30.65.4:445
+TARGET=172.30.65.36:22
+[stderr] Connection to 172.30.65.2 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.2 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.3 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.3 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.4 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.36 22 port [tcp/ssh] succeeded!
+
+-- site2_c1_c2_web (rc=0) --
+HTTP/2 200 
+content-length: 11022
+content-type: text/html
+last-modified: Mon, 09 Feb 2026 02:39:06 GMT
+accept-ranges: bytes
+etag: "ac6edd426d99dc1:0"
+server: Microsoft-IIS/10.0
+date: Tue, 24 Mar 2026 05:06:56 GMT
+
+HTTP/2 404 
+content-length: 315
+content-type: text/html; charset=us-ascii
+server: Microsoft-HTTPAPI/2.0
+date: Tue, 24 Mar 2026 05:06:56 GMT
+
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Tue, 24 Mar 2026 02:07:03 GMT
+Content-Type: text/html
+Content-Length: 7311
+Last-Modified: Fri, 20 Mar 2026 21:22:54 GMT
+Connection: keep-alive
+ETag: "69bdbaae-1c8f"
+Accept-Ranges: bytes
+
+HTTP/1.1 404 Not Found
+Server: nginx/1.18.0 (Ubuntu)
+Date: Tue, 24 Mar 2026 02:07:03 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+[stderr] % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   315    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   162    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+-- veeam_ports_full (rc=0) --
+PORT=445
+PORT=3389
+PORT=9392
+PORT=5985
+PORT=10005
+PORT=10006
+[stderr] Connection to 172.30.65.180 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.180 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.180 9392 port [tcp/*] succeeded!
+Connection to 172.30.65.180 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.180 10005 port [tcp/*] succeeded!
+Connection to 172.30.65.180 10006 port [tcp/*] succeeded!
+
+== HOSTS ==
+-- c2idm1 (rc=0) --
+c2idm1
+active
+active
+  Name=, Records=2, Children=0
+    A: 172.30.64.162 (flags=f0, serial=2, ttl=900)
+    A: 172.30.65.162 (flags=f0, serial=3, ttl=900)
+  Name=, Records=2, Children=0
+    A: 172.30.64.170 (flags=f0, serial=18, ttl=900)
+    A: 172.30.65.170 (flags=f0, serial=19, ttl=900)
+[stderr] [sudo] password for ofdengiz:
+
+-- c2idm2 (rc=0) --
+c2idm2
+active
+active
+  Name=, Records=2, Children=0
+    A: 172.30.64.162 (flags=f0, serial=2, ttl=900)
+    A: 172.30.65.162 (flags=f0, serial=3, ttl=900)
+  Name=, Records=2, Children=0
+    A: 172.30.64.170 (flags=f0, serial=18, ttl=900)
+    A: 172.30.65.170 (flags=f0, serial=19, ttl=900)
+[stderr] [sudo] password for ofdengiz:
+
+-- c2fs (rc=0) --
+c2fs
+active
+TARGET         SOURCE   FSTYPE OPTIONS
+/mnt/c2_public /dev/sdb ext4   rw,relatime,stripe=8191
+tcp: [1] 172.30.65.194:3260,1 iqn.2024-03.org.clearroots:c2san (non-flash)
+NAME                      TYPE  SIZE FSTYPE      MOUNTPOINT        TRAN
+loop0                     loop 63.9M squashfs    /snap/core20/2318 
+loop1                     loop 63.8M squashfs    /snap/core20/2717 
+loop2                     loop 91.6M squashfs    /snap/lxd/38331   
+loop3                     loop 91.7M squashfs    /snap/lxd/38469   
+loop5                     loop 48.1M squashfs    /snap/snapd/25935 
+loop6                     loop 48.4M squashfs    /snap/snapd/26382 
+sda                       disk   16G                               
+├─sda1                    part    1M                               
+├─sda2                    part  1.8G ext4        /boot             
+└─sda3                    part 14.2G LVM2_member                   
+  └─ubuntu--vg-ubuntu--lv lvm    10G ext4        /                 
+sdb                       disk  160G ext4        /mnt/c2_public    iscsi
+sr0                       rom     2G iso9660                       ata
+	max log size = 1000
+	realm = C2.LOCAL
+	security = ADS
+	server role = member server
+	template homedir = /home/%U
+	template shell = /bin/bash
+	winbind refresh tickets = Yes
+	winbind use default domain = Yes
+	workgroup = C2
+	idmap config * : range = 3000-7999
+	idmap config * : backend = tdb
+
+
+[C2_Public]
+	create mask = 0770
+	directory mask = 0770
+	force group = c2_file_users
+	path = /mnt/c2_public/Public
+	read only = No
+	valid users = @c2_file_users
+
+
+[C2_Private]
+	browseable = No
+	create mask = 0700
+	directory mask = 0700
+	force group = c2_file_users
+	path = /mnt/c2_public/Private/%U
+	read only = No
+	valid users = %U
+[2026-03-23 02:00:20] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-23 02:00:20] Sync completed successfully
+[2026-03-23 02:00:20] Sync completed successfully
+[2026-03-24 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-24 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-24 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-24 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-24 02:00:02] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-24 02:00:02] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-24 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-24 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-24 02:00:15] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-24 02:00:15] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-24 02:00:16] Sync completed successfully
+[2026-03-24 02:00:16] Sync completed successfully
+[stderr] [sudo] password for odengiz:
+
+-- c2linuxclient (rc=0) --
+c2linuxclient
+c2.local
+  type: kerberos
+  realm-name: C2.LOCAL
+  domain-name: c2.local
+  configured: kerberos-member
+  server-software: active-directory
+  client-software: sssd
+  required-package: sssd-tools
+  required-package: sssd
+  required-package: libnss-sss
+  required-package: libpam-sss
+  required-package: adcli
+  required-package: samba-common-bin
+  login-formats: %U@c2.local
+  login-policy: allow-realm-logins
+employee1@c2.local:*:952001106:952000513:employee1:/home/employee1@c2.local:/bin/bash
+employee2@c2.local:*:952001110:952000513:employee2:/home/employee2@c2.local:/bin/bash
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda2 during curtin installation
+/dev/disk/by-uuid/c7420274-831e-4bc7-bd36-6d84729574cb / ext4 defaults 0 1
+/swap.img	none	swap	sw	0	0
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	c1-webserver.c1.local
+Address: 172.30.64.162
+Name:	c1-webserver.c1.local
+Address: 172.30.65.162
+
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	c2-webserver.c2.local
+Address: 172.30.64.170
+Name:	c2-webserver.c2.local
+Address: 172.30.65.170
+
+== LOCAL ==
+-- public_dns_google (rc=0) --
+Server:  UnKnown
+Address:  8.8.8.8
+[stderr] *** UnKnown can't find clearroots.omerdengiz.com: Query refused
+
+-- public_dns_cloudflare (rc=0) --
+Server:  UnKnown
+Address:  1.1.1.1
+[stderr] *** UnKnown can't find clearroots.omerdengiz.com: Query refused
+
+-- public_head_resolve (rc=6) --
+[stderr] % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0curl: (6) Could not resolve host: clearroots.omerdengiz.com

@@ -1,0 +1,51 @@
+=== Session started: 2026-03-17T19:20:44 ===
+2026-03-17T19:20:44 | PASS | Service Block 1 / Remote Access | C1-DC1 | RDP to C1-DC1
+2026-03-17T19:20:44 | PASS | Service Block 1 / Remote Access | C1-DC2 | RDP to C1-DC2
+2026-03-17T19:20:44 | PASS | Service Block 1 / Remote Access | C1-Client1 | RDP to C1-Client1
+2026-03-17T19:20:45 | PASS | Service Block 1 / Remote Access | C1-WebServer | RDP to C1-WebServer
+2026-03-17T19:20:45 | PASS | Service Block 1 / Remote Access | C1-Client2 | SSH to C1-Client2
+2026-03-17T19:20:55 | PASS | Service Block 1 / DHCP | C1-DC1 | C1 DHCP scope, reservations, and leases
+2026-03-17T19:21:02 | PASS | Service Block 1 / Account Administration | C1-DC1 | C1 AD account administration summary
+2026-03-17T19:21:12 | PASS | Service Block 1 / Spot-check alignment | C1-Client1 and C1-Client2 (server-side evidence) | C1 managed endpoint alignment
+2026-03-17T19:21:15 | PASS | Service Block 1 / Account Administration | C1-Client2 | C1-Client2 user identity contexts
+2026-03-17T19:21:18 | PASS | Service Block 1 / Account Administration | C1-Client1 | C1-Client1 domain login evidence
+2026-03-17T19:21:18 | PASS | Service Block 1 / Remote Access | C2-DC1 | SSH to C2-DC1
+2026-03-17T19:21:18 | PASS | Service Block 1 / Remote Access | C2-DC2 | SSH to C2-DC2
+2026-03-17T19:21:18 | PASS | Service Block 1 / Remote Access | C2-Client1 | SSH to C2-Client1
+2026-03-17T19:21:20 | PASS | Service Block 1 / DHCP | C2-DC1 | C2 DHCP failover primary summary
+2026-03-17T19:21:23 | PASS | Service Block 1 / DHCP | C2-DC2 | C2 DHCP failover secondary summary
+2026-03-17T19:21:25 | PASS | Service Block 1 / DHCP | C2-Client1 | C2 client lease and resolver summary
+2026-03-17T19:21:29 | PASS | Service Block 1 / Account Administration | C2-DC1 | C2 Samba account administration summary
+2026-03-17T19:21:30 | PASS | Service Block 1 / Account Administration | C2-Client1 | C2-Client1 user identity contexts
+2026-03-17T19:21:36 | PASS | Service Block 2 / DNS | C1-DC1 | C1 DNS zones and forwarders
+2026-03-17T19:21:42 | PASS | Service Block 2 / DNS | C1-DC1 | C1 DNS recursion and web host record summary
+2026-03-17T19:21:43 | PASS | Service Block 2 / HTTPS | C1-WebServer | C1 web server HTTP endpoint
+2026-03-17T19:21:43 | PASS | Service Block 2 / HTTPS | C1-WebServer | C1 web application HTTP response
+2026-03-17T19:21:45 | PASS | Service Block 2 / DNS | C2-DC1 | C2 DNS internal and external resolution summary
+2026-03-17T19:21:45 | PASS | Service Block 2 / HTTPS | C2-WebServer | C2 web server HTTP endpoint
+2026-03-17T19:21:45 | PASS | Service Block 2 / HTTPS | C2-WebServer | C2 web application HTTP response
+2026-03-17T19:21:46 | PASS | Service Block 3 / Site 1 Hypervisor | Proxmox VE | Proxmox GUI endpoint
+2026-03-17T19:21:46 | PASS | Service Block 3 / vRouter | OPNsense | OPNsense GUI endpoint
+2026-03-17T19:21:54 | PASS | Service Block 3 / vRouter policy | C1-Client2 | C1 tenant isolation from C1-Client2
+2026-03-17T19:22:02 | PASS | Service Block 3 / vRouter policy | C2-Client1 | C2 tenant isolation from C2-Client1
+2026-03-17T19:22:02 | PASS | Service Block 3 / Site-to-Site VPN | Site 2 Offsite Repository | Site 2 repository VPN path (Windows jumpbox)
+2026-03-17T19:22:04 | PASS | Service Block 3 / Site-to-Site VPN | Jumpbox Ubuntu | Site 2 repository VPN path (Ubuntu jumpbox)
+2026-03-17T19:22:08 | PASS | Service Block 4 / Replicated File Server | C1-DC1 | C1 DFS namespace and replication summary
+2026-03-17T19:22:12 | PASS | Service Block 4 / Replicated File Server | C1-DC1 | C1 SMB share definitions
+2026-03-17T19:22:17 | PASS | Service Block 4 / ISCSI | C1-DC1 | C1-DC1 iSCSI initiator summary
+2026-03-17T19:22:24 | PASS | Service Block 4 / ISCSI | C1-DC2 | C1-DC2 iSCSI initiator summary
+2026-03-17T19:22:26 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 mounted share summary
+2026-03-17T19:22:28 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 per-user share mount summary
+2026-03-17T19:22:30 | PASS | Service Block 4 / Replicated File Server | C1-Client2 | C1-Client2 private share isolation
+2026-03-17T19:22:36 | PASS | Service Block 4 / Replicated File Server | C1-Client1 | C1-Client1 mapped drive summary
+2026-03-17T19:22:40 | PASS | Service Block 4 / Replicated File Server and ISCSI | C2-DC1 | C2 Gluster, Samba, and iSCSI primary summary
+2026-03-17T19:22:42 | PASS | Service Block 4 / Replicated File Server and ISCSI | C2-DC2 | C2 secondary storage node summary
+2026-03-17T19:22:44 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 mounted share summary
+2026-03-17T19:22:45 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 per-user share mount summary
+2026-03-17T19:22:48 | PASS | Service Block 4 / Replicated File Server | C2-Client1 | C2-Client1 private share isolation
+2026-03-17T19:22:50 | PASS | Service Block 5 / VEEAM | Server2 | Server2 Veeam services and repository drives
+2026-03-17T19:23:09 | PASS | Service Block 5 / VEEAM | Server2 | Server2 Veeam job and repository inventory
+2026-03-17T19:23:09 | PASS | Service Block 5 / VEEAM | Site 2 Offsite Repository | Site 2 repository control port (Windows jumpbox)
+2026-03-17T19:23:11 | PASS | Service Block 5 / VEEAM | Jumpbox Ubuntu | Site 2 repository control port (Ubuntu jumpbox)
+2026-03-17T19:23:11 | PASS | Service Block 5 / Misc | Server1 / Proxmox host iLO | Server1 iLO HTTPS endpoint
+2026-03-17T19:23:16 | FAIL | Service Block 5 / Misc | Server2 iLO | Server2 iLO HTTPS endpoint

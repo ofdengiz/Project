@@ -1,0 +1,60 @@
+Site 2 Status Refresh
+Generated: 2026-03-17 22:00:00
+
+This refresh updates the earlier final summary after the following recovery actions:
+- Windows jump Blue NIC disabled
+- C1Web and C2Web VM NIC issues corrected by VM-side recovery
+- C2LinuxClient SSSD restarted
+- C2FS sync path re-tested manually
+
+Updated status
+
+1. C1DC1 / C1DC2 / C1FS RDP
+- Previously failing specifically from Windows jump because the host was preferring the wrong interface.
+- Blue NIC was disabled on Windows jump.
+- Earlier Ubuntu-jump evidence already showed these three hosts were healthy on RDP:
+  - 172.30.65.2 TCP 3389 OK
+  - 172.30.65.3 TCP 3389 OK
+  - 172.30.65.4 TCP 3389 OK
+
+2. C1Web
+- Public publishing recovered:
+  - 10.50.17.31:33465 TCP reachable
+- Ubuntu jump updated probe:
+  - 172.30.65.162 TCP 80 OK
+  - 172.30.65.162 TCP 3389 OK
+  - ping still FAIL, which can be explained by guest firewall ICMP handling
+
+3. C2Web
+- Ubuntu jump updated probe:
+  - 172.30.65.170 ping OK
+  - 172.30.65.170 TCP 22 OK
+  - 172.30.65.170 TCP 80 OK
+  - 172.30.65.170 TCP 3389 FAIL
+- Interpretation:
+  - If C2Web is Linux, this is expected and healthy.
+  - HTTP service is now reachable.
+
+4. C2LinuxClient
+- `sssd` had failed earlier.
+- After restart, identity resolution is working again:
+  - `administrator@c2.local` resolves
+  - `employee1@c2.local` resolves
+- This issue is now resolved.
+
+5. C2FS sync
+- Route and SSH path to `172.30.64.146:22` re-tested successfully
+- Manual run of `/usr/local/bin/c2_site1_sync.sh` completed successfully
+- This issue is now resolved
+
+Remaining item to review
+- Company 2 client isolation policy should still be reviewed if you want `C2LinuxClient` blocked from Company 1 DNS on TCP 53.
+- This is now a policy/hardening review item, not a core service outage.
+
+Current practical conclusion
+- Core non-Veeam service path is now largely healthy.
+- The earlier major failures were mostly caused by:
+  - Windows jump route preference
+  - VM virtual NIC attach/state issues
+  - transient SSSD failure on C2LinuxClient
+  - temporary Site1 sync reachability issue on C2FS

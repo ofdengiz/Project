@@ -1,0 +1,17 @@
+c2linuxclient
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens18            UP             172.30.65.70/26 
+employee1@c2.local:*:952001106:952000513:employee1:/home/employee1@c2.local:/bin/bash
+uid=952001106(employee1@c2.local) gid=952000513(domain users@c2.local) groups=952000513(domain users@c2.local),952002101(c2_file_users@c2.local)
+Global
+         Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+  resolv.conf mode: stub
+
+Link 2 (ens18)
+    Current Scopes: DNS
+         Protocols: +DefaultRoute -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+Current DNS Server: 172.30.65.67
+       DNS Servers: 172.30.65.66 172.30.65.67
+        DNS Domain: c2.local
+     Default Route: yes
+

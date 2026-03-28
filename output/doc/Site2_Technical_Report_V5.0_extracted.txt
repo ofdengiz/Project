@@ -1,0 +1,1241 @@
+Site 2 Infrastructure Deployment - Integrated Technical Design, Validation, and Handover Report
+Design and Implementation of a Multi-Tenant Service Environment using OPNsense, Samba AD, Isolated SAN Storage, Nginx and IIS Web Delivery, and Veeam Backup
+Formal Technical Design, Validation, and Handover Report
+Service Scope: MSP, Company 1, and Company 2 operations
+Document Version: 5.0
+Document Date: March 27, 2026
+Submission Due Date: March 26, 2026
+Intended Audience: Client IT staff, MSP support teams, and successor operations staff
+Engineering Contributors: Bailey Kulla, Elyazid Sidelkheir, Ru Wang, Justin Rosseleve, Yiqin Huang, Omer Deniz
+Team Name: Site 2 Team
+Report Intent: This document is the formal Site 2 technical handover package. It explains service design, observed operating state, support assumptions, maintenance expectations, and validation references so that routine administration and first-line troubleshooting can continue without separate verbal knowledge transfer.
+Table of Contents
+List of Figures
+Figure 1. Site 2 topology and service-role alignment diagram
+Figure 2. Site 2 logical service inventory and platform role map
+Figure 3. OPNsense interfaces, aliases, and limited edge exposure
+Figure 4. OPNsense OpenVPN and inter-site rule mapping
+Figure 5. Company 1 services from the MSP management path (MSPUbuntuJump port checks)
+Figure 5A. Jump64 Windows bastion baseline
+Figure 5B. C1DC1 service-state evidence from Jump64
+Figure 5C. C1DC2 service-state evidence from Jump64
+Figure 5D. C1FS storage, shares, and iSCSI evidence from Jump64
+Figure 5E. C1WebServer IIS binding evidence from Jump64
+Figure 5F. C1WindowsClient endpoint and dual-web evidence
+Figure 6. C2IdM1 Active Directory, DNS, and DHCP evidence
+Figure 7. C2IdM2 Active Directory, DNS, and DHCP evidence
+Figure 8. Shared-forest and cross-domain DNS evidence
+Figure 9. C2FS iSCSI-backed storage and mounted volume evidence
+Figure 10. C2FS SMB share definitions and synchronization evidence
+Figure 11. C1SAN isolated storage interface evidence
+Figure 12. C2SAN isolated storage interface evidence
+Figure 13. C1UbuntuClient Company 1 client - domain context and dual-web evidence
+Figure 14. C2LinuxClient domain identity and dual-web evidence
+Figure 15. S2Veeam repository, backup jobs, and offsite-copy evidence
+List of Tables
+Table 1. Design inputs and evidence basis for Site 2
+Table 2. Evidence classes used in this report
+Table 3. Observation vantage points
+Table 4. Observed Site 2 systems and service roles
+Table 5. Site 2 logical service inventory and role mapping
+Table 5A. Observed platform baseline - all service scopes
+Table 6. Site 2 network segments and gateways
+Table 7. OPNsense exposure, routing, and firewall policy summary
+Table 8. Company 1 service summary
+Table 9. Company 2 identity, DNS, and DHCP summary
+Table 10. Storage and isolated SAN summary
+Table 11. Client access and identity summary
+Table 12. Internal web delivery summary
+Table 13. Backup and offsite-protection summary
+Table 14. Requirement-to-implementation traceability matrix
+Table 15. Service dependency and failure-domain view
+Table 16. Authentication and authorization model
+Table 17. Storage, backup, and recovery data-flow summary
+Table 18. Operational maintenance checks
+Table 19. Troubleshooting and fast triage guide
+Table 20. Integrated design summary
+Table A1. Observed addressing, gateways, and endpoints
+Table B1. Evidence and reference traceability
+Table C1. Service verification and assurance matrix
+Executive Summary
+Site 2 operates as a managed service site with three equally important scopes: MSP administration, Company 1 tenant services, and Company 2 tenant services. OPNsense at 172.30.65.177/29 enforces the routed boundary, Jump64 at 172.30.65.178 and MSPUbuntuJump at 172.30.65.179 provide controlled entry, and S2Veeam at 172.30.65.180 anchors backup and offsite-copy protection. Inside that management frame, Company 1 and Company 2 each expose their own identity, client, web, and file-service paths without collapsing into one flat network model.
+Inspection showed that the site is operational at the levels that matter for handover. Company 1 controllers, file services, web delivery, and both client perspectives were all observable from the approved bastion paths. Company 2 identity, DNS, DHCP, file services, Linux client behavior, and nginx-based web delivery were directly validated from the Linux and Windows inspection points. The observed outputs consistently matched the documented network segments, hostnames, ports, aliases, and storage paths recorded for the site [9]-[11].
+The report therefore treats Site 2 as a supportable operating environment rather than as a build log. Each section explains what the service layer does, why it was structured that way, what was directly observed, and how a receiving team should read faults when they occur. The final sections keep backup separate from synchronization, keep block storage separate from share presentation, and keep evidence limits explicit where the final pass did not include an authenticated OPNsense GUI walkthrough or refreshed Veeam screenshots.
+1. Introduction
+This report documents Site 2 as the formal design, validation, and handover package for a multi-tenant managed service environment. It is written for client IT staff who will administer the site, MSP personnel who may troubleshoot or modify it later, and academic assessors who need to see whether the environment was built coherently and defended with honest evidence.
+The discussion is organized around operating layers instead of build chronology. First the report fixes the evidence basis, then it explains the site layout, then it follows the service chains through identity, file services, web publication, clients, backup, and recovery. That sequence lets the reader move from site context to tenant detail without losing the whole-site view that makes later troubleshooting practical.
+2. Background
+2.1 Intended Audience and Support Scope
+The primary audience is the receiving operations team for Site 2. They need enough detail to understand approved management entry, tenant service boundaries, storage isolation, backup responsibilities, and the first checks that should be performed when routine faults appear. The secondary audience is the MSP support team, which needs a concise but defensible record of how Jump64, MSPUbuntuJump, OPNsense, and S2Veeam fit together across both company scopes. The third audience is academic assessment, which needs to see not only what was built but also how live observation was separated from configuration evidence and design records.
+2.2 Design Context and Operating Model
+Site 2 was designed as a controlled service site, not as a loose set of isolated virtual machines. The MSP scope defines entry, policy, and recovery control. Company 1 contributes Windows directory services, Windows file services, a workgroup IIS server, a Windows client, a Linux client, and an isolated SAN bridge. Company 2 contributes Samba AD, DNS, DHCP, a Samba file server with isolated storage, a Linux client, and an nginx web host. Inter-site access is limited to documented web and backup paths over the OpenVPN relationship to Site 1 [1]-[3], [9]-[11].
+Table 1. Design inputs and evidence basis for Site 2
+2.3 Evidence Base, Observation Method, and Evidence Classes
+The report uses a mixed evidence model because not every part of the site was validated in the same way. Some components were observed directly through service-state checks, port probes, WinRM inspection, WMI-based inspection, or client-side access validation. Other components were confirmed through authoritative records or configuration artifacts when direct administration was intentionally restricted. The table set below makes those evidence classes explicit before the service discussion begins.
+Table 2. Evidence classes used in this report
+Table 3. Observation vantage points
+With the evidence model fixed, Section 3 can explain the site itself without implying that every statement comes from the same depth of observation.
+3. Discussion
+3.1 Environment Overview and Service Boundaries
+Site 2 is easiest to understand as one operating site with three service scopes. The MSP scope defines how administrators enter, how policy is enforced, and how recovery tooling is reached. Company 1 and Company 2 then consume that boundary to deliver their own tenant services, while the isolated SAN bridges and Site 1 OpenVPN path extend the design below and beyond the ordinary tenant LANs.
+[FIGURE PLACEHOLDER - Figure 1: Site 2 topology and service-role alignment diagram]
+Description: Shows all Site 2 service domains - MSP management plane, Company 1 services, Company 2 services, isolated SAN bridges, inter-site VPN path, and S2Veeam. The diagram must make all three scopes visually distinct.
+That boundary model matters because service behavior is intentionally not uniform across every system. Some hosts answer only by hostname, some storage paths are intentionally hidden behind file-service hosts, and some systems are meant to be touched only from one bastion. Reading the site in scopes prevents the receiving team from confusing deliberate isolation with missing functionality.
+Table 4. Observed Site 2 systems and service roles
+The next section turns that site map into a role map so the relationship between hosts, platforms, and support ownership is explicit before the network policy details are introduced.
+3.2 Service Inventory and Platform Layout
+The inventory view shows where each service responsibility lives and which platform was chosen to carry it. That matters operationally because support work depends on choosing the right inspection path first. A Windows-side role that was validated from Jump64 should not be treated like a Linux node that was validated from MSPUbuntuJump, and a storage consumer should not be treated like the isolated SAN endpoint underneath it.
+Table 5. Site 2 logical service inventory and role mapping
+Table 5A. Observed platform baseline - all service scopes
+This platform baseline explains why the next section concentrates on OPNsense and routed separation. Once the host roles are fixed, the important question is how policy controls the paths between them.
+[FIGURE PLACEHOLDER - Figure 2: Site 2 logical service inventory and platform role map]
+Description: Maps every Site 2 system to its service role across MSP, Company 1, and Company 2 scopes. Should visually distinguish the three scopes.
+3.3 MSP Entry, Network Segmentation, Remote Access, and Security
+The Site 2 network design is intentionally strict. Only Jump64 and MSPUbuntuJump are published at the edge, tenant LAN and DMZ paths are separated, and the OpenVPN path to Site 1 is limited to documented web and backup-copy use. That design matches the OPNsense operating model described in the vendor guidance [1]-[3] and the site records [9]-[11].
+Table 6. Site 2 network segments and gateways
+[FIGURE PLACEHOLDER - Figure 3: OPNsense interfaces, aliases, and limited edge exposure]
+Description: Shows the OPNsense interface layout, selected aliases, and WAN NAT publication of only the two jump-host entry points.
+Table 7. OPNsense exposure, routing, and firewall policy summary
+[FIGURE PLACEHOLDER - Figure 4: OPNsense OpenVPN and inter-site rule mapping]
+Description: Shows the inter-site rule set supporting cross-site web access and backup-copy transport between Site 1 and Site 2.
+Once the entry and policy model is fixed, the tenant sections can be read in service terms instead of network terms. Company 1 comes first because it shows how the Windows service chain fits inside the same boundary.
+3.4 Company 1 Directory Services, File Services, Web Delivery, and Client Access
+Service Overview
+Company 1 contributes the Windows directory pair C1DC1 and C1DC2, the file-service host C1FS, the workgroup IIS host C1WebServer, the Windows endpoint C1WindowsClient, the Linux endpoint C1UbuntuClient, and the isolated C1SAN bridge.
+Together they provide identity, internal file presentation, hostname-based web delivery, and client-facing validation inside the Site 2 operating boundary.
+The service set matters operationally because Company 1 is not a single remote dependency; it is a complete tenant stack with its own controller, client, storage, and web paths.
+The MSP bastions therefore had to validate Company 1 through both Linux-side and Windows-side inspection routes, not through one generic reachability check.
+Architectural Rationale
+Microsoft directory services stay on C1DC1 and C1DC2 so authentication and DNS responsibilities remain on dedicated hosts.
+C1FS stays separate from the domain controllers so share administration and storage consumption do not compete with directory workloads.
+C1WebServer remains in the DMZ, workgroup hosted, and bound only to c1-webserver.c1.local on TCP 443, which preserves a named-service contract without adding unnecessary domain membership [7].
+C1SAN stays off the routed tenant networks, which keeps block transport hidden behind C1FS and lets support teams diagnose storage, share, and client issues as separate layers.
+Observed Operating State
+Inspection showed that C1DC1 at 172.30.65.2 and C1DC2 at 172.30.65.3 returned domain, forest, controller inventory, and directory-service state successfully from Jump64 over WinRM.
+Jump64 also showed C1FS at 172.30.65.4 with the Windows SMB service active, a dedicated F: volume labeled SharedData, named shares on that volume, and an active iSCSI initiator session tied to Company 1 storage.
+C1WebServer at 172.30.65.162 showed a single HTTPS IIS binding for c1-webserver.c1.local on TCP 443, while raw IP access returned HTTP 404 as designed.
+C1WindowsClient at 172.30.65.11 was inspected from Jump64 through WMI because TCP 5985 was not open on that host, and the checks confirmed c1.local domain membership, Company 1 DNS use, and successful HTTP 200 access to both internal web hostnames [13].
+MSPUbuntuJump also showed C1UbuntuClient at 172.30.65.36 with admin@C1UbuntuClient shell context, active C1.LOCAL realm membership, and HTTP 200 results for both web hostnames, while C1SAN remained intentionally indirect and was confirmed through the live C1FS iSCSI consumer session.
+Table 8. Company 1 service summary
+[FIGURE PLACEHOLDER - Figure 5: Company 1 services from the MSP management path (MSPUbuntuJump port checks)]
+Description: Shows MSPUbuntuJump port-reachability results for C1DC1, C1DC2, C1FS, C1UbuntuClient, and C1WebServer.
+[FIGURE PLACEHOLDER - Figure 5A: Jump64 Windows bastion baseline]
+Description: Shows Jump64 platform state and its internal Site 2 management address, confirming that the Windows bastion was the active inspection platform.
+[FIGURE PLACEHOLDER - Figure 5B: C1DC1 service-state evidence from Jump64]
+Description: Shows C1DC1 service-state output from Jump64 WinRM, confirming the active Company 1 directory stack.
+[FIGURE PLACEHOLDER - Figure 5C: C1DC2 service-state evidence from Jump64]
+Description: Shows C1DC2 service-state output from Jump64, reinforcing the dual-controller model.
+[FIGURE PLACEHOLDER - Figure 5D: C1FS storage, shares, and iSCSI evidence from Jump64]
+Description: Shows the F: SharedData volume, named SMB shares, and active iSCSI session as observed from Jump64 WinRM.
+[FIGURE PLACEHOLDER - Figure 5E: C1WebServer IIS binding evidence from Jump64]
+Description: Shows the workgroup-hosted C1WebServer state and IIS binding restricted to c1-webserver.c1.local on TCP 443.
+[FIGURE PLACEHOLDER - Figure 5F: C1WindowsClient endpoint and dual-web evidence]
+Description: Shows domain membership confirmation and successful access to both internal web hostnames via a WMI-backed probe from Jump64.
+Service Composition and Operational Reading
+These observations read as one service chain rather than unrelated host checks.
+C1DC1 and C1DC2 establish the naming and authentication base, C1FS turns isolated block storage into user-visible SMB paths, and C1WebServer publishes the internal application under the documented hostname.
+The two client perspectives then show that the Company 1 service contract is consumable from both Windows and Linux endpoints.
+The Company 1 storage story is also supportable because direct management of C1SAN is not required for normal operations; the authoritative operational signal is the active storage consumer on C1FS.
+That arrangement gives the receiving team a clear order for troubleshooting: identity first, file or storage next, web binding next, and client experience last.
+3.5 Company 2 Identity Services, DNS, DHCP, and Shared Forest Design
+Service Overview
+Company 2 centers on C2IdM1 and C2IdM2 as the shared-forest identity, DNS, and DHCP pair for c2.local and the related namespace visibility into c1.local.
+That pair supports the rest of the Company 2 stack, including C2FS, C2LinuxClient, and C2WebServer, by keeping authentication, naming, and lease services consistent across the tenant.
+The section focuses on identity services because those are the control-plane systems that make later file, web, and client behaviors understandable.
+It also explains the shared-forest reading because cross-domain name visibility is part of the design evidence, not an accidental side effect.
+Architectural Rationale
+Using two Samba AD nodes keeps directory, DNS, and DHCP roles readable and resilient inside the Company 2 scope [4]-[6].
+C2IdM1 holds the primary DHCP failover role and C2IdM2 holds the secondary role, which avoids hiding lease continuity inside one host.
+Hosting c2.local, c1.local, and _msdcs.c2.local on both identity nodes keeps namespace availability aligned with the dual-node design.
+The shared forest model also fits the wider site because it supports cross-domain visibility without collapsing tenant service boundaries.
+Observed Operating State
+Inspection showed samba-ad-dc active on both C2IdM1 at 172.30.65.66 and C2IdM2 at 172.30.65.67, with isc-dhcp-server active on both nodes.
+Checks also confirmed DHCP failover roles as Primary on C2IdM1 and Secondary on C2IdM2.
+DNS records on both nodes resolved c1-webserver.c1.local to 172.30.64.162 and 172.30.65.162, and c2-webserver.c2.local to 172.30.64.170 and 172.30.65.170.
+The hosted zones observed were c2.local, c1.local, and _msdcs.c2.local, and the principal set visible on both nodes included Administrator, admin, employee1, employee2, and c2_file_users.
+C2LinuxClient later consumed this identity plane with DNS servers 172.30.65.66 and 172.30.65.67 and search domains c1.local and c2.local, which matched the expected client reading.
+Table 9. Company 2 identity, DNS, and DHCP summary
+[FIGURE PLACEHOLDER - Figure 6: C2IdM1 Active Directory, DNS, and DHCP evidence]
+Description: Shows samba-ad-dc active, DHCP active, and DNS query output for both web hostnames on C2IdM1.
+[FIGURE PLACEHOLDER - Figure 7: C2IdM2 Active Directory, DNS, and DHCP evidence]
+Description: Same structure as Figure 6 but for the secondary identity node, confirming dual-node consistency.
+Service Composition and Operational Reading
+Company 2 therefore provides the authoritative naming and lease layer for its own tenant while also carrying the shared-forest visibility that makes dual-hostname access intelligible.
+The paired-node design means a support engineer can compare controller state across two equivalent identity systems before assuming a tenant-wide outage.
+Because DNS, DHCP, and directory roles sit on the same two nodes, a fault in Company 2 identity has predictable consequences for logon, share access, and hostname resolution.
+The cross-domain DNS visibility also strengthens the forest interpretation without overstating it as a reconfiguration event in the final pass.
+Operationally, the Company 2 identity stack is the control plane that explains why later checks on C2FS, C2LinuxClient, and C2WebServer behaved consistently.
+[FIGURE PLACEHOLDER - Figure 8: Shared-forest and cross-domain DNS evidence]
+Description: Shows both Company 1 and Company 2 web namespaces visible within the Company 2 identity plane, confirming the shared-forest design is operational.
+3.6 Storage, File Services, and Isolated SAN Design
+The storage layer is where Site 2 becomes operational instead of merely descriptive. Both tenants hide block transport behind file-service hosts, which keeps tenant users on SMB paths and keeps storage troubleshooting inside a smaller, more predictable fault domain [5]-[6], [14].
+Company 2 File-Service State (C2FS)
+smbd: active
+Mounted: /dev/sdb at /mnt/c2_public
+Active iSCSI session: 172.30.65.194:3260, target iqn.2024-03.org.clearroots:c2san
+Shares: [C2_Public] -> /mnt/c2_public/Public; [C2_Private] -> /mnt/c2_public/Private/%U
+Hostname-based SMB validated from C2LinuxClient: //c2fs.c2.local/C2_Public and //c2fs.c2.local/C2_Private
+Sync result: successful (Site 1 -> Site 2)
+[FIGURE PLACEHOLDER - Figure 9: C2FS iSCSI-backed storage and mounted volume evidence]
+Description: Shows the active iSCSI session to 172.30.65.194:3260 and the /mnt/c2_public mounted volume on C2FS.
+[FIGURE PLACEHOLDER - Figure 10: C2FS SMB share definitions and synchronization evidence]
+Description: Shows the C2_Public and C2_Private share definitions from testparm output together with the successful sync log result.
+Company 1 File-Service State (C1FS)
+Windows SMB service: active
+Dedicated data volume: F: drive labeled SharedData
+Named SMB shares: present on the F: SharedData volume
+Active iSCSI initiator session: confirmed via Get-IscsiSession and tied to Company 1 SAN
+SAN Isolation Model
+The two SAN bridges are intentionally not ordinary routed service hosts. Company 1 storage uses C1SAN 172.30.65.186/29 with gateway 172.30.65.185. Company 2 storage uses C2SAN 172.30.65.194/29 with gateway 172.30.65.193. Neither bridge is meant to act as a tenant-facing endpoint. Their role is to deliver block transport to the file-service hosts and then disappear behind those hosts operationally.
+[FIGURE PLACEHOLDER - Figure 11: C1SAN isolated storage interface evidence]
+Description: Shows the C1SAN interface configuration confirming the isolated Company 1 storage segment address and gateway.
+[FIGURE PLACEHOLDER - Figure 12: C2SAN isolated storage interface evidence]
+Description: Shows the C2SAN interface configuration confirming the isolated Company 2 storage segment address and gateway.
+Share Presentation Model
+C2FS presents two share types to the Company 2 tenant: the shared C2_Public path and the per-user C2_Private path under /mnt/c2_public/Private/%U. C1FS follows the same layered idea on Windows even though the exact share names were not enumerated in the environment facts. In both cases, users interact with SMB shares while the storage bridge remains hidden underneath the file-service host.
+Table 10. Storage and isolated SAN summary
+The next section keeps the same operational reading but shifts it to the client perspective. Once identity and file services are proven, the important question is how real endpoints consume them.
+3.7 Client Access, Identity Validation, and Dual-Hostname Web Delivery
+Client validation closes the gap between server-side service state and user-visible service delivery. Site 2 had three usable client perspectives: C1UbuntuClient for Company 1 Linux behavior, C1WindowsClient for Company 1 Windows behavior, and C2LinuxClient for Company 2 Linux behavior.
+Those perspectives matter because hostname-based web publication and domain-backed file access are only meaningful when they succeed from endpoints. They also help separate identity issues from web binding or storage issues when the same user reports a general service failure.
+C1UbuntuClient was observed as admin@C1UbuntuClient with C1.LOCAL active, and both web hostnames returned HTTP 200. C2LinuxClient showed C2.LOCAL state, employee1@c2.local and employee2@c2.local through getent passwd, DNS servers 172.30.65.66 and 172.30.65.67, search domains c1.local and c2.local, and successful HTTP 200 access to both web hostnames.
+[FIGURE PLACEHOLDER - Figure 13: C1UbuntuClient Company 1 client - domain context and dual-web evidence]
+Description: Shows C1UbuntuClient shell context (admin@C1UbuntuClient), C1.LOCAL realm visibility, resolver state, and successful HTTP 200 responses to both web hostnames.
+[FIGURE PLACEHOLDER - Figure 14: C2LinuxClient domain identity and dual-web evidence]
+Description: Shows C2.LOCAL realm state, employee1@c2.local and employee2@c2.local via getent passwd, resolver configuration, and HTTP 200 responses to both web hostnames.
+Table 11. Client access and identity summary
+Table 12. Internal web delivery summary
+The internal web results lead naturally into protection and recovery. Once named service delivery is proven, the next operational question is how the site protects and restores those services when the live layer fails.
+3.8 Backup, Recovery, and Offsite Protection
+S2Veeam at 172.30.65.180 is the protection anchor for Site 2. The host was reachable from MSPUbuntuJump on TCP 445, 9392, 5985, 10005, and 10006, and it was also reachable from Jump64 through the local administrator context. That means the backup layer was not treated as a theoretical design component; it was an observed administrative service [8], [11].
+The protection model is intentionally layered. Backup jobs preserve Windows and Ubuntu server workloads, file-share jobs protect the Company 1 and Company 2 file estates directly, and copy jobs push data toward Site 1 over the documented OpenVPN path. Synchronization remains a separate file-continuity mechanism and should not be mistaken for backup.
+Table 13. Backup and offsite-protection summary
+Current operational state is strongest when the repository, job families, and copy targets are read together. Local backups support fast recovery inside Site 2, while the Site 1 copy path matters when the failure boundary is larger than one host or one volume.
+[FIGURE PLACEHOLDER - Figure 15: S2Veeam repository, backup jobs, and offsite-copy evidence]
+Description: Shows Veeam repository configuration, backup job families (Ubuntu_Servers, Windows_Servers, C1_FileShare, C2_FileShare), and copy-job configuration toward Site 1.
+3.9 Requirement-to-Implementation Traceability
+The traceability matrix below maps the site requirements to specific implementation outcomes and evidence sources. Company 1 and Company 2 are shown at the same level of granularity so the handover record does not privilege one tenant over the other.
+Table 14. Requirement-to-implementation traceability matrix
+3.10 Service Dependencies, Failure Domains, and Access Model
+Dependency mapping matters because Site 2 failures do not all begin in the same layer. An access-path problem, a DNS problem, a storage problem, and a backup problem all surface differently and should not be chased with the same first action. The two tables below keep service dependency separate from administrative authority so support staff can choose the correct boundary first.
+Table 15. Service dependency and failure-domain view
+Table 16. Authentication and authorization model
+3.11 Data Protection Flow
+Data protection in Site 2 must be read as three related but different mechanisms. First, isolated SAN paths deliver block storage to the file-service hosts. Second, synchronization keeps selected file content aligned from Site 1 to Site 2. Third, Veeam creates backup and copy chains that support restore activity when continuity alone is not enough.
+Keeping backup separate from synchronization matters operationally. A sync success does not replace a restore point, and a restore point does not replace the live share path that users need during normal service. The table below preserves that separation so a receiving team can choose the right recovery mechanism for the right failure type.
+Table 17. Storage, backup, and recovery data-flow summary
+3.12 Maintenance and Routine Checks
+Routine maintenance should follow the control plane before it follows the tenant planes. The goal is to catch drift while the failure boundary is still small: entry paths first, identity next, storage and share presentation after that, web publication next, and recovery confidence last.
+Table 18. Operational maintenance checks
+3.13 Troubleshooting and Fast Triage Guide
+Fast triage works when the first check is authoritative. Site 2 is documented to reduce the habit of checking every host for every symptom. The table below points each common service symptom to the layer that is most likely to narrow the fault first.
+Table 19. Troubleshooting and fast triage guide
+3.14 Integrated Design Summary
+The integrated reading of Site 2 is straightforward once the control plane, tenant planes, and protection plane are kept distinct. The site works because each layer does one job clearly and exposes only the paths it is supposed to expose.
+Table 20. Integrated design summary
+3.15 Limitations and Outstanding Items
+The final pass confirmed OPNsense management-plane presence through HTTP 403 on port 80 and TCP 53 reachability, but it did not include an authenticated GUI walkthrough. That is an evidence depth limit, not a service failure.
+The final pass also confirmed live administrative access to S2Veeam from Jump64, but refreshed GUI screenshots were not captured for the repository, job families, and copy-job views. Those screenshots should be collected before final submission so the visual evidence matches the observed state.
+C1SAN direct management access remains intentionally blocked from Jump64 and MSPUbuntuJump. The relevant confirmation is the active iSCSI consumer session observed on C1FS, which is the correct support signal for normal file-service operations.
+4. Conclusion
+Site 2 can be handed over as a coherent operating environment because the MSP, Company 1, and Company 2 scopes were all validated at the points that matter most for support. The MSP scope showed controlled entry through Jump64 and MSPUbuntuJump, enforceable segmentation through OPNsense, and active recovery tooling on S2Veeam.
+Company 1 showed a complete Windows-led tenant chain: C1DC1 and C1DC2 returned active directory-service state, C1FS exposed its dedicated F: SharedData volume and active iSCSI consumer session, C1WebServer answered only on the documented hostname, and both Company 1 clients consumed the internal web services successfully. Company 2 showed an equally complete Linux-led chain: C2IdM1 and C2IdM2 carried active AD, DNS, and DHCP roles, C2FS mounted isolated storage and exposed the expected Samba shares, C2LinuxClient consumed identity and share services correctly, and C2WebServer answered only on the documented hostname.
+Those results support the design choices recorded in this report. Entry stays bastion-first, tenant boundaries stay segmented, web publication stays name-based, storage stays isolated behind file-service hosts, and backup stays separate from synchronization. The remaining gaps are explicit and limited to evidence depth, not to service failure. On that basis, the site is ready for formal handover with a clear operational reading for day-to-day administration and first-line triage.
+5. Appendices
+Appendix A: Observed Addressing, Gateways, and Endpoints
+Table A1. Observed addressing, gateways, and endpoints
+Appendix B: Evidence and Reference Traceability
+Table B1. Evidence and reference traceability
+Appendix C: Service Verification Matrix
+Table C1. Service verification and assurance matrix
+Appendix D: Unresolved Items and Known Gaps
+The final revision pass left three explicit gaps in evidence depth. First, the OPNsense management plane was not walked through with an authenticated GUI session. Second, current Veeam GUI screenshots were not refreshed even though live access to S2Veeam was confirmed from Jump64. Third, C1SAN remained intentionally unmanageable from the bastions, so the storage reading continues to rely on the active C1FS consumer session rather than a direct SAN administration session.
+Appendix E: Sanitized SMB Configuration Excerpt (C2FS)
+The following excerpt is included verbatim because it defines the active Company 2 share model observed on C2FS.
+[global]
+workgroup = C2
+realm = C2.LOCAL
+security = ADS
+server role = member server
+kerberos method = secrets and keytab
+winbind use default domain = yes
+winbind refresh tickets = yes
+idmap config * : backend = tdb
+idmap config * : range = 3000-7999
+template shell = /bin/bash
+template homedir = /home/%U
+obey pam restrictions = no
+log file = /var/log/samba/log.%m
+max log size = 1000
+logging = file
+[C2_Public]
+path = /mnt/c2_public/Public
+browseable = yes
+read only = no
+valid users = @c2_file_users
+force group = c2_file_users
+create mask = 0770
+directory mask = 0770
+[C2_Private]
+path = /mnt/c2_public/Private/%U
+browseable = no
+read only = no
+valid users = %U
+force group = c2_file_users
+create mask = 0700
+directory mask = 0700
+6. References
+[1] OPNsense Documentation, "Firewall Rules," https://docs.opnsense.org/manual/firewall.html, accessed Mar. 24, 2026.
+[2] OPNsense Documentation, "Network Address Translation," https://docs.opnsense.org/manual/nat.html, accessed Mar. 24, 2026.
+[3] OPNsense Documentation, "Setup SSL VPN Road Warrior," https://docs.opnsense.org/manual/how-tos/sslvpn_client.html, accessed Mar. 24, 2026.
+[4] SambaWiki, "Setting up Samba as an Active Directory Domain Controller," https://wiki.samba.org/index.php/Setting_up_Samba_as_an_Active_Directory_Domain_Controller, accessed Mar. 24, 2026.
+[5] Ubuntu Server Documentation, "Set up Samba as a file server," https://documentation.ubuntu.com/server/how-to/samba/file-server/, accessed Mar. 24, 2026.
+[6] Ubuntu Server Documentation, "iSCSI initiator (or client)," https://documentation.ubuntu.com/server/how-to/storage/iscsi-initiator-or-client/, accessed Mar. 24, 2026.
+[7] Microsoft Learn, "binding Element for bindings for site [IIS Settings Schema]," https://learn.microsoft.com/en-us/previous-versions/iis/settings-schema/ms691267(v=vs.90), accessed Mar. 24, 2026.
+[8] Veeam Help Center, "Configuring Backup Repositories," https://helpcenter.veeam.com/docs/vbr/userguide/sch_configure_repository.html, accessed Mar. 24, 2026.
+[9] Site 2 gateway configuration record, Mar. 23, 2026.
+[10] Site 2 environment inventory, SAN addressing record, and namespace design record, Mar. 24, 2026.
+[11] Site 2 operating-state review record, Mar. 23-27, 2026.
+[12] nginx Documentation, "Server names," https://nginx.org/en/docs/http/server_names.html, accessed Mar. 27, 2026.
+[13] Microsoft Learn, "About WMI," https://learn.microsoft.com/en-us/windows/win32/wmisdk/about-wmi, accessed Mar. 27, 2026.
+[14] Microsoft Learn, "SMB features in Windows and Windows Server," https://learn.microsoft.com/en-us/windows-server/storage/file-server/smb-feature-descriptions, accessed Mar. 27, 2026.
+Input source
+Observed content
+How it is used in this report
+Gateway and routing record
+OPNsense interface plan, NAT exposure, aliases, static route to 192.168.64.20/32
+Anchors the network, edge-exposure, and inter-site access discussion [9].
+Environment inventory
+Authoritative IP addresses, hostnames, interfaces, storage bridges, and roles
+Defines the host-level facts that must not be altered or approximated [10].
+Operating-state review record
+March 23-27, 2026 service checks from MSPUbuntuJump and Jump64
+Provides the live observation base for service validation [11].
+Vendor documentation
+OPNsense, Samba, Ubuntu Server, IIS, nginx, Veeam, WMI, and SMB references
+Supports architectural rationale without replacing the site-specific evidence [1]-[8], [12]-[14].
+Evidence class
+Definition
+Examples in this report
+Live observation
+Direct result returned during the March 23-27, 2026 inspection window
+Service state on C2IdM1, C2IdM2, C2FS, C1FS, C1DC1, C1DC2, C1WebServer, C1WindowsClient, and S2Veeam [11].
+Client validation
+Result seen from an endpoint consuming the service
+HTTP 200 from named web hosts on C1UbuntuClient, C1WindowsClient, and C2LinuxClient; hostname-based SMB access on C2LinuxClient [11].
+Configuration evidence
+State inferred from active configuration artifacts that were directly reviewed
+DNS records, aliases, zones, SMB share definitions, and routed segment layout [9]-[11].
+Design evidence
+Authoritative site record that describes intended topology or support boundary
+Shared forest interpretation, SAN bridge addressing, and intended offsite-copy path [9]-[11].
+Corroborated inference
+Operational reading supported by more than one evidence class but not presented as a fresh reconfiguration event
+The shared-forest behavior inferred from cross-domain DNS visibility and client resolution results [10]-[11].
+Vantage point
+Address
+Inspection role
+Primary systems or paths covered
+MSPUbuntuJump
+172.30.65.179
+Primary Linux bastion for CLI inspection and path validation
+Jump64, OPNsense reachability, C1DC1, C1DC2, C1FS, C1UbuntuClient, C1WebServer, C2IdM1, C2IdM2, C2FS, and C2LinuxClient.
+Jump64
+172.30.65.178
+Primary Windows-side inspection platform
+C1DC1, C1DC2, C1FS, C1WebServer, C1WindowsClient, and S2Veeam.
+C2IdM1
+172.30.65.66
+Identity-node observation point
+samba-ad-dc, isc-dhcp-server, DNS records, hosted zones, and principal inventory.
+C2IdM2
+172.30.65.67
+Secondary identity-node observation point
+Dual-node consistency for AD, DNS, DHCP, and shared namespace visibility.
+C2FS
+172.30.65.68
+File-service observation point
+smbd state, /dev/sdb mount at /mnt/c2_public, iSCSI session to 172.30.65.194:3260, and share definitions.
+C2LinuxClient
+172.30.65.70
+Client-side identity and service consumer
+Resolver state, employee principal resolution, hostname-based web access, and hostname-based SMB access.
+Scope
+System
+Address
+Role
+Observed operating reading
+MSP
+OPNsense
+172.30.65.177
+Gateway and segmentation control
+Authoritative routed boundary for MSP, C1LAN, C1DMZ, C2LAN, C2DMZ, and SITE1_OVPN.
+MSP
+Jump64
+172.30.65.178
+Windows bastion
+Primary Windows inspection path for Company 1 services and S2Veeam.
+MSP
+MSPUbuntuJump
+172.30.65.179
+Linux bastion
+Primary Linux inspection path into Site 2 service networks.
+MSP
+S2Veeam
+172.30.65.180
+Backup and recovery host
+Observed repository, job families, copy jobs, and active Veeam services.
+Company 1
+C1DC1
+172.30.65.2
+Primary domain controller
+Observed from Jump64 with active directory-service state returned successfully.
+Company 1
+C1DC2
+172.30.65.3
+Secondary domain controller
+Observed from Jump64 with matching controller and directory context.
+Company 1
+C1FS
+172.30.65.4
+Windows file server
+Observed from Jump64 with SMB active, F: SharedData present, and iSCSI session confirmed.
+Company 1
+C1WindowsClient
+172.30.65.11
+Windows client endpoint
+Observed from Jump64 as a Company 1 consumer of directory and web services.
+Company 1
+C1UbuntuClient
+172.30.65.36
+Linux client endpoint
+Observed from MSPUbuntuJump with C1.LOCAL realm and dual-web HTTP 200 results.
+Company 1
+C1WebServer
+172.30.65.162
+IIS internal web server
+Observed with hostname-only HTTPS publication and HTTP 404 on raw IP.
+Company 1
+C1SAN
+172.30.65.186/29
+Isolated Company 1 storage bridge
+Consumed indirectly through the live iSCSI session on C1FS.
+Company 2
+C2IdM1
+172.30.65.66
+Primary Samba AD, DNS, DHCP
+Observed with samba-ad-dc and isc-dhcp-server active.
+Company 2
+C2IdM2
+172.30.65.67
+Secondary Samba AD, DNS, DHCP
+Observed with matching service state and shared-zone visibility.
+Company 2
+C2FS
+172.30.65.68
+Samba file server
+Observed with mounted iSCSI-backed storage and active shares.
+Company 2
+C2LinuxClient
+172.30.65.70
+Linux client endpoint
+Observed with resolver state, employee principals, and hostname-based service access.
+Company 2
+C2WebServer
+172.30.65.170
+nginx HTTPS web server
+Observed with hostname success and raw-IP HTTP 404 behavior.
+Company 2
+C2SAN
+172.30.65.194/29
+Isolated Company 2 storage bridge
+Consumed directly by C2FS over the storage NIC.
+Service scope
+Systems
+Primary function
+Administrative path
+Operational boundary
+MSP control plane
+OPNsense, Jump64, MSPUbuntuJump, S2Veeam
+Entry, segmentation, inspection, and recovery control
+WAN NAT to the two bastions and internal administrative access to S2Veeam
+Defines who can reach the rest of the site and how offsite protection is carried.
+Company 1 identity
+C1DC1, C1DC2
+Directory, DNS, and authentication
+Jump64 WinRM plus MSP path reachability
+Authoritative base for Company 1 naming and logon behavior.
+Company 1 service layer
+C1FS, C1WebServer
+File presentation and internal web publication
+Jump64 for Windows inspection
+Turns storage and IIS configuration into user-visible services.
+Company 1 client layer
+C1WindowsClient, C1UbuntuClient
+Endpoint validation from Windows and Linux perspectives
+Jump64 for Windows, MSPUbuntuJump for Linux
+Confirms that named services are consumable from endpoints, not only observable on servers.
+Company 2 identity
+C2IdM1, C2IdM2
+Samba AD, DNS, DHCP, and shared-forest visibility
+MSPUbuntuJump and direct node inspection
+Control plane for Company 2 logon, name resolution, and lease continuity.
+Company 2 service layer
+C2FS, C2WebServer
+File presentation and internal HTTPS publication
+MSPUbuntuJump and node-side checks
+Turns isolated storage and hostname bindings into user-visible service endpoints.
+Company 2 client layer
+C2LinuxClient
+Endpoint-side identity and service validation
+MSPUbuntuJump and direct client checks
+Confirms that the Company 2 control plane is consumable by an actual tenant client.
+Isolated storage
+C1SAN, C2SAN
+Block transport to file-service hosts
+Indirect through the consuming hosts
+Remains off tenant LAN and DMZ paths.
+System
+Platform
+vCPU
+RAM
+Disk or volume state
+Interface detail
+Operational note
+MSPUbuntuJump
+Ubuntu Linux bastion
+Not queried in final pass
+Not queried in final pass
+No tenant data role
+172.30.65.179 on MSP segment
+Served as the main Linux inspection host.
+C1UbuntuClient
+Ubuntu 25.04
+4
+7.3 GiB
+32 GB root disk plus 3.8 GiB swap
+172.30.65.36/26 on C1LAN
+Used as the Company 1 Linux client validation point.
+C2IdM1
+Ubuntu 22.04.5 LTS
+4
+7.8 GiB
+32 GB system disk, 15 GB root LV
+ens18
+Primary Samba AD, DNS, DHCP node.
+C2IdM2
+Ubuntu 22.04.5 LTS
+4
+7.8 GiB
+32 GB system disk, 15 GB root LV
+ens18
+Secondary Samba AD, DNS, DHCP node.
+C2FS
+Ubuntu 22.04.5 LTS
+4
+7.8 GiB
+16 GB system disk, 160 GB mounted data disk at /mnt/c2_public
+ens19 172.30.65.68/26, ens18 172.30.65.195/29
+Dual-NIC file-service host with isolated storage transport.
+C2LinuxClient
+Ubuntu 25.04
+4
+7.3 GiB
+32 GB disk
+ens18
+Company 2 Linux client validation point.
+C2WebServer
+Ubuntu 22.04.5 LTS
+4
+7.8 GiB
+32 GB system disk, 30 GB root LV
+ens18
+nginx HTTPS host in C2DMZ.
+Segment
+Addressing or interface
+Gateway
+Purpose
+Key members
+WAN
+172.20.64.1/16
+Upstream
+External network for controlled NAT publication
+OPNsense WAN edge.
+MSP segment
+172.30.65.177/29
+OPNsense MSP interface
+Administrative entry and control plane
+OPNsense 172.30.65.177, Jump64 172.30.65.178, MSPUbuntuJump 172.30.65.179, S2Veeam 172.30.65.180.
+C1LAN
+172.30.65.1/26
+OPNsense C1LAN interface
+Company 1 routed tenant LAN
+C1DC1 172.30.65.2, C1DC2 172.30.65.3, C1FS 172.30.65.4, C1WindowsClient 172.30.65.11, C1UbuntuClient 172.30.65.36.
+C1DMZ
+172.30.65.161/29
+OPNsense C1DMZ interface
+Company 1 web segment
+C1WebServer 172.30.65.162.
+C2LAN
+172.30.65.65/26
+OPNsense C2LAN interface
+Company 2 routed tenant LAN
+C2IdM1 172.30.65.66, C2IdM2 172.30.65.67, C2FS service NIC 172.30.65.68, C2LinuxClient 172.30.65.70.
+C2DMZ
+172.30.65.169/29
+OPNsense C2DMZ interface
+Company 2 web segment
+C2WebServer 172.30.65.170.
+SITE1_OVPN
+OpenVPN inter-site interface
+Site 1 OpenVPN gateway
+Inter-site web access and backup-copy path
+Cross-site rules and the static route to Site 1 Veeam.
+C1SAN
+172.30.65.186/29
+172.30.65.185
+Company 1 isolated storage bridge
+Consumed by C1FS through iSCSI; not routed through OPNsense.
+C2SAN
+172.30.65.194/29
+172.30.65.193
+Company 2 isolated storage bridge
+Consumed by C2FS through iSCSI; not routed through OPNsense.
+Policy item
+Exact value
+Observed meaning
+WAN NAT
+33464 -> 172.30.65.178:3389
+Publishes only Jump64 RDP to the edge.
+WAN NAT
+33564 -> 172.30.65.179:22
+Publishes only MSPUbuntuJump SSH to the edge.
+Alias set
+C1_Nets, C2_Nets, C1_REMOTE, C2_REMOTE, ALL_WEBS, ALL_DNS, C1_DCs, C2_DCs
+Abstracts tenant and service boundaries into reusable policy objects.
+Backup aliases
+S2_VEEAM = 172.30.65.180; SITE1_VEEAM = 192.168.64.20
+Pins the backup-copy path to explicit endpoints.
+Backup ports
+VEEAM_COPY_PORTS = 135, 445, 6160, 6162, 2500-3000, 10005, 10006
+Limits the copy path to documented Veeam transport ports.
+LAN policy
+C1LAN allowed to C1_GLOBAL, ALL_WEBS, ALL_DNS; blocked to C2_GLOBAL
+Keeps Company 1 functional without allowing arbitrary Company 2 access.
+LAN policy
+C2LAN allowed to C2_GLOBAL, ALL_WEBS, ALL_DNS; blocked to C1_GLOBAL
+Keeps Company 2 functional without allowing arbitrary Company 1 access.
+Cross-site web rule
+C1_REMOTE -> 172.30.65.170/32 on HTTP/HTTPS
+Allows Site 1 users to consume the Company 2 web host by rule, not by flat reachability.
+Cross-site web rule
+C2_REMOTE -> 172.30.65.162/32 on HTTP/HTTPS
+Allows reciprocal Site 2 to Company 1 web access by rule.
+Static route
+192.168.64.20/32 via Site 1 OpenVPN gateway
+Directs offsite backup traffic to Site 1 Veeam over the VPN path.
+MSP validation result
+OPNsense returned HTTP 403 on port 80, TCP 53 reachable, TCP 443 timed out
+Shows the management plane exists and is restricted, while the final pass did not include authenticated GUI review.
+System
+Address
+Service role
+Observed state
+Operational reading
+C1DC1
+172.30.65.2
+Primary domain controller
+WinRM inspection returned domain, forest, and directory-service state successfully
+Authoritative Company 1 identity source.
+C1DC2
+172.30.65.3
+Secondary domain controller
+WinRM inspection returned matching controller and service state
+Provides Company 1 controller parity and resilience.
+C1FS
+172.30.65.4
+Windows file server
+SMB active, F: SharedData present, named shares visible, active iSCSI session confirmed
+Converts isolated storage into user-visible SMB service.
+C1WebServer
+172.30.65.162
+IIS internal web server
+Workgroup-hosted, HTTPS binding only for c1-webserver.c1.local, raw IP returns HTTP 404
+Publishes the site by name, not by generic address.
+C1WindowsClient
+172.30.65.11
+Windows endpoint
+Domain membership, Company 1 DNS use, and dual-web HTTP 200 responses confirmed from Jump64
+Validates the Company 1 service contract from a Windows endpoint.
+C1UbuntuClient
+172.30.65.36
+Linux endpoint
+C1.LOCAL realm active, dual-web HTTP 200 responses confirmed
+Validates the same contract from a Linux endpoint.
+C1SAN
+172.30.65.186/29 via gateway 172.30.65.185
+Isolated Company 1 storage bridge
+Not managed directly from bastions; storage consumer confirmed on C1FS
+The supportable signal is the live iSCSI consumer on the file-service host.
+Object
+Address or scope
+Observed state
+Operational reading
+C2IdM1
+172.30.65.66
+Ubuntu 22.04.5 LTS, samba-ad-dc active, isc-dhcp-server active, DHCP Primary
+Primary Company 2 identity and lease node.
+C2IdM2
+172.30.65.67
+Ubuntu 22.04.5 LTS, samba-ad-dc active, isc-dhcp-server active, DHCP Secondary
+Secondary Company 2 identity and lease node.
+Hosted zones
+c2.local, c1.local, _msdcs.c2.local
+Visible on both nodes
+Cross-domain name visibility aligns with the documented shared forest.
+A records
+c1-webserver.c1.local and c2-webserver.c2.local
+172.30.64.162 and 172.30.65.162; 172.30.64.170 and 172.30.65.170
+Dual-record publication supports routed and cross-site consumption paths.
+Principal inventory
+Administrator, admin, employee1, employee2, c2_file_users
+Visible on both nodes
+Confirms directory objects required for client and file-share tests.
+Resolver dependency
+C2LinuxClient
+DNS servers 172.30.65.66 and 172.30.65.67; search domains c1.local and c2.local
+Client behavior matched the identity-plane design.
+Layer
+Company 1
+Company 2
+Operational reading
+Isolated storage bridge
+C1SAN 172.30.65.186/29, gateway 172.30.65.185
+C2SAN 172.30.65.194/29, gateway 172.30.65.193
+Both SAN paths stay outside the routed tenant LAN and DMZ segments.
+File-service host
+C1FS 172.30.65.4
+C2FS 172.30.65.68 with service NIC ens19 172.30.65.68/26 and storage NIC ens18 172.30.65.195/29
+Each tenant consumes block storage through a dedicated file-service host.
+Mounted or dedicated volume
+F: SharedData
+/dev/sdb mounted at /mnt/c2_public
+The file-service host, not the SAN bridge, presents usable data paths.
+SMB presentation
+Windows SMB shares on F: SharedData
+C2_Public and C2_Private via Samba
+Share-level administration remains above the storage layer.
+Transport signal
+Active iSCSI initiator session confirmed on C1FS
+Active iSCSI session to 172.30.65.194:3260 target iqn.2024-03.org.clearroots:c2san
+The correct operational signal is the consumer session on the file-service host.
+User-visible access
+Company 1 SMB shares
+//c2fs.c2.local/C2_Public and //c2fs.c2.local/C2_Private
+Users consume names and shares, not storage endpoints.
+Validation item
+C1UbuntuClient
+C1WindowsClient
+C2LinuxClient
+Role
+Company 1 Linux client
+Company 1 Windows client
+Company 2 Linux client
+Identity context
+Realm C1.LOCAL active
+Domain membership confirmed in c1.local
+C2.LOCAL visible
+Inspection method
+Direct shell observation from MSPUbuntuJump
+Jump64 WMI-backed inspection; reason stated in Section 3.4
+Direct shell observation
+Resolver state
+Company 1 naming path working; both hostnames resolved
+Company 1 DNS use confirmed
+DNS servers 172.30.65.66 and 172.30.65.67; search domains c1.local and c2.local
+https://c1-webserver.c1.local
+HTTP 200
+HTTP 200
+HTTP 200
+https://c2-webserver.c2.local
+HTTP 200
+HTTP 200
+HTTP 200
+File-share perspective
+No Company 1 share path enumerated in environment facts
+No Company 1 share path enumerated in environment facts
+//c2fs.c2.local/C2_Public and //c2fs.c2.local/C2_Private validated
+Operational meaning
+Confirms Company 1 service consumption from Linux
+Confirms Company 1 service consumption from Windows
+Confirms Company 2 identity, naming, SMB, and web consumption from Linux
+Endpoint or name
+Publication path
+Observed result
+Operational reading
+https://c1-webserver.c1.local
+Hostname-only IIS publication on C1WebServer
+HTTP/2 200
+Company 1 web delivery is intended to succeed by hostname.
+https://172.30.65.162
+Direct IP to C1WebServer
+HTTP/2 404
+Raw IP access is intentionally not the publication contract.
+https://c2-webserver.c2.local
+Hostname-based nginx publication on C2WebServer
+HTTP/1.1 200 OK
+Company 2 web delivery follows the same named-service model [12].
+https://172.30.65.170
+Direct IP to C2WebServer
+HTTP/1.1 404 Not Found
+Raw IP access is intentionally not the publication contract.
+Item
+Observed state
+Operational reading
+S2Veeam host
+172.30.65.180 reachable from MSPUbuntuJump and Jump64
+Backup administration is part of the MSP control plane.
+Active services
+VeeamBackupSvc, VeeamBrokerSvc, VeeamDeploySvc, VeeamExplorersRecoverySvc, VeeamFilesysVssSvc, VeeamMountSvc, VeeamNFSSvc
+Core backup, broker, deploy, restore, mount, and NFS functions were active.
+Local repository
+Site2Veeam on Z:\Site2AgentBackups
+Primary on-site repository for Site 2 recoveries.
+Offsite SMB target
+\\192.168.64.20\Site2OffsiteFromSite2
+Site 1 receives backup copies over the documented route.
+Job families
+Ubuntu_Servers, Windows_Servers, C1_FileShare, C2_FileShare
+Protection covers both host-level and file-share-level recovery paths.
+Copy jobs
+Present
+Offsite protection is implemented, not merely planned.
+Protected workload count
+10 machines
+The backup scope reaches beyond one tenant or one platform.
+Requirement area
+Implemented systems and facts
+Evidence source
+Validated outcome
+Operational reading
+Company 1 directory services
+C1DC1 and C1DC2; WinRM-observed from Jump64
+Jump64 service-state observation
+Company 1 domain and controller state returned successfully
+Company 1 identity is active from the approved Windows bastion.
+Company 1 file services and isolated storage
+C1FS F: SharedData volume, named shares, active iSCSI session, C1SAN
+Jump64 observation plus SAN design record
+File-service and storage-consumer chain confirmed
+Company 1 file delivery rests on an isolated storage bridge that stays behind C1FS.
+Company 1 web delivery
+C1WebServer, IIS, hostname-only binding on TCP 443, HTTP 404 on raw IP
+Jump64 observation and HTTP validation
+Hostname succeeds while raw IP does not
+Company 1 web publication follows a named-service contract.
+Company 1 client validation
+C1WindowsClient and C1UbuntuClient
+Jump64 endpoint inspection and MSPUbuntuJump shell observation
+Windows and Linux endpoints consumed both internal web hostnames
+Company 1 services are usable from actual endpoints.
+Company 2 identity, DNS, and DHCP
+C2IdM1 and C2IdM2, Samba AD, DHCP failover
+Direct node observation
+AD, DNS, and DHCP active on both nodes
+Company 2 control plane is live and paired.
+Company 2 file services and isolated storage
+C2FS, iSCSI session, C2_Public and C2_Private shares, C2SAN
+Direct node observation and hostname-based share validation
+Mounted storage and share definitions confirmed
+Company 2 file delivery rests on an isolated storage bridge that stays behind C2FS.
+Company 2 web delivery
+C2WebServer, nginx, hostname-only publication, HTTP 404 on raw IP
+HTTP validation and service observation
+Hostname succeeds while raw IP does not
+Company 2 web publication follows the same named-service model.
+Company 2 client validation
+C2LinuxClient, resolver state, SMB access
+Direct client observation
+Employee principals, dual-web success, and hostname-based SMB access confirmed
+Company 2 services are usable from an actual tenant client.
+Service area
+Depends on
+Primary failure sign
+First authoritative check
+Escalation path
+Administrative entry
+WAN NAT, Jump64, MSPUbuntuJump
+No approved management entry
+NAT publication and bastion reachability
+MSP networking and firewall control.
+Company 1 identity
+C1DC1, C1DC2, DNS path
+Logon or Company 1 name failures
+Jump64 WinRM to both controllers
+Company 1 Windows identity administration.
+Company 2 identity
+C2IdM1, C2IdM2, DNS path, DHCP state
+Company 2 name resolution or lease faults
+Service state on both identity nodes
+Company 2 Linux identity administration.
+Company 1 file and storage
+C1FS, C1SAN, iSCSI session, SMB service
+Shares unavailable or F: volume unavailable
+Get-IscsiSession, volume state, SMB service
+Company 1 Windows file-service administration.
+Company 2 file and storage
+C2FS, C2SAN, mount state, smbd
+Shares unavailable or mount missing
+iSCSI session, /mnt/c2_public, smbd state
+Company 2 Linux file-service administration.
+Internal web delivery
+DNS, hostname bindings, web-service state
+Hostname fails or raw IP behavior changes
+DNS records and host bindings
+Tenant web-service administration.
+Backup and copy
+S2Veeam, repository, SITE1_VEEAM route, VEEAM_COPY_PORTS
+Job or copy failures
+Veeam services, repository path, route, and copy-job state
+MSP backup administration.
+Scope
+Authority source
+Administrative access model
+Consumer access model
+Operational meaning
+MSP control plane
+Local administrative control on Jump64, MSPUbuntuJump, S2Veeam, and OPNsense
+Controlled bastion-first administration
+Not tenant-consumable
+Administration begins from the management scope, not the tenant scopes.
+Company 1 identity
+c1.local on C1DC1 and C1DC2
+Jump64 WinRM to domain controllers and related Windows services
+Company 1 endpoints consume directory-backed services
+Identity authority stays inside the Company 1 controller pair.
+Company 2 identity
+c2.local on C2IdM1 and C2IdM2
+Linux-side administrative inspection and service management
+Company 2 client and file-service behavior consume the shared control plane
+Identity and DNS authority stay inside the Company 2 controller pair.
+Company 1 file access
+Windows SMB share permissions on C1FS
+Windows server administration
+Company 1 endpoints consume named SMB shares
+Share presentation stays above the isolated storage layer.
+Company 2 file access
+Samba share rules, valid users, and c2_file_users group
+Linux server administration on C2FS
+C2LinuxClient consumes //c2fs.c2.local/C2_Public and //c2fs.c2.local/C2_Private
+Authentication and authorization meet at the file-service host.
+Internal web access
+DNS and host binding configuration
+Web-host administration on C1WebServer and C2WebServer
+Clients consume https://c1-webserver.c1.local and https://c2-webserver.c2.local
+Web delivery is controlled by name and binding, not by raw address.
+Backup administration
+Local administrator context on S2Veeam
+Jump64 and MSP administrative access
+Not tenant-consumable
+Recovery control remains in the MSP scope.
+Data set or layer
+Live path
+Protection method
+Offsite element
+Recovery use
+Company 1 shared data
+C1SAN -> C1FS F: SharedData -> Company 1 SMB shares
+Veeam C1_FileShare and Windows workload protection
+Copy jobs to Site 1 via S2Veeam
+File restore or host-level recovery depending on the fault boundary.
+Company 2 public data
+C2SAN -> C2FS /mnt/c2_public/Public -> C2_Public
+Successful Site 1 -> Site 2 sync plus Veeam C2_FileShare protection
+Copy jobs to Site 1 via S2Veeam
+Continuity through sync, restore through backup.
+Company 2 private data
+C2SAN -> C2FS /mnt/c2_public/Private/%U -> C2_Private
+Veeam C2_FileShare protection
+Copy jobs to Site 1 via S2Veeam
+Per-user data recovery without rebuilding the whole host.
+Windows and Ubuntu server workloads
+Windows_Servers and Ubuntu_Servers job families
+Veeam workload protection
+Copy jobs present
+Host-level recovery when the service VM itself fails.
+Backup repository
+Z:\Site2AgentBackups
+Local repository handling on S2Veeam
+Offsite SMB target \\192.168.64.20\Site2OffsiteFromSite2
+Keeps local and offsite recovery scopes distinct.
+Routine check
+System or path
+Why it matters
+Confirm Jump64 and MSPUbuntuJump are reachable through the published entry points
+33464 -> 172.30.65.178:3389 and 33564 -> 172.30.65.179:22
+If the bastions fail, the approved management model fails before any tenant service can be repaired.
+Confirm OPNsense service boundary
+172.30.65.177 plus route and alias review
+The gateway defines segmentation, remote access, and backup-copy transport.
+Confirm Company 1 controller health
+C1DC1 and C1DC2
+Directory and DNS faults break downstream Company 1 services quickly.
+Confirm Company 2 controller health
+C2IdM1 and C2IdM2
+AD, DNS, and DHCP faults break Company 2 endpoint behavior quickly.
+Confirm Company 1 file and storage chain
+C1FS F: SharedData, SMB service, iSCSI session
+Share issues should be separated from storage-consumer faults.
+Confirm Company 2 file and storage chain
+C2FS smbd, mount state, iSCSI session, sync result
+Share issues, mount issues, and transport issues must stay distinct.
+Confirm hostname-based web delivery
+C1WebServer and C2WebServer
+A hostname success plus raw-IP 404 confirms the intended publication model remains intact.
+Confirm backup and copy posture
+S2Veeam services, repository, job families, copy jobs
+Protection value depends on both local repository health and offsite-copy continuity.
+Symptom
+First authoritative check
+Likely layer
+Immediate next action
+No approved administrative entry
+WAN NAT and bastion reachability
+MSP edge or bastion layer
+Restore controlled entry before touching tenant services.
+Company 1 logon or name failure
+Jump64 inspection of C1DC1 and C1DC2
+Company 1 identity
+Compare controller state and DNS availability before checking clients.
+Company 2 logon, lease, or DNS failure
+Service state on C2IdM1 and C2IdM2
+Company 2 identity
+Validate AD, DHCP, and hosted-zone state before checking downstream services.
+Company 1 share unavailable
+C1FS SMB state, F: SharedData, iSCSI session
+Company 1 file or storage chain
+Decide whether the fault is share, volume, or transport.
+Company 2 share unavailable
+C2FS smbd, /mnt/c2_public, iSCSI session, sync state
+Company 2 file or storage chain
+Separate mount, Samba, and sync concerns.
+Hostname fails but raw IP works
+DNS and host binding
+Naming or web-publication layer
+Fix named-service publication before widening network exposure.
+Hostname and raw IP both fail
+Service state plus network reachability
+Host or path failure
+Determine whether the web host itself is down or unreachable.
+Backup copy job fails
+S2Veeam services, repository, static route to 192.168.64.20/32, VEEAM_COPY_PORTS
+Protection transport layer
+Separate repository faults from inter-site path faults.
+Design area
+Integrated outcome
+Evidence basis
+Operational meaning
+MSP control plane
+Bastion-first administration with limited edge exposure
+NAT rules, OPNsense evidence, Jump64 and MSPUbuntuJump checks
+The site can be administered without exposing tenant workloads directly.
+Company 1 service chain
+Directory, file, web, client, and isolated storage layers behave coherently
+Jump64 and MSPUbuntuJump observations
+Company 1 is a complete tenant stack, not a partial dependency.
+Company 2 control plane
+Paired identity, DNS, DHCP, shared-forest visibility, and client behavior align
+Direct node and client observations
+Company 2 has a stable control plane that explains downstream service success.
+Storage isolation
+Both tenants hide block transport behind file-service hosts
+iSCSI and volume observations plus design records
+Support teams can troubleshoot shares without treating SAN endpoints as user services.
+Web publication
+Both tenants publish by hostname and reject raw-IP browsing
+HTTP validation plus host-side observations
+Web access depends on naming and bindings, not on accidental address exposure.
+Protection and offsite copy
+Local repository and Site 1 copy path are both present
+S2Veeam administrative observations and route or rule evidence
+Recovery remains available when continuity alone is insufficient.
+Object
+Address or port
+Gateway or interface
+Notes
+WAN
+172.20.64.1/16
+Upstream WAN
+External network used for NAT publication.
+OPNsense MSP interface
+172.30.65.177/29
+MSP segment
+Gateway and segmentation control.
+Jump64
+172.30.65.178
+MSP segment
+Published through 33464 -> 172.30.65.178:3389.
+MSPUbuntuJump
+172.30.65.179
+MSP segment
+Published through 33564 -> 172.30.65.179:22.
+S2Veeam
+172.30.65.180
+MSP segment
+Backup and recovery host.
+C1LAN
+172.30.65.1/26
+OPNsense C1LAN
+Company 1 routed LAN.
+C1DC1
+172.30.65.2
+C1LAN
+Primary Company 1 controller.
+C1DC2
+172.30.65.3
+C1LAN
+Secondary Company 1 controller.
+C1FS
+172.30.65.4
+C1LAN
+Company 1 file server.
+C1WindowsClient
+172.30.65.11
+C1LAN
+Company 1 Windows client.
+C1UbuntuClient
+172.30.65.36
+C1LAN
+Company 1 Linux client.
+C1DMZ
+172.30.65.161/29
+OPNsense C1DMZ
+Company 1 web segment.
+C1WebServer
+172.30.65.162
+C1DMZ
+Company 1 IIS host.
+C1SAN
+172.30.65.186/29
+Gateway 172.30.65.185
+Company 1 isolated storage bridge.
+C2LAN
+172.30.65.65/26
+OPNsense C2LAN
+Company 2 routed LAN.
+C2IdM1
+172.30.65.66
+ens18
+Company 2 primary identity node.
+C2IdM2
+172.30.65.67
+ens18
+Company 2 secondary identity node.
+C2FS service NIC
+172.30.65.68/26
+ens19
+Company 2 file-service interface.
+C2LinuxClient
+172.30.65.70
+ens18
+Company 2 Linux client.
+C2DMZ
+172.30.65.169/29
+OPNsense C2DMZ
+Company 2 web segment.
+C2WebServer
+172.30.65.170
+ens18
+Company 2 nginx host.
+C2SAN
+172.30.65.194/29
+Gateway 172.30.65.193
+Company 2 isolated storage bridge.
+C2FS storage NIC
+172.30.65.195/29
+ens18
+Private storage-facing NIC for C2FS.
+SITE1_VEEAM
+192.168.64.20/32
+Via Site 1 OpenVPN gateway
+Static route target for offsite backup copy.
+Report area
+Primary evidence
+Reference set
+Confidence reading
+Network and edge exposure
+OPNsense interface, NAT, alias, and path evidence
+[1]-[3], [9]-[11]
+High
+Company 1 identity and Windows service stack
+Jump64 WinRM and WMI-backed inspection plus MSP reachability checks
+[7], [10]-[11], [13]-[14]
+High
+Company 2 identity stack
+Direct node-side service observations and DNS output
+[4]-[6], [10]-[11]
+High
+Storage and file services
+C1FS and C2FS service-state evidence, share definitions, iSCSI session evidence
+[5]-[6], [10]-[11], [14]
+High
+Client validation
+C1UbuntuClient, C1WindowsClient, and C2LinuxClient endpoint checks
+[10]-[11], [13]
+High
+Web delivery
+Hostname and raw-IP HTTP validation plus host-side observations
+[7], [12], [10]-[11]
+High
+Backup and copy
+S2Veeam reachability, service inventory, repository, job, and copy-path evidence
+[8]-[11]
+High
+Shared forest interpretation
+DNS visibility, client behavior, and design record
+[4], [10]-[11]
+Medium-High
+Service area
+Validation method
+Observed result
+Assurance level
+Administrative entry
+WAN NAT and bastion reachability checks
+Both published jump-host paths were present and usable
+High
+OPNsense management plane
+HTTP and TCP reachability from MSPUbuntuJump
+HTTP 403 on port 80, TCP 53 reachable, TCP 443 timed out
+Medium-High
+Company 1 directory services
+Jump64 WinRM to C1DC1 and C1DC2
+Domain, forest, controller, and directory-service state returned successfully
+High
+Company 1 file service
+Jump64 observation of C1FS
+SMB active, F: SharedData present, shares visible, iSCSI session active
+High
+Company 1 web service
+Jump64 observation and HTTP checks
+Hostname binding on TCP 443; raw IP returned HTTP 404
+High
+Company 1 client consumption
+WMI-backed Windows check and direct Linux shell check
+Windows and Linux endpoints both reached the two internal web hostnames
+High
+Company 2 identity services
+Direct node checks on C2IdM1 and C2IdM2
+AD, DNS, and DHCP active; zones and principals visible
+High
+Company 2 file service
+Direct C2FS checks and client share validation
+Mounted iSCSI-backed storage, active shares, successful client SMB access
+High
+Company 2 web service
+HTTP validation and host observation
+Hostname returned 200 OK; raw IP returned 404 Not Found
+High
+Backup and offsite copy
+S2Veeam administrative observation and route or port review
+Repository, job families, copy jobs, and protected workload count aligned with design
+High

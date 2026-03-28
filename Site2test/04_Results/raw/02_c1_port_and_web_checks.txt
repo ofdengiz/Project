@@ -1,0 +1,55 @@
+## 172.30.65.2
+PORT 53 PASS
+PORT 88 PASS
+PORT 135 PASS
+PORT 389 PASS
+PORT 445 PASS
+PORT 3389 PASS
+PORT 5985 PASS
+## 172.30.65.3
+PORT 53 PASS
+PORT 88 PASS
+PORT 135 PASS
+PORT 389 PASS
+PORT 445 PASS
+PORT 3389 PASS
+PORT 5985 PASS
+## 172.30.65.4
+PORT 53 FAIL
+PORT 88 FAIL
+PORT 135 PASS
+PORT 389 FAIL
+PORT 445 PASS
+PORT 3389 PASS
+PORT 5985 PASS
+## 172.30.65.180
+PORT 53 FAIL
+PORT 88 FAIL
+PORT 135 FAIL
+PORT 389 FAIL
+PORT 445 FAIL
+PORT 3389 FAIL
+PORT 5985 FAIL
+## C1 Web
+
+
+plink.exe :   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+At line:2 char:8
++ $out = & 'C:\Program Files\PuTTY\plink.exe' -batch -hostkey 'ssh-ed25 ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  % Total    % ...  Time  Current:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0
+curl: (28) Connection timed out after 8001 milliseconds
+

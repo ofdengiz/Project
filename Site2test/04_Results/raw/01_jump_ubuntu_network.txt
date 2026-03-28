@@ -1,0 +1,26 @@
+mspubuntujump
+--- ip -br a ---
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+ens18            UP             172.30.65.179/29 fe80::be24:11ff:fed9:dd91/64 
+--- ip route ---
+default via 172.30.65.177 dev ens18 proto static 
+172.30.65.176/29 dev ens18 proto kernel scope link src 172.30.65.179 
+--- gateway ping ---
+PING 172.30.65.177 (172.30.65.177) 56(84) bytes of data.
+64 bytes from 172.30.65.177: icmp_seq=1 ttl=64 time=0.243 ms
+
+--- 172.30.65.177 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.243/0.243/0.243/0.000 ms
+--- key host ping ---
+172.30.65.178: PASS
+172.30.65.180: FAIL
+172.30.65.2: PASS
+172.30.65.3: PASS
+172.30.65.4: PASS
+172.30.65.66: PASS
+172.30.65.67: PASS
+172.30.65.68: PASS
+172.30.65.70: PASS
+172.30.65.162: FAIL
+172.30.65.170: FAIL

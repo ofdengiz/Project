@@ -1,0 +1,260 @@
+Site 2 Service Block Test Toolkit Summary (Final)
+Generated: 2026-03-17 21:25:15
+Toolkit Version: 1.1
+Scope: Site 2 validation using Site 1 service-test structure as the reference. Veeam checks intentionally excluded.
+
+Test vantage points used
+- Local operator workstation
+- Windows jump over Tailscale: 100.97.37.83
+- Ubuntu jump over Tailscale: 100.82.97.92
+- Direct SSH to internal Linux hosts through the Ubuntu jump
+
+Reference folders
+- Site 1 reference toolkit: C:\Algonquin\Winter2026\Emerging_Tech\Project\site1test_service
+- Site 2 toolkit/results: C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service
+
+================================================================
+SERVICE BLOCK 1 / REMOTE ACCESS, DHCP, ACCOUNT ADMINISTRATION
+================================================================
+
+[PASS] Tailscale access to both jump boxes
+- 100.97.37.83:3389 reachable from the operator workstation
+- 100.82.97.92:22 reachable from the operator workstation
+- Evidence:
+  - raw\ubuntu_jump_identity.txt
+  - 20260317_201953_Summary.txt
+
+[PASS] Teacher-edge public access to both jump boxes
+- 10.50.17.31:33464 reachable for Windows jump
+- 10.50.17.31:33564 reachable for Ubuntu jump
+- Evidence:
+  - 20260317_201953_Summary.txt
+
+[PASS] C1 infrastructure is reachable from the Ubuntu jump for administration
+- 172.30.65.2 (C1DC1): ping OK, TCP 3389 OK, TCP 445 OK
+- 172.30.65.3 (C1DC2): ping OK, TCP 3389 OK, TCP 445 OK
+- 172.30.65.4 (C1FS): ping OK, TCP 3389 OK, TCP 445 OK
+- Evidence:
+  - raw\ubuntu_jump_crosscheck.json
+  - raw\ubuntu_jump_service_blocks.txt
+
+[PASS] C2 Linux infrastructure is reachable from the Ubuntu jump
+- 172.30.65.66 (C2IdM1): ping OK, TCP 22 OK, TCP 445 OK
+- 172.30.65.67 (C2IdM2): ping OK, TCP 22 OK, TCP 445 OK
+- 172.30.65.68 (C2FS): ping OK, TCP 22 OK, TCP 445 OK
+- 172.30.65.70 (C2LinuxClient): ping OK, TCP 22 OK
+- Evidence:
+  - raw\ubuntu_jump_crosscheck.json
+
+[PASS] Company 2 DHCP services are active on both identity nodes
+- C2IdM1: `isc-dhcp-server` active
+- C2IdM2: `isc-dhcp-server` active
+- Failover peer configuration present on both systems
+- Company 2 subnet definition for `172.30.65.64/26` present
+- Evidence:
+  - raw\c2idm1_services.txt
+  - raw\c2idm2_services.txt
+
+[PASS] Company 2 account administration objects are present
+- Users present on C2IdM1 include:
+  - Administrator
+  - admin
+  - employee1
+  - employee2
+- Groups present on C2IdM1 include:
+  - Domain Admins
+  - Domain Users
+  - Remote Desktop Users
+  - c2_file_users
+- Evidence:
+  - raw\c2idm1_services.txt
+
+[PASS] Company 2 AD replication is healthy
+- C2IdM1 `samba-tool drs showrepl` shows successful last attempts and 0 consecutive failures
+- C2IdM2 `samba-tool drs showrepl` shows successful last attempts and 0 consecutive failures
+- Evidence:
+  - raw\c2idm1_direct_ssh.json
+  - raw\c2idm2_direct_ssh.json
+  - raw\c2idm1_services.txt
+  - raw\c2idm2_services.txt
+
+[FAIL] Windows jump could not be used as a reliable internal Windows management vantage point
+- From Windows jump, RPC/WMI to C1DC1, C1DC2, C1FS, and C1Web returned `The RPC server is unavailable`
+- From Windows jump, even simple endpoint probes to internal Windows hosts returned `tcp:false, ping:false`
+- This means Windows-jump-based DCOM/WMI evidence was not usable for internal Windows service validation
+- Evidence:
+  - raw\windows_jump_wmi_c1dc1.json
+  - raw\windows_jump_wmi_c1dc2.json
+  - raw\windows_jump_wmi_c1fs.json
+  - raw\windows_jump_wmi_c1web.json
+  - raw\windows_jump_endpoints_c1_decoded.txt
+
+================================================================
+SERVICE BLOCK 2 / DNS AND WEB SERVICES
+================================================================
+
+[PASS] Company 2 DNS is resolving internal and external names on both identity nodes
+- C2IdM1 resolved `c2idm2.c2.local` to `172.30.65.67`
+- C2IdM2 resolved `c2idm1.c2.local` to `172.30.65.66`
+- Both nodes resolved external names for `google.com`
+- Evidence:
+  - raw\c2idm1_services.txt
+  - raw\c2idm2_services.txt
+
+[PASS] Company 2 Linux client is pointed at the expected DNS servers
+- `resolvectl status` shows:
+  - DNS server 172.30.65.66
+  - DNS server 172.30.65.67
+  - DNS domain c2.local
+- Evidence:
+  - raw\c2linuxclient_identity.txt
+
+[FAIL] Public HTTP to the Company 1 web server is still down
+- `10.50.17.31:33465` timed out from the operator workstation
+- Evidence:
+  - 20260317_201953_Summary.txt
+
+[FAIL] Internal HTTP for both DMZ web servers is down from approved jump workflows
+- Ubuntu jump to 172.30.65.162:
+  - ping FAIL
+  - TCP 80 FAIL
+  - TCP 3389 FAIL
+  - TCP 445 FAIL
+- Ubuntu jump to 172.30.65.170:
+  - ping FAIL
+  - TCP 80 FAIL
+  - TCP 3389 FAIL
+  - TCP 445 FAIL
+- Windows jump HTTP web probes to both URLs timed out
+- Evidence:
+  - raw\ubuntu_jump_service_blocks.txt
+  - raw\ubuntu_jump_crosscheck.json
+  - raw\windows_jump_web_c1web_decoded.txt
+  - raw\windows_jump_web_c2web_decoded.txt
+
+[FAIL] Company 2 Linux client is joined to the domain, but domain user lookup is not working
+- `realm list` shows `c2.local` membership
+- `id administrator@c2.local` fails
+- `id employee1@c2.local` fails
+- `getent passwd` for those identities returns nothing
+- This points to an SSSD/NSS identity-resolution problem on the client
+- Evidence:
+  - raw\c2linuxclient_direct_ssh.json
+  - raw\c2linuxclient_identity.txt
+
+================================================================
+SERVICE BLOCK 3 / vROUTER, SEGMENTATION, SITE CONNECTIVITY
+================================================================
+
+[PASS] Ubuntu jump now has healthy purple and blue network paths
+- Purple/MSP path:
+  - 172.30.65.177 reachable
+  - 172.30.65.66 reachable
+  - 172.30.65.67 reachable
+  - 172.30.65.68 reachable
+- Blue path:
+  - 172.20.20.1 reachable
+  - 172.20.64.1 reachable
+  - 172.20.65.1 reachable
+- Evidence:
+  - raw\ubuntu_jump_purple.txt
+  - raw\ubuntu_jump_blue.txt
+  - 20260317_201953_Summary.txt
+
+[PASS] OPNsense management on HTTP is reachable from the Ubuntu jump
+- 172.30.65.177 TCP 80 reachable
+- 172.30.65.177 TCP 443 blocked
+- This matches an HTTP management surface rather than HTTPS on the MSP path
+- Evidence:
+  - raw\ubuntu_jump_service_blocks.txt
+
+[PASS] C2 Linux client can reach Company 2 DNS while management HTTPS remains blocked
+- `C2DNS53=REACHABLE`
+- `MSP443=BLOCKED`
+- Evidence:
+  - raw\c2linuxclient_identity.txt
+
+[FAIL] Company 2 tenant isolation is incomplete for DNS
+- From C2LinuxClient, `C1DNS53=REACHABLE`
+- If the intended policy is Company 2 should not reach Company 1 infrastructure services directly, this is a segmentation gap
+- Evidence:
+  - raw\c2linuxclient_identity.txt
+
+[FAIL] Site 1 sync path for C2FS is currently broken
+- C2FS sync log shows:
+  - `ssh: connect to host 172.30.64.146 port 22: No route to host`
+- The scheduled job still exists, but the inter-site SSH path for that sync is failing
+- Evidence:
+  - raw\c2fs_direct_ssh.json
+  - raw\c2fs_storage.txt
+
+================================================================
+SERVICE BLOCK 4 / FILE SERVICES AND STORAGE
+================================================================
+
+[PASS] Company 1 file server administration ports are reachable from the Ubuntu jump
+- C1FS 172.30.65.4:
+  - ping OK
+  - TCP 3389 OK
+  - TCP 445 OK
+- Evidence:
+  - raw\ubuntu_jump_crosscheck.json
+  - raw\ubuntu_jump_service_blocks.txt
+
+[PASS] Company 2 file server core services and storage mount are healthy
+- `smbd` active on C2FS
+- `/mnt/c2_public` mounted from `/dev/sdb`
+- `Public` and `Private` directories present under `/mnt/c2_public`
+- Evidence:
+  - raw\c2fs_direct_ssh.json
+  - raw\c2fs_storage.txt
+
+[PASS] Company 2 sync automation is present
+- Root crontab contains:
+  - `0 2 * * * /usr/local/bin/c2_site1_sync.sh >> /var/log/c2_site1_sync.log 2>&1`
+- Sync script exists:
+  - `/usr/local/bin/c2_site1_sync.sh`
+- Evidence:
+  - raw\c2fs_direct_ssh.json
+  - raw\c2fs_storage.txt
+
+[FAIL] Company 2 file sync is not currently succeeding against Site 1
+- Most recent successful run: 2026-03-15
+- 2026-03-16 and 2026-03-17 runs failed with:
+  - `No route to host`
+  - tar stream failure afterwards
+- Evidence:
+  - raw\c2fs_direct_ssh.json
+  - raw\c2fs_storage.txt
+
+================================================================
+OVERALL STATUS
+================================================================
+
+Working well
+- Both jump boxes are reachable over Tailscale and public edge paths
+- Ubuntu jump is a healthy bastion on both purple and blue networks
+- C1DC1, C1DC2, and C1FS are reachable for administration from the Ubuntu jump
+- C2IdM1 and C2IdM2 have healthy Samba AD, active DHCP, and healthy replication
+- C2FS has working local storage, SMB service, and a persistent cron job
+
+Broken or incomplete
+- Public C1 web publishing is down
+- Internal C1Web and C2Web are not responding from the approved jump workflows
+- Windows jump is not a reliable internal management vantage point for RPC/WMI
+- C2LinuxClient domain identity lookups are failing despite realm membership
+- C2LinuxClient can still reach Company 1 DNS on TCP 53, which suggests incomplete isolation
+- C2FS -> Site 1 sync path over SSH is failing with `No route to host`
+
+Recommended next fixes
+1. Recover both DMZ web servers first:
+   - 172.30.65.162
+   - 172.30.65.170
+2. Restore the Site 1 SSH route from C2FS to 172.30.64.146:22
+3. Fix C2LinuxClient SSSD/NSS identity resolution
+4. Review why Company 2 client can still reach Company 1 DNS over TCP 53
+5. Decide whether Windows jump should be allowed/expected to manage internal Windows hosts, then fix RPC/WinRM accordingly if required for the demo
+
+Raw evidence folder
+- C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test_service\04_Results\raw
+

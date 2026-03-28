@@ -1,0 +1,9 @@
+{
+  "name": "c2fs",
+  "host": "172.30.65.68",
+  "user": "odengiz",
+  "ok": true,
+  "exit_code": 0,
+  "stdout": "c2fs\nactive\nTARGET         SOURCE   FSTYPE OPTIONS\n/mnt/c2_public /dev/sdb ext4   rw,relatime,stripe=8191\n/usr/local/bin/c2_site1_sync.sh\n[2026-03-15 02:03:22] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-15 02:03:22] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-15 02:03:31] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-15 02:03:31] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-15 02:03:34] Sync completed successfully\r\n[2026-03-15 02:03:34] Sync completed successfully\r\n[2026-03-16 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-16 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-16 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\n[2026-03-16 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\nssh: connect to host 172.30.64.146 port 22: No route to host\r\ntar: This does not look like a tar archive\ntar: Exiting with failure status due to previous errors\n[2026-03-17 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-17 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-17 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\n[2026-03-17 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\nssh: connect to host 172.30.64.146 port 22: No route to host\r\ntar: This does not look like a tar archive\ntar: Exiting with failure status due to previous errors\n",
+  "stderr": "no crontab for odengiz\n"
+}

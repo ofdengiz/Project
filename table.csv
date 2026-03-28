@@ -1,0 +1,26 @@
+Purpose,Device Name,Interface / Role,VLAN ID,IP Address / Mask,Gateway,DNS,Local Interface,Remote Device (Destination),Remote Interface (Port),Connection Purpose,Color Code,Notes
+Public Uplink,Virtual Router,Outside,20,172.20.64.1 /16,DHCP,10.254.21.21,G0/0,Prof's Edge GW,N/A,NAT Outside/Internet,Blue (WAN),"Shared Blue, port forwards (e.g., 33664 SSH). NAT overload et_access ACL."
+MSP Management,Virtual Router,Subint,564,172.30.64.129 /26,N/A,10.254.21.21,G0/1.564,N/A,N/A,MSP Gateway,Purple (MSP),"Subnet: 172.30.64.128/26 (62 usable, 30 spare growth). NAT inside."
+MSP Management,Jump64,NIC,564,172.30.64.130 /26,172.30.64.129,10.254.21.21,N/A,Virtual Router,G0/1.564,Bastion,Purple (MSP),Mgmt tools. Spare: .131-.190.
+MSP Management,MSP DC (LDAP),NIC,564,172.30.64.131 /26,172.30.64.129,Self,N/A,Virtual Router,G0/1.564,AD/LDAP,Purple (MSP),"OpenLDAP, replicated."
+MSP Management,MSP Mgmt Srv,NIC,564,172.30.64.132 /26,172.30.64.129,MSP DC,N/A,Virtual Router,G0/1.564,Monitoring/Tools,Purple (MSP),Veeam/patching.
+Company 2 LAN,Virtual Router,Subint,164,172.30.64.1 /25,N/A,10.254.21.21,G0/1.164,N/A,N/A,C2 LAN Gateway,Yellow (LAN),"Subnet: 172.30.64.0/25 (126 usable, 60 spare scale-out). NAT inside."
+Company 2 LAN,C2 File Server,NIC,164,172.30.64.2 /25,172.30.64.1,MSP DC,N/A,Virtual Router,G0/1.164,Replicated File,Yellow (LAN),"NFS/SMB, backups."
+Company 2 LAN,C2 Linux Client,NIC,164,172.30.64.10 /25,172.30.64.1,MSP DC,N/A,Virtual Router,G0/1.164,Desktop (SSH),Yellow (LAN),SSH forward. Spare: .11-.126.
+Company 2 LAN,C2 DHCP,NIC,164,172.30.64.11 /25,172.30.64.1,MSP DC,N/A,Virtual Router,G0/1.164,Fault Tolerant DHCP,Yellow (LAN),Local resolution.
+Company 2 DMZ,Virtual Router,Subint,265,172.30.64.193 /27,N/A,10.254.21.21,G0/1.265,N/A,N/A,C2 DMZ Gateway,Magenta (DMZ),"Subnet: 172.30.64.192/27 (30 usable, 15 spare). Strict ACL."
+Company 2 DMZ,C2 Web Server,NIC,265,172.30.64.194 /27,172.30.64.193,MSP DC,N/A,Virtual Router,G0/1.265,Web (DMZ),Magenta (DMZ),DNS recursive. NAT 80/443. Spare: .195-.222.
+Company 2 DMZ,C2 DNS Local,NIC,265,172.30.64.195 /27,172.30.64.193,Self,N/A,Virtual Router,G0/1.265,Local DNS,Magenta (DMZ),Separate.
+Company 2 iSCSI,Virtual Router,Subint,164,172.30.64.225 /27,N/A,10.254.21.21,G0/1.164,N/A,N/A,iSCSI Gateway,Red (LAN),"Subnet: 172.30.64.224/27 (30 usable, 15 spare). Isolated, attached C2 LAN."
+Company 2 iSCSI,C2 iSCSI Target,NIC,164,172.30.64.226 /27,172.30.64.225,MSP DC,N/A,Virtual Router,G0/1.164,iSCSI Target,Red (LAN),NFS/SMB backups. Spare: .227-.254.
+Company 2 iSCSI,C2 iSCSI Initiator,NIC,164,172.30.64.227 /27,172.30.64.225,MSP DC,N/A,Virtual Router,G0/1.164,iSCSI Initiator,Red (LAN),Connected target.
+OOB Management,Virtual Router,Subint,464,172.30.65.81 /28,N/A,10.254.21.21,G0/1.464,N/A,N/A,OOB Gateway,Black (OOB),Subnet: 172.30.65.80/28 (14 usable). Isolated emergency/IPMI.
+OOB Management,Proxmox IPMI,IPMI,464,172.30.65.82 /28,172.30.65.81,10.254.21.21,N/A,Virtual Router,G0/1.464,IPMI Access,Black (OOB),Cluster mgmt. Spare: .83-.94.
+Company 1 Hybrid DMZ,Virtual Router,Subint,465,172.30.65.65 /28,N/A,10.254.21.21,G0/1.465,N/A,N/A,C1 DMZ Gateway (VPN),White (DMZ),Subnet: 172.30.65.64/28 (14 usable). Minimal VPN hybrid.
+Company 1 Hybrid DMZ,C1 Web Server,NIC,465,172.30.65.66 /28,172.30.65.65,MSP DC,N/A,Virtual Router,G0/1.465,Web (DMZ Hybrid),White (DMZ),DNS. Spare: .67-.78.
+Company 1 Hybrid LAN,Virtual Router,Subint,264,172.30.65.1 /26,N/A,10.254.21.21,G0/1.264,N/A,N/A,C1 LAN Gateway (VPN),Green (SAN),"Subnet: 172.30.65.0/26 (62 usable, 30 spare). VPN hybrid."
+Company 1 Hybrid LAN,C1 File Server,NIC,264,172.30.65.2 /26,172.30.65.1,MSP DC,N/A,Virtual Router,G0/1.264,Replicated File,Green (SAN),Users mapped. Spare: .3-.62.
+Company 1 Hybrid LAN,C1 Windows Client,NIC,264,172.30.65.3 /26,172.30.65.1,MSP DC,N/A,Virtual Router,G0/1.264,Windows (RDP),Green (SAN),RDP forward.
+Company 1 Hybrid LAN,C1 Linux Client,NIC,264,172.30.65.4 /26,172.30.65.1,MSP DC,N/A,Virtual Router,G0/1.264,Linux Client,Green (SAN),Hybrid.
+VPN Tunnel,Virtual Router,Tunnel,N/A,172.30.65.97 /30,N/A,N/A,Tunnel0,Site 1 Router,Tunnel0,Site-to-Site VPN,N/A,Subnet: 172.30.65.96/30 (2 usable). IPsec on gateway.
+Spare for Growth,N/A,N/A,N/A,172.30.65.100 - 172.30.65.255,N/A,N/A,N/A,N/A,N/A,Future Expansion,N/A,"Approx 156 usable, new VMs/subnets için."

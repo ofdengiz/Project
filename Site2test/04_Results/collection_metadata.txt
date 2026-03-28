@@ -1,0 +1,3 @@
+SessionStart=2026-03-15T15:28:47
+ResultsRoot=C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test\04_Results
+RawRoot=C:\Algonquin\Winter2026\Emerging_Tech\Project\Site2test\04_Results\raw

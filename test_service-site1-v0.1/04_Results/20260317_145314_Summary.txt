@@ -1,0 +1,14 @@
+Site 1 Service Block Test Toolkit Summary
+Generated: 2026-03-17 14:53:14
+Toolkit Version: 1.0
+
+[PASS] Synthetic command export check
+Device:  Local validation
+Section: SelfTest
+Method:  Synthetic
+Commands:
+  echo test-service
+  echo command-export
+Check:   Verify command rendering and export include the command list.
+Synthetic evidence only.
+

@@ -1,0 +1,145 @@
+Site 2 Service Block Test Toolkit Summary
+Generated: 2026-03-23 19:40:04
+Toolkit Version: 1.0
+
+[PASS] RDP to Windows jump over Tailscale
+Device:  WindowsJump64
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 100.97.37.83:3389
+Check:   Verify 100.97.37.83:3389 is reachable from the operator workstation.
+TCP reachable to 100.97.37.83:3389. RTT(ms)=47.2.
+
+[PASS] SSH to Ubuntu jump over Tailscale
+Device:  MSPUbuntuJump
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 100.82.97.92:22
+Check:   Verify 100.82.97.92:22 is reachable from the operator workstation.
+TCP reachable to 100.82.97.92:22. RTT(ms)=106.7.
+
+[PASS] Public RDP to Windows jump
+Device:  Teacher Edge -> WindowsJump64
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 10.50.17.31:33464
+Check:   Verify 10.50.17.31:33464 is reachable from the operator workstation.
+TCP reachable to 10.50.17.31:33464. RTT(ms)=45.7.
+
+[PASS] Public SSH to Ubuntu jump
+Device:  Teacher Edge -> MSPUbuntuJump
+Section: Service Block 1 / Remote Access
+Method:  Local TCP
+Commands:
+  Test TCP 10.50.17.31:33564
+Check:   Verify 10.50.17.31:33564 is reachable from the operator workstation.
+TCP reachable to 10.50.17.31:33564. RTT(ms)=46.2.
+
+[FAIL] Public HTTP to C1 Web
+Device:  Teacher Edge -> C1Web
+Section: Service Block 2 / HTTP
+Method:  Local TCP
+Commands:
+  Test TCP 10.50.17.31:33465
+Check:   Verify 10.50.17.31:33465 is reachable from the operator workstation.
+TCP failed to 10.50.17.31:33465. RTT(ms)=5006.0. Error: timed out
+
+[PASS] SSH to MSP Ubuntu Jump
+Device:  MSPUbuntuJump
+Section: Service Block 1 / Remote Access
+Method:  Paramiko over Tailscale
+Commands:
+  ssh mspadmin@100.82.97.92
+Check:   Confirm direct SSH access to the MSP Ubuntu jump box.
+mspubuntujump
+mspadmin
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    altname enp0s18
+    inet 172.30.65.179/29 brd 172.30.65.183 scope global ens18
+       valid_lft forever preferred_lft forever
+3: tailscale0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1280 qdisc fq_codel state UNKNOWN group default qlen 500
+    inet 100.82.97.92/32 scope global tailscale0
+       valid_lft forever preferred_lft forever
+default via 172.30.65.177 dev ens18 proto static 
+172.30.65.176/29 dev ens18 proto kernel scope link src 172.30.65.179
+
+[PASS] MSP Ubuntu jump purple path health
+Device:  MSPUbuntuJump
+Section: Service Block 3 / vRouter policy
+Method:  SSH command
+Commands:
+  ping -c 2 172.30.65.177 || true; ip neigh show 172.30.65.177 || true; ping -c 2 172.30.65.66 || true; ping -c 2 172.30.65.67 || true; ping -c 2 172.30.65.68 || true
+Check:   Confirm the Ubuntu jump can resolve and reach the MSP/purple gateway and routed Site 2 hosts.
+PING 172.30.65.177 (172.30.65.177) 56(84) bytes of data.
+64 bytes from 172.30.65.177: icmp_seq=1 ttl=64 time=0.172 ms
+64 bytes from 172.30.65.177: icmp_seq=2 ttl=64 time=0.189 ms
+
+--- 172.30.65.177 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1028ms
+rtt min/avg/max/mdev = 0.172/0.180/0.189/0.008 ms
+172.30.65.177 dev ens18 lladdr bc:24:11:90:a5:0a REACHABLE
+PING 172.30.65.66 (172.30.65.66) 56(84) bytes of data.
+64 bytes from 172.30.65.66: icmp_seq=1 ttl=63 time=0.425 ms
+64 bytes from 172.30.65.66: icmp_seq=2 ttl=63 time=0.414 ms
+
+--- 172.30.65.66 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1019ms
+rtt min/avg/max/mdev = 0.414/0.419/0.425/0.005 ms
+PING 172.30.65.67 (172.30.65.67) 56(84) bytes of data.
+64 bytes from 172.30.65.67: icmp_seq=1 ttl=63 time=0.451 ms
+64 bytes from 172.30.65.67: icmp_seq=2 ttl=63 time=0.391 ms
+
+--- 172.30.65.67 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1022ms
+rtt min/avg/max/mdev = 0.391/0.421/0.451/0.030 ms
+PING 172.30.65.68 (172.30.65.68) 56(84) bytes of data.
+64 bytes from 172.30.65.68: icmp_seq=1 ttl=63 time=0.431 ms
+64 bytes from 172.30.65.68: icmp_seq=2 ttl=63 time=0.430 ms
+
+--- 172.30.65.68 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1021ms
+rtt min/avg/max/mdev = 0.430/0.430/0.431/0.000 ms
+
+[PASS] MSP Ubuntu jump blue path health
+Device:  MSPUbuntuJump
+Section: Service Block 3 / Blue Network
+Method:  SSH command
+Commands:
+  ping -c 2 172.20.20.1 || true; ping -c 2 172.20.64.1 || true; ping -c 2 172.20.65.1 || true
+Check:   Confirm the Ubuntu jump still reaches the blue network while Tailscale remains online.
+PING 172.20.20.1 (172.20.20.1) 56(84) bytes of data.
+64 bytes from 172.20.20.1: icmp_seq=1 ttl=254 time=6.47 ms
+64 bytes from 172.20.20.1: icmp_seq=2 ttl=254 time=0.847 ms
+
+--- 172.20.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.847/3.656/6.465/2.809 ms
+PING 172.20.64.1 (172.20.64.1) 56(84) bytes of data.
+64 bytes from 172.20.64.1: icmp_seq=1 ttl=64 time=0.164 ms
+64 bytes from 172.20.64.1: icmp_seq=2 ttl=64 time=0.212 ms
+
+--- 172.20.64.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1004ms
+rtt min/avg/max/mdev = 0.164/0.188/0.212/0.024 ms
+PING 172.20.65.1 (172.20.65.1) 56(84) bytes of data.
+64 bytes from 172.20.65.1: icmp_seq=1 ttl=64 time=0.158 ms
+64 bytes from 172.20.65.1: icmp_seq=2 ttl=64 time=0.172 ms
+
+--- 172.20.65.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1022ms
+rtt min/avg/max/mdev = 0.158/0.165/0.172/0.007 ms
+
+[FAIL] Windows jump remote collector
+Device:  WindowsJump64
+Section: Service Block 1 / Remote Access
+Method:  WMI registry return channel
+Commands:
+  Invoke-WmiMethod Win32_Process Create -> registry ResultB64
+Check:   Run the Site 2 collector on the Windows jump and retrieve JSON output.
+Collector did not finish successfully. Final registry status: None

@@ -1,0 +1,24 @@
+{
+  "toolkit_version": "1.0",
+  "results_root": "C:\\Algonquin\\Winter2026\\Emerging_Tech\\Project\\Site2test_service\\04_Results",
+  "hosts": {
+    "windows_jump_tailscale": {
+      "name": "WindowsJump64",
+      "address": "100.97.37.83",
+      "type": "windows",
+      "user": "Administrator",
+      "password": "Istanbul34!"
+    },
+    "ubuntu_jump_tailscale": {
+      "name": "MSPUbuntuJump",
+      "address": "100.82.97.92",
+      "type": "linux",
+      "user": "mspadmin",
+      "password": "Istanbul34!"
+    },
+    "public_edge": {
+      "name": "Teacher Edge Entry",
+      "address": "10.50.17.31"
+    }
+  }
+}

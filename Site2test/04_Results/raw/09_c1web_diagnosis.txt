@@ -1,0 +1,13 @@
+PING 172.30.65.162 (172.30.65.162) 56(84) bytes of data.
+
+--- 172.30.65.162 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1002ms
+
+--- route 162 ---
+172.30.65.162 via 172.30.65.177 dev ens18 src 172.30.65.179 uid 1000 
+    cache 
+--- ports 162 ---
+PORT 80 FAIL
+PORT 443 FAIL
+PORT 3389 FAIL
+PORT 5985 FAIL

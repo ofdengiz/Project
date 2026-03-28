@@ -1,0 +1,239 @@
+veeam
+Microsoft Windows NT 10.0.20348.0
+
+
+CsName                      : VEEAM
+OsName                      : Microsoft Windows Server 2022 Standard
+OsVersion                   : 10.0.20348
+CsNumberOfProcessors        : 1
+CsPhysicallyInstalledMemory : 
+PSComputerName              : 172.30.65.180
+RunspaceId                  : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamAHVSvc
+Status         : Stopped
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamAWSSvc
+Status         : Stopped
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamAzureSvc
+Status         : Stopped
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamBackupCdpSvc
+Status         : Stopped
+StartType      : Disabled
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamBackupRESTSvc
+Status         : Stopped
+StartType      : Disabled
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamBackupSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamBackupUpdateSvc
+Status         : Stopped
+StartType      : Disabled
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamBrokerSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamCatalogSvc
+Status         : Stopped
+StartType      : Disabled
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamCloudSvc
+Status         : Stopped
+StartType      : Disabled
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamDataAnalyzerSvc
+Status         : Stopped
+StartType      : Disabled
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamDeploySvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamDistributionSvc
+Status         : Stopped
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamExplorersRecoverySvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamFilesysVssSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamGCPSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamKastenSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamMountSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamNFSSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamPVESvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamRHVSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamThreatHunterSvc
+Status         : Stopped
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamTransportSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+Name           : VeeamVssProviderSvc
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::
+LocalPort      : 10006
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::
+LocalPort      : 10005
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::1
+LocalPort      : 9392
+State          : Established
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::1
+LocalPort      : 9392
+State          : Established
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::
+LocalPort      : 9392
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::
+LocalPort      : 5985
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : ::
+LocalPort      : 445
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : 0.0.0.0
+LocalPort      : 10006
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : 0.0.0.0
+LocalPort      : 10005
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : 0.0.0.0
+LocalPort      : 9392
+State          : Listen
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : 172.30.65.180
+LocalPort      : 5985
+State          : Established
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : 172.30.65.180
+LocalPort      : 5985
+State          : Established
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+LocalAddress   : 172.30.65.180
+LocalPort      : 5985
+State          : Established
+PSComputerName : 172.30.65.180
+RunspaceId     : ff4f6c78-e95e-485b-9b3b-83821bd31d74
+
+
+
+
+#< CLIXML
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="1"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="2"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="3"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="4"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading operating system information</SD></PR></MS></Obj><Obj S="progress" RefId="5"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading operating system information</SD></PR></MS></Obj><Obj S="progress" RefId="6"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading hot-patch information</SD></PR></MS></Obj><Obj S="progress" RefId="7"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading hot-patch information</SD></PR></MS></Obj><Obj S="progress" RefId="8"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading registry information</SD></PR></MS></Obj><Obj S="progress" RefId="9"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading registry information</SD></PR></MS></Obj><Obj S="progress" RefId="10"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading BIOS information</SD></PR></MS></Obj><Obj S="progress" RefId="11"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading BIOS information</SD></PR></MS></Obj><Obj S="progress" RefId="12"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading motherboard information</SD></PR></MS></Obj><Obj S="progress" RefId="13"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading motherboard information</SD></PR></MS></Obj><Obj S="progress" RefId="14"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading Computer information</SD></PR></MS></Obj><Obj S="progress" RefId="15"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading Computer information</SD></PR></MS></Obj><Obj S="progress" RefId="16"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading processor information</SD></PR></MS></Obj><Obj S="progress" RefId="17"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading processor information</SD></PR></MS></Obj><Obj S="progress" RefId="18"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Processing</T><SR>-1</SR><SD>Loading network adapter information</SD></PR></MS></Obj><Obj S="progress" RefId="19"><TNRef RefId="0" /><MS><I64 N="SourceId">3</I64><PR N="Record"><AV>Get-ComputerInfo</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD>Loading network adapter information</SD></PR></MS></Obj><Obj S="progress" RefId="20"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="21"><TNRef RefId="0" /><MS><I64 N="SourceId">4</I64><PR N="Record"><AV>Get-NetTCPConnection -LocalPort 445,9392,5985,10005,10006 -ErrorAction SilentlyContinue | Select-Object LocalAddress,LocalPort,State</AV><AI>516859576</AI><Nil /><PI>-1</PI><PC>100</PC><T>Completed</T><SR>0</SR><SD>1/1 completed</SD></PR></MS></Obj></Objs>

@@ -1,0 +1,75 @@
+{
+  "generated": "2026-03-23 22:07:01",
+  "jump": {
+    "opnsense_mgmt": {
+      "command": "curl -I http://172.30.65.177; nc -zvw5 172.30.65.177 53",
+      "rc": 0,
+      "stdout": "HTTP/1.1 403 Forbidden\r\nSet-Cookie: PHPSESSID=51cfd8d7981c86acf430012c87416024; path=/; HttpOnly; SameSite=Lax\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nContent-type: text/html; charset=UTF-8\r\nDate: Tue, 24 Mar 2026 02:07:02 GMT\r\nServer: OPNsense\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\nConnection to 172.30.65.177 53 port [tcp/domain] succeeded!\n"
+    },
+    "company1_cross_site": {
+      "command": "for t in \"172.30.65.2 3389\" \"172.30.65.2 445\" \"172.30.65.3 3389\" \"172.30.65.3 445\" \"172.30.65.4 445\" \"172.30.65.36 22\"; do set -- $t; echo TARGET=$1:$2; nc -zvw5 $1 $2; done",
+      "rc": 0,
+      "stdout": "TARGET=172.30.65.2:3389\nTARGET=172.30.65.2:445\nTARGET=172.30.65.3:3389\nTARGET=172.30.65.3:445\nTARGET=172.30.65.4:445\nTARGET=172.30.65.36:22\n",
+      "stderr": "Connection to 172.30.65.2 3389 port [tcp/ms-wbt-server] succeeded!\nConnection to 172.30.65.2 445 port [tcp/microsoft-ds] succeeded!\nConnection to 172.30.65.3 3389 port [tcp/ms-wbt-server] succeeded!\nConnection to 172.30.65.3 445 port [tcp/microsoft-ds] succeeded!\nConnection to 172.30.65.4 445 port [tcp/microsoft-ds] succeeded!\nConnection to 172.30.65.36 22 port [tcp/ssh] succeeded!\n"
+    },
+    "site2_c1_c2_web": {
+      "command": "curl -k -I --resolve c1-webserver.c1.local:443:172.30.65.162 https://c1-webserver.c1.local; curl -k -I https://172.30.65.162; curl -k -I --resolve c2-webserver.c2.local:443:172.30.65.170 https://c2-webserver.c2.local; curl -k -I https://172.30.65.170",
+      "rc": 0,
+      "stdout": "HTTP/2 200 \r\ncontent-length: 11022\r\ncontent-type: text/html\r\nlast-modified: Mon, 09 Feb 2026 02:39:06 GMT\r\naccept-ranges: bytes\r\netag: \"ac6edd426d99dc1:0\"\r\nserver: Microsoft-IIS/10.0\r\ndate: Tue, 24 Mar 2026 05:06:56 GMT\r\n\r\nHTTP/2 404 \r\ncontent-length: 315\r\ncontent-type: text/html; charset=us-ascii\r\nserver: Microsoft-HTTPAPI/2.0\r\ndate: Tue, 24 Mar 2026 05:06:56 GMT\r\n\r\nHTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Tue, 24 Mar 2026 02:07:03 GMT\r\nContent-Type: text/html\r\nContent-Length: 7311\r\nLast-Modified: Fri, 20 Mar 2026 21:22:54 GMT\r\nConnection: keep-alive\r\nETag: \"69bdbaae-1c8f\"\r\nAccept-Ranges: bytes\r\n\r\nHTTP/1.1 404 Not Found\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Tue, 24 Mar 2026 02:07:03 GMT\r\nContent-Type: text/html\r\nContent-Length: 162\r\nConnection: keep-alive\r\n\r\n",
+      "stderr": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0   315    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0   162    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n"
+    },
+    "veeam_ports_full": {
+      "command": "for p in 445 3389 9392 5985 10005 10006; do echo PORT=$p; nc -zvw5 172.30.65.180 $p; done",
+      "rc": 0,
+      "stdout": "PORT=445\nPORT=3389\nPORT=9392\nPORT=5985\nPORT=10005\nPORT=10006\n",
+      "stderr": "Connection to 172.30.65.180 445 port [tcp/microsoft-ds] succeeded!\nConnection to 172.30.65.180 3389 port [tcp/ms-wbt-server] succeeded!\nConnection to 172.30.65.180 9392 port [tcp/*] succeeded!\nConnection to 172.30.65.180 5985 port [tcp/*] succeeded!\nConnection to 172.30.65.180 10005 port [tcp/*] succeeded!\nConnection to 172.30.65.180 10006 port [tcp/*] succeeded!\n"
+    }
+  },
+  "hosts": {
+    "c2idm1": {
+      "command": "printf 'admin\\n' | sudo -S bash -lc \"hostname; systemctl is-active samba-ad-dc; systemctl is-active isc-dhcp-server; samba-tool dns query 127.0.0.1 c1.local c1-webserver A -P; samba-tool dns query 127.0.0.1 c2.local c2-webserver A -P\"",
+      "rc": 0,
+      "stdout": "c2idm1\nactive\nactive\n  Name=, Records=2, Children=0\n    A: 172.30.64.162 (flags=f0, serial=2, ttl=900)\n    A: 172.30.65.162 (flags=f0, serial=3, ttl=900)\n  Name=, Records=2, Children=0\n    A: 172.30.64.170 (flags=f0, serial=18, ttl=900)\n    A: 172.30.65.170 (flags=f0, serial=19, ttl=900)\n",
+      "stderr": "[sudo] password for ofdengiz: "
+    },
+    "c2idm2": {
+      "command": "printf 'admin\\n' | sudo -S bash -lc \"hostname; systemctl is-active samba-ad-dc; systemctl is-active isc-dhcp-server; samba-tool dns query 127.0.0.1 c1.local c1-webserver A -P; samba-tool dns query 127.0.0.1 c2.local c2-webserver A -P\"",
+      "rc": 0,
+      "stdout": "c2idm2\nactive\nactive\n  Name=, Records=2, Children=0\n    A: 172.30.64.162 (flags=f0, serial=2, ttl=900)\n    A: 172.30.65.162 (flags=f0, serial=3, ttl=900)\n  Name=, Records=2, Children=0\n    A: 172.30.64.170 (flags=f0, serial=18, ttl=900)\n    A: 172.30.65.170 (flags=f0, serial=19, ttl=900)\n",
+      "stderr": "[sudo] password for ofdengiz: "
+    },
+    "c2fs": {
+      "command": "printf 'admin\\n' | sudo -S bash -lc \"hostname; systemctl is-active smbd; findmnt /mnt/c2_public; iscsiadm -m session || true; lsblk -o NAME,TYPE,SIZE,FSTYPE,MOUNTPOINT,TRAN; testparm -s 2>/dev/null | tail -n 30; tail -n 15 /var/log/c2_site1_sync.log\"",
+      "rc": 0,
+      "stdout": "c2fs\nactive\nTARGET         SOURCE   FSTYPE OPTIONS\n/mnt/c2_public /dev/sdb ext4   rw,relatime,stripe=8191\ntcp: [1] 172.30.65.194:3260,1 iqn.2024-03.org.clearroots:c2san (non-flash)\nNAME                      TYPE  SIZE FSTYPE      MOUNTPOINT        TRAN\nloop0                     loop 63.9M squashfs    /snap/core20/2318 \nloop1                     loop 63.8M squashfs    /snap/core20/2717 \nloop2                     loop 91.6M squashfs    /snap/lxd/38331   \nloop3                     loop 91.7M squashfs    /snap/lxd/38469   \nloop5                     loop 48.1M squashfs    /snap/snapd/25935 \nloop6                     loop 48.4M squashfs    /snap/snapd/26382 \nsda                       disk   16G                               \n\u251c\u2500sda1                    part    1M                               \n\u251c\u2500sda2                    part  1.8G ext4        /boot             \n\u2514\u2500sda3                    part 14.2G LVM2_member                   \n  \u2514\u2500ubuntu--vg-ubuntu--lv lvm    10G ext4        /                 \nsdb                       disk  160G ext4        /mnt/c2_public    iscsi\nsr0                       rom     2G iso9660                       ata\n\tmax log size = 1000\n\trealm = C2.LOCAL\n\tsecurity = ADS\n\tserver role = member server\n\ttemplate homedir = /home/%U\n\ttemplate shell = /bin/bash\n\twinbind refresh tickets = Yes\n\twinbind use default domain = Yes\n\tworkgroup = C2\n\tidmap config * : range = 3000-7999\n\tidmap config * : backend = tdb\n\n\n[C2_Public]\n\tcreate mask = 0770\n\tdirectory mask = 0770\n\tforce group = c2_file_users\n\tpath = /mnt/c2_public/Public\n\tread only = No\n\tvalid users = @c2_file_users\n\n\n[C2_Private]\n\tbrowseable = No\n\tcreate mask = 0700\n\tdirectory mask = 0700\n\tforce group = c2_file_users\n\tpath = /mnt/c2_public/Private/%U\n\tread only = No\n\tvalid users = %U\n[2026-03-23 02:00:20] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-23 02:00:20] Sync completed successfully\r\n[2026-03-23 02:00:20] Sync completed successfully\r\n[2026-03-24 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-24 02:00:01] Starting Site1 -> Site2 C2 sync\n[2026-03-24 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\n[2026-03-24 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public\n[2026-03-24 02:00:02] Mirroring staged Public into /mnt/c2_public/Public\n[2026-03-24 02:00:02] Mirroring staged Public into /mnt/c2_public/Public\n[2026-03-24 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-24 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private\n[2026-03-24 02:00:15] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-24 02:00:15] Mirroring staged Private into /mnt/c2_public/Private\n[2026-03-24 02:00:16] Sync completed successfully\r\n[2026-03-24 02:00:16] Sync completed successfully\r\n",
+      "stderr": "[sudo] password for odengiz: "
+    },
+    "c2linuxclient": {
+      "command": "hostname; realm list; getent passwd employee1@c2.local; getent passwd employee2@c2.local; findmnt -t cifs,nfs || true; cat /etc/fstab; nslookup c1-webserver.c1.local; nslookup c2-webserver.c2.local",
+      "rc": 0,
+      "stdout": "c2linuxclient\nc2.local\n  type: kerberos\n  realm-name: C2.LOCAL\n  domain-name: c2.local\n  configured: kerberos-member\n  server-software: active-directory\n  client-software: sssd\n  required-package: sssd-tools\n  required-package: sssd\n  required-package: libnss-sss\n  required-package: libpam-sss\n  required-package: adcli\n  required-package: samba-common-bin\n  login-formats: %U@c2.local\n  login-policy: allow-realm-logins\nemployee1@c2.local:*:952001106:952000513:employee1:/home/employee1@c2.local:/bin/bash\nemployee2@c2.local:*:952001110:952000513:employee2:/home/employee2@c2.local:/bin/bash\n# /etc/fstab: static file system information.\n#\n# Use 'blkid' to print the universally unique identifier for a\n# device; this may be used with UUID= as a more robust way to name devices\n# that works even if disks are added and removed. See fstab(5).\n#\n# <file system> <mount point>   <type>  <options>       <dump>  <pass>\n# / was on /dev/sda2 during curtin installation\n/dev/disk/by-uuid/c7420274-831e-4bc7-bd36-6d84729574cb / ext4 defaults 0 1\n/swap.img\tnone\tswap\tsw\t0\t0\nServer:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tc1-webserver.c1.local\nAddress: 172.30.64.162\nName:\tc1-webserver.c1.local\nAddress: 172.30.65.162\n\nServer:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\tc2-webserver.c2.local\nAddress: 172.30.64.170\nName:\tc2-webserver.c2.local\nAddress: 172.30.65.170\n\n",
+      "stderr": ""
+    }
+  },
+  "local": {
+    "public_dns_google": {
+      "command": "nslookup clearroots.omerdengiz.com 8.8.8.8",
+      "rc": 0,
+      "stdout": "Server:  UnKnown\nAddress:  8.8.8.8\n\n",
+      "stderr": "*** UnKnown can't find clearroots.omerdengiz.com: Query refused\n\n"
+    },
+    "public_dns_cloudflare": {
+      "command": "nslookup clearroots.omerdengiz.com 1.1.1.1",
+      "rc": 0,
+      "stdout": "Server:  UnKnown\nAddress:  1.1.1.1\n\n",
+      "stderr": "*** UnKnown can't find clearroots.omerdengiz.com: Query refused\n\n"
+    },
+    "public_head_resolve": {
+      "command": "curl.exe -I https://clearroots.omerdengiz.com",
+      "rc": 6,
+      "stdout": "",
+      "stderr": "  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current\n                                 Dload  Upload  Total   Spent   Left   Speed\n\n  0      0   0      0   0      0      0      0                              0curl: (6) Could not resolve host: clearroots.omerdengiz.com\n"
+    }
+  }
+}

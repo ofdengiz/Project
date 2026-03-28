@@ -1,0 +1,459 @@
+Generated: 2026-03-25
+
+== bastion_baseline ==
+[command]
+hostname; whoami; ip -4 addr show ens18; ip route
+
+[stdout]
+mspubuntujump
+admin
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    altname enp0s18
+    inet 172.30.65.179/29 brd 172.30.65.183 scope global ens18
+       valid_lft forever preferred_lft forever
+default via 172.30.65.177 dev ens18 proto static 
+172.30.65.176/29 dev ens18 proto kernel scope link src 172.30.65.179 
+
+
+== opnsense_presence ==
+[command]
+curl -I -s http://172.30.65.177 | head -n 5; nc -zvw4 172.30.65.177 53
+
+[stdout]
+HTTP/1.1 403 Forbidden
+Set-Cookie: PHPSESSID=f4cb855cf15c8e8f2c4eecb8378d14b6; path=/; HttpOnly; SameSite=Lax
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+
+
+[stderr]
+Connection to 172.30.65.177 53 port [tcp/domain] succeeded!
+
+
+== company1_port_matrix ==
+[command]
+for t in '172.30.65.2 53' '172.30.65.2 88' '172.30.65.2 389' '172.30.65.2 445' '172.30.65.2 3389' '172.30.65.2 5985' '172.30.65.3 53' '172.30.65.3 88' '172.30.65.3 389' '172.30.65.3 445' '172.30.65.3 3389' '172.30.65.3 5985' '172.30.65.4 445' '172.30.65.4 3389' '172.30.65.4 5985' '172.30.65.11 3389' '172.30.65.36 22' '172.30.65.162 443' '172.30.65.162 3389' '172.30.65.162 5985'; do set -- $t; printf 'TARGET=%s:%s
+' "$1" "$2"; nc -zvw4 "$1" "$2"; done
+
+[stdout]
+TARGET=172.30.65.2:53
+TARGET=172.30.65.2:88
+TARGET=172.30.65.2:389
+TARGET=172.30.65.2:445
+TARGET=172.30.65.2:3389
+TARGET=172.30.65.2:5985
+TARGET=172.30.65.3:53
+TARGET=172.30.65.3:88
+TARGET=172.30.65.3:389
+TARGET=172.30.65.3:445
+TARGET=172.30.65.3:3389
+TARGET=172.30.65.3:5985
+TARGET=172.30.65.4:445
+TARGET=172.30.65.4:3389
+TARGET=172.30.65.4:5985
+TARGET=172.30.65.11:3389
+TARGET=172.30.65.36:22
+TARGET=172.30.65.162:443
+TARGET=172.30.65.162:3389
+TARGET=172.30.65.162:5985
+
+
+[stderr]
+Connection to 172.30.65.2 53 port [tcp/domain] succeeded!
+Connection to 172.30.65.2 88 port [tcp/kerberos] succeeded!
+Connection to 172.30.65.2 389 port [tcp/ldap] succeeded!
+Connection to 172.30.65.2 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.2 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.2 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.3 53 port [tcp/domain] succeeded!
+Connection to 172.30.65.3 88 port [tcp/kerberos] succeeded!
+Connection to 172.30.65.3 389 port [tcp/ldap] succeeded!
+Connection to 172.30.65.3 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.3 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.3 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.4 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.4 3389 port [tcp/ms-wbt-server] succeeded!
+nc: connect to 172.30.65.4 port 5985 (tcp) timed out: Operation now in progress
+Connection to 172.30.65.11 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.36 22 port [tcp/ssh] succeeded!
+Connection to 172.30.65.162 443 port [tcp/https] succeeded!
+Connection to 172.30.65.162 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.162 5985 port [tcp/*] succeeded!
+
+
+== company2_port_matrix ==
+[command]
+for t in '172.30.65.66 22' '172.30.65.67 22' '172.30.65.68 22' '172.30.65.70 22' '172.30.65.170 443' '172.30.65.180 445' '172.30.65.180 3389' '172.30.65.180 9392' '172.30.65.180 5985' '172.30.65.180 10005' '172.30.65.180 10006'; do set -- $t; printf 'TARGET=%s:%s
+' "$1" "$2"; nc -zvw4 "$1" "$2"; done
+
+[stdout]
+TARGET=172.30.65.66:22
+TARGET=172.30.65.67:22
+TARGET=172.30.65.68:22
+TARGET=172.30.65.70:22
+TARGET=172.30.65.170:443
+TARGET=172.30.65.180:445
+TARGET=172.30.65.180:3389
+TARGET=172.30.65.180:9392
+TARGET=172.30.65.180:5985
+TARGET=172.30.65.180:10005
+TARGET=172.30.65.180:10006
+
+
+[stderr]
+Connection to 172.30.65.66 22 port [tcp/ssh] succeeded!
+Connection to 172.30.65.67 22 port [tcp/ssh] succeeded!
+Connection to 172.30.65.68 22 port [tcp/ssh] succeeded!
+Connection to 172.30.65.70 22 port [tcp/ssh] succeeded!
+Connection to 172.30.65.170 443 port [tcp/https] succeeded!
+Connection to 172.30.65.180 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.180 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.180 9392 port [tcp/*] succeeded!
+Connection to 172.30.65.180 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.180 10005 port [tcp/*] succeeded!
+Connection to 172.30.65.180 10006 port [tcp/*] succeeded!
+
+
+== hostname_web_behavior ==
+[command]
+nslookup c1-webserver.c1.local 172.30.65.66; nslookup c2-webserver.c2.local 172.30.65.66; curl -k -I --resolve c1-webserver.c1.local:443:172.30.65.162 https://c1-webserver.c1.local; curl -k -I https://172.30.65.162; curl -k -I --resolve c2-webserver.c2.local:443:172.30.65.170 https://c2-webserver.c2.local; curl -k -I https://172.30.65.170
+
+[stdout]
+Server:		172.30.65.66
+Address:	172.30.65.66#53
+
+Name:	c1-webserver.c1.local
+Address: 172.30.64.162
+Name:	c1-webserver.c1.local
+Address: 172.30.65.162
+
+Server:		172.30.65.66
+Address:	172.30.65.66#53
+
+Name:	c2-webserver.c2.local
+Address: 172.30.64.170
+Name:	c2-webserver.c2.local
+Address: 172.30.65.170
+
+HTTP/2 200 
+content-length: 11022
+content-type: text/html
+last-modified: Mon, 09 Feb 2026 02:39:06 GMT
+accept-ranges: bytes
+etag: "ac6edd426d99dc1:0"
+server: Microsoft-IIS/10.0
+date: Wed, 25 Mar 2026 19:39:52 GMT
+
+HTTP/2 404 
+content-length: 315
+content-type: text/html; charset=us-ascii
+server: Microsoft-HTTPAPI/2.0
+date: Wed, 25 Mar 2026 19:39:52 GMT
+
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Wed, 25 Mar 2026 16:39:59 GMT
+Content-Type: text/html
+Content-Length: 7311
+Last-Modified: Fri, 20 Mar 2026 21:22:54 GMT
+Connection: keep-alive
+ETag: "69bdbaae-1c8f"
+Accept-Ranges: bytes
+
+HTTP/1.1 404 Not Found
+Server: nginx/1.18.0 (Ubuntu)
+Date: Wed, 25 Mar 2026 16:39:59 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+
+
+
+[stderr]
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 11022    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   315    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   162    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+
+== c2idm1_identity_dns_dhcp ==
+[command]
+hostname; echo 'Cisco123!' | sudo -S systemctl is-active samba-ad-dc; echo 'Cisco123!' | sudo -S systemctl is-active isc-dhcp-server; echo 'Cisco123!' | sudo -S samba-tool dns query 127.0.0.1 c1.local c1-webserver A -P; echo 'Cisco123!' | sudo -S samba-tool dns query 127.0.0.1 c2.local c2-webserver A -P; echo 'Cisco123!' | sudo -S grep -n 'failover peer' /etc/dhcp/dhcpd.conf || true; echo 'Cisco123!' | sudo -S grep -n 'primary;' /etc/dhcp/dhcpd.conf || true
+
+[stdout]
+c2idm1
+active
+active
+  Name=, Records=2, Children=0
+    A: 172.30.64.162 (flags=f0, serial=2, ttl=900)
+    A: 172.30.65.162 (flags=f0, serial=3, ttl=900)
+  Name=, Records=2, Children=0
+    A: 172.30.64.170 (flags=f0, serial=18, ttl=900)
+    A: 172.30.65.170 (flags=f0, serial=22, ttl=900)
+10:failover peer "dhcp-failover" {
+27:        failover peer "dhcp-failover";
+11:    primary;
+
+
+[stderr]
+[sudo] password for admin: 
+
+== c2idm2_identity_dns_dhcp ==
+[command]
+hostname; echo 'Cisco123!' | sudo -S systemctl is-active samba-ad-dc; echo 'Cisco123!' | sudo -S systemctl is-active isc-dhcp-server; echo 'Cisco123!' | sudo -S samba-tool dns query 127.0.0.1 c1.local c1-webserver A -P; echo 'Cisco123!' | sudo -S samba-tool dns query 127.0.0.1 c2.local c2-webserver A -P; echo 'Cisco123!' | sudo -S grep -n 'failover peer' /etc/dhcp/dhcpd.conf || true; echo 'Cisco123!' | sudo -S grep -n 'secondary;' /etc/dhcp/dhcpd.conf || true
+
+[stdout]
+c2idm2
+active
+active
+  Name=, Records=2, Children=0
+    A: 172.30.64.162 (flags=f0, serial=2, ttl=900)
+    A: 172.30.65.162 (flags=f0, serial=3, ttl=900)
+  Name=, Records=2, Children=0
+    A: 172.30.64.170 (flags=f0, serial=18, ttl=900)
+    A: 172.30.65.170 (flags=f0, serial=22, ttl=900)
+10:failover peer "dhcp-failover" {
+25:        failover peer "dhcp-failover";
+11:    secondary;
+
+
+[stderr]
+[sudo] password for admin: 
+
+== c2fs_storage_sync ==
+[command]
+hostname; echo 'Cisco123!' | sudo -S systemctl is-active smbd; echo 'Cisco123!' | sudo -S findmnt /mnt/c2_public; echo 'Cisco123!' | sudo -S iscsiadm -m session || true; echo 'Cisco123!' | sudo -S lsblk -f; echo 'Cisco123!' | sudo -S testparm -s 2>/dev/null | tail -n 35; echo 'Cisco123!' | sudo -S ls -ld /mnt/c2_public /mnt/c2_public/Public /mnt/c2_public/Private; echo 'Cisco123!' | sudo -S tail -n 20 /var/log/c2_site1_sync.log
+
+[stdout]
+c2fs
+active
+TARGET         SOURCE   FSTYPE OPTIONS
+/mnt/c2_public /dev/sdb ext4   rw,relatime,stripe=8191
+tcp: [1] 172.30.65.194:3260,1 iqn.2024-03.org.clearroots:c2san (non-flash)
+NAME                      FSTYPE      FSVER            LABEL                           UUID                                   FSAVAIL FSUSE% MOUNTPOINTS
+loop0                     squashfs    4.0                                                                                           0   100% /snap/core20/2318
+loop1                     squashfs    4.0                                                                                           0   100% /snap/core20/2717
+loop2                     squashfs    4.0                                                                                           0   100% /snap/lxd/38469
+loop3                     squashfs    4.0                                                                                           0   100% /snap/snapd/25935
+loop4                     squashfs    4.0                                                                                           0   100% /snap/snapd/26382
+loop5                     squashfs    4.0                                                                                           0   100% /snap/lxd/38331
+sda                                                                                                                                          
+├─sda1                                                                                                                                       
+├─sda2                    ext4        1.0                                              1aac290d-fb72-4319-bb3f-dbb19ca8cbc0      1.3G    15% /boot
+└─sda3                    LVM2_member LVM2 001                                         ikBN12-5JHh-q4v9-xoVS-2vMv-mKpr-eRCXgx                
+  └─ubuntu--vg-ubuntu--lv ext4        1.0                                              0209f937-10d6-448d-8653-9634955ce59d        4G    54% /
+sdb                       ext4        1.0                                              f4e8ddf4-be7b-49a9-8083-d381dc1c29df    148.4G     0% /mnt/c2_public
+sr0                       iso9660     Joliet Extension Ubuntu-Server 22.04.5 LTS amd64 2024-09-11-18-46-48-00                                
+# Global parameters
+[global]
+	kerberos method = secrets and keytab
+	log file = /var/log/samba/log.%m
+	logging = file
+	max log size = 1000
+	realm = C2.LOCAL
+	security = ADS
+	server role = member server
+	template homedir = /home/%U
+	template shell = /bin/bash
+	winbind refresh tickets = Yes
+	winbind use default domain = Yes
+	workgroup = C2
+	idmap config * : range = 3000-7999
+	idmap config * : backend = tdb
+
+
+[C2_Public]
+	create mask = 0770
+	directory mask = 0770
+	force group = c2_file_users
+	path = /mnt/c2_public/Public
+	read only = No
+	valid users = @c2_file_users
+
+
+[C2_Private]
+	browseable = No
+	create mask = 0700
+	directory mask = 0700
+	force group = c2_file_users
+	path = /mnt/c2_public/Private/%U
+	read only = No
+	valid users = %U
+drwxrws--- 5 root    c2_file_users 4096 Mar 24 07:05 /mnt/c2_public
+drwx--x--x 8 odengiz c2_file_users 4096 Mar 11 23:59 /mnt/c2_public/Private
+drwxrws--- 2 odengiz c2_file_users 4096 Mar 14 14:38 /mnt/c2_public/Public
+[2026-03-24 02:00:02] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-24 02:00:02] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-24 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-24 02:00:02] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-24 02:00:15] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-24 02:00:15] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-24 02:00:16] Sync completed successfully
+[2026-03-24 02:00:16] Sync completed successfully
+[2026-03-25 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-25 02:00:01] Starting Site1 -> Site2 C2 sync
+[2026-03-25 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-25 02:00:01] Pulling Public from 172.30.64.146:/mnt/sync_disk/Public
+[2026-03-25 02:00:03] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-25 02:00:03] Mirroring staged Public into /mnt/c2_public/Public
+[2026-03-25 02:00:03] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-25 02:00:03] Pulling Private from 172.30.64.146:/mnt/sync_disk/Private
+[2026-03-25 02:00:30] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-25 02:00:30] Mirroring staged Private into /mnt/c2_public/Private
+[2026-03-25 02:00:31] Sync completed successfully
+[2026-03-25 02:00:31] Sync completed successfully
+
+
+[stderr]
+[sudo] password for admin: 
+
+== c2linuxclient_identity_and_resolver ==
+[command]
+hostname; whoami; realm list; resolvectl status; getent passwd employee1@c2.local; getent passwd employee2@c2.local; ls -ld /home/employee1@c2.local /home/employee2@c2.local; mount | grep -E 'C2_Public|C2_Private|cifs' || true; echo 'Cisco123!' | sudo -S test -f /usr/local/sbin/c2-share-session && echo SESSION_SCRIPT_PRESENT || echo SESSION_SCRIPT_MISSING; nslookup c1-webserver.c1.local || true; nslookup c2-webserver.c2.local || true; curl -k -I https://c1-webserver.c1.local || true; curl -k -I https://c2-webserver.c2.local || true
+
+[stdout]
+c2linuxclient
+admin
+c2.local
+  type: kerberos
+  realm-name: C2.LOCAL
+  domain-name: c2.local
+  configured: kerberos-member
+  server-software: active-directory
+  client-software: sssd
+  required-package: sssd-tools
+  required-package: sssd
+  required-package: libnss-sss
+  required-package: libpam-sss
+  required-package: adcli
+  required-package: samba-common-bin
+  login-formats: %U@c2.local
+  login-policy: allow-realm-logins
+Global
+         Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+  resolv.conf mode: stub
+
+Link 2 (ens18)
+    Current Scopes: DNS
+         Protocols: +DefaultRoute -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+Current DNS Server: 172.30.65.67
+       DNS Servers: 172.30.65.66 172.30.65.67
+        DNS Domain: c2.local
+     Default Route: yes
+employee1@c2.local:*:952001106:952000513:employee1:/home/employee1@c2.local:/bin/bash
+employee2@c2.local:*:952001110:952000513:employee2:/home/employee2@c2.local:/bin/bash
+drwx------ 2 employee1@c2.local domain users@c2.local 4096 Mar 24 21:58 /home/employee1@c2.local
+drwx------ 2 employee2@c2.local domain users@c2.local 4096 Mar 24 19:57 /home/employee2@c2.local
+SESSION_SCRIPT_MISSING
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+** server can't find c1-webserver.c1.local: REFUSED
+
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	c2-webserver.c2.local
+Address: 172.30.64.170
+Name:	c2-webserver.c2.local
+Address: 172.30.65.170
+
+HTTP/1.1 200 OK
+Server: nginx/1.26.3 (Ubuntu)
+Date: Wed, 25 Mar 2026 16:40:03 GMT
+Content-Type: text/html
+Content-Length: 7311
+Last-Modified: Thu, 19 Mar 2026 14:04:52 GMT
+Connection: keep-alive
+ETag: "69bc0284-1c8f"
+Accept-Ranges: bytes
+
+
+
+[stderr]
+[sudo] password for admin:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: c1-webserver.c1.local
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+
+== c2webserver_hostname_binding ==
+[command]
+hostname; whoami; systemctl is-active nginx; echo 'Cisco123!' | sudo -S grep -Rin 'server_name' /etc/nginx/sites-enabled /etc/nginx/sites-available 2>/dev/null || true; curl -k -I -H 'Host: c2-webserver.c2.local' https://127.0.0.1; curl -k -I https://127.0.0.1
+
+[stdout]
+c2-webserver
+admin
+active
+/etc/nginx/sites-enabled/c2web:3:    server_name _;
+/etc/nginx/sites-enabled/c2web:9:    server_name _;
+/etc/nginx/sites-enabled/c2web:19:    server_name c2-webserver.c2.local;
+/etc/nginx/sites-enabled/c2web:25:    server_name c2-webserver.c2.local;
+/etc/nginx/sites-available/c2web:3:    server_name _;
+/etc/nginx/sites-available/c2web:9:    server_name _;
+/etc/nginx/sites-available/c2web:19:    server_name c2-webserver.c2.local;
+/etc/nginx/sites-available/c2web:25:    server_name c2-webserver.c2.local;
+/etc/nginx/sites-available/default:46:	server_name _;
+/etc/nginx/sites-available/default:83:#	server_name example.com;
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Date: Wed, 25 Mar 2026 16:40:04 GMT
+Content-Type: text/html
+Content-Length: 7311
+Last-Modified: Fri, 20 Mar 2026 21:22:54 GMT
+Connection: keep-alive
+ETag: "69bdbaae-1c8f"
+Accept-Ranges: bytes
+
+HTTP/1.1 404 Not Found
+Server: nginx/1.18.0 (Ubuntu)
+Date: Wed, 25 Mar 2026 16:40:04 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+
+
+
+[stderr]
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  7311    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   162    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+
+== veeam_ports ==
+[command]
+hostname; for p in 445 3389 9392 5985 10005 10006; do echo PORT=$p; nc -zvw4 172.30.65.180 $p; done
+
+[stdout]
+mspubuntujump
+PORT=445
+PORT=3389
+PORT=9392
+PORT=5985
+PORT=10005
+PORT=10006
+
+
+[stderr]
+Connection to 172.30.65.180 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.180 3389 port [tcp/ms-wbt-server] succeeded!
+Connection to 172.30.65.180 9392 port [tcp/*] succeeded!
+Connection to 172.30.65.180 5985 port [tcp/*] succeeded!
+Connection to 172.30.65.180 10005 port [tcp/*] succeeded!
+Connection to 172.30.65.180 10006 port [tcp/*] succeeded!
+

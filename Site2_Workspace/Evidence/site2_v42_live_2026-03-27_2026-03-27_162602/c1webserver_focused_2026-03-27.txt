@@ -1,0 +1,64 @@
+C1WEBSERVER
+c1webserver\administrator
+Microsoft Windows NT 10.0.20348.0
+
+
+Name           : W3SVC
+Status         : Running
+StartType      : Automatic
+PSComputerName : 172.30.65.162
+RunspaceId     : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+
+Name           : WAS
+Status         : Running
+StartType      : Manual
+PSComputerName : 172.30.65.162
+RunspaceId     : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+
+name           : Default Web Site
+state          : Started
+physicalPath   : %SystemDrive%\inetpub\wwwroot
+id             : 1
+PSComputerName : 172.30.65.162
+RunspaceId     : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+
+protocol           : https
+bindingInformation : *:443:c1-webserver.c1.local
+sslFlags           : 0
+PSComputerName     : 172.30.65.162
+RunspaceId         : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+
+IPAddress      : 0.0.0.0
+Port           : 443
+Store          : My
+Thumbprint     : F2FCF5154B62C8F35DFA26A81A311F09331D9079
+PSComputerName : 172.30.65.162
+RunspaceId     : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+
+PSComputerName : 172.30.65.162
+RunspaceId     : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+IgnoreCase     : True
+LineNumber     : 6
+Line           :   TCP    0.0.0.0:443            0.0.0.0:0              LISTENING
+Filename       : InputStream
+Path           : InputStream
+Pattern        : :443|:80
+Context        : 
+Matches        : {:443}
+
+PSComputerName : 172.30.65.162
+RunspaceId     : a73e1c17-6b89-4289-bc7e-be477e7f9f2d
+IgnoreCase     : True
+LineNumber     : 36
+Line           :   TCP    [::]:443               [::]:0                 LISTENING
+Filename       : InputStream
+Path           : InputStream
+Pattern        : :443|:80
+Context        : 
+Matches        : {:443}
+
+
+
+
+#< CLIXML
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="1"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="2"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="3"><TNRef RefId="0" /><MS><I64 N="SourceId">2</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>

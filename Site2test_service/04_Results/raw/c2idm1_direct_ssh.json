@@ -1,0 +1,9 @@
+{
+  "name": "c2idm1",
+  "host": "172.30.65.66",
+  "user": "ofdengiz",
+  "ok": true,
+  "exit_code": 0,
+  "stdout": "c2idm1\nactive\nDefault-First-Site-Name\\C2IDM1\nDSA Options: 0x00000001\nDSA object GUID: ccea3965-4c9c-419b-8d2c-df2197a7f6bc\nDSA invocationId: 334b32e7-58a4-44fa-a383-f3189c67448e\n\n==== INBOUND NEIGHBORS ====\n\nDC=DomainDnsZones,DC=c2,DC=local\n\tDefault-First-Site-Name\\C2-DC1 via RPC\n\t\tDSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9\n\t\tLast attempt @ Wed Mar 18 00:58:27 2026 UTC was successful\n\t\t0 consecutive failure(s).\n\t\tLast success @ Wed Mar 18 00:58:27 2026 UTC\n\nDC=DomainDnsZones,DC=c2,DC=local\n\tDefault-First-Site-Name\\C2-DC2 via RPC\n\t\tDSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708\n\t\tLast attempt @ Wed Mar 18 00:58:28 2026 UTC was successful\n\t\t0 consecutive failure(s).\n\t\tLast success @ Wed Mar 18 00:58:28 2026 UTC\n\nDC=ForestDnsZones,DC=c2,DC=local\n\tDefault-First-Site-Name\\C2-DC1 via RPC\n\t\tDSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9\n\t\tLast attempt @ Wed Mar 18 00:58:28 2026 UTC was successful\n\t\t0 consecutive failure(s).\n\t\tLast success @ Wed Mar 18 00:58:28 2026 UTC\n\nDC=ForestDnsZones,DC=c2,DC=local\n\tDefault-First-Site-Name\\C2-DC2 via RPC\n\t\tDSA object GUID: 4016c7cd-ffe7-42bd-ae5f-0a96f09e0708\n\t\tLast attempt @ Wed Mar 18 00:58:28 2026 UTC was successful\n\t\t0 consecutive failure(s).\n\t\tLast success @ Wed Mar 18 00:58:28 2026 UTC\n\nCN=Schema,CN=Configuration,DC=c2,DC=local\n\tDefault-First-Site-Name\\C2-DC1 via RPC\n\t\tDSA object GUID: 2a3e404d-4c47-4920-a8c9-c47cfc255ed9\n\t\tLast attempt @ Wed Mar 18 00:58:29 2026 UTC was successful\n\t\t0 consecutive failure(s).\n",
+  "stderr": ""
+}

@@ -1,0 +1,50 @@
+c2linuxclient
+c2.local
+  type: kerberos
+  realm-name: C2.LOCAL
+  domain-name: c2.local
+  configured: kerberos-member
+  server-software: active-directory
+  client-software: sssd
+  required-package: sssd-tools
+  required-package: sssd
+  required-package: libnss-sss
+  required-package: libpam-sss
+  required-package: adcli
+  required-package: samba-common-bin
+  login-formats: %U@c2.local
+  login-policy: allow-realm-logins
+== ip route ==
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: ens18: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    altname enp0s18
+    altname enxbc2411300265
+    inet 172.30.65.70/26 brd 172.30.65.127 scope global noprefixroute ens18
+       valid_lft forever preferred_lft forever
+default via 172.30.65.65 dev ens18 proto static metric 100 
+172.30.65.64/26 dev ens18 proto kernel scope link src 172.30.65.70 metric 100 
+== resolver ==
+Global
+         Protocols: -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+  resolv.conf mode: stub
+
+Link 2 (ens18)
+    Current Scopes: DNS
+         Protocols: +DefaultRoute -LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
+Current DNS Server: 172.30.65.67
+       DNS Servers: 172.30.65.66 172.30.65.67
+        DNS Domain: c2.local
+     Default Route: yes
+== identity ==
+== isolation ==
+C2DNS53=REACHABLE
+C1DNS53=REACHABLE
+MSP443=BLOCKED
+
+[stderr]
+id: ‘administrator@c2.local’: no such user
+id: ‘employee1@c2.local’: no such user
+Connection to 172.30.65.66 53 port [tcp/domain] succeeded!
+Connection to 172.30.65.2 53 port [tcp/domain] succeeded!

@@ -1,0 +1,20 @@
+=== Session started: 2026-03-14T17:04:54 ===
+2026-03-14T17:06:55 | PASS | 3.7 / Appendix C | Server2 | Server2 iSCSI target inventory
+2026-03-14T17:06:59 | PASS | 3.7 / Table 14 / Appendix C | Server2 | Server2 disk and volume summary
+2026-03-14T17:07:06 | PASS | 3.7 / Table 15 / Appendix C | C1-DC1 | C1-DC1 iSCSI initiator summary
+2026-03-14T17:07:12 | PASS | 3.7 / Table 15 / Appendix C | C1-DC2 | C1-DC2 iSCSI initiator summary
+2026-03-14T17:07:14 | FAIL | 3.7 / Tables 14A-18 / Appendix C | C2-DC1 | C2-DC1 iSCSI and Gluster summary
+2026-03-14T17:07:14 | FAIL | 3.7 / Tables 14A-18 / Appendix C | C2-DC2 | C2-DC2 iSCSI and Gluster summary
+2026-03-14T17:07:56 | PASS | 3.8 / Appendix D | Server2 | Server2 Veeam services and repository drives
+2026-03-14T17:07:57 | FAIL | 3.8.2 | C1-Client1 | C1-Client1 backup agent footprint
+2026-03-14T17:08:13 | PASS | 3.8.3 / 3.10.1 | Site 2 Offsite Repository | Site 2 offsite repository control port
+2026-03-14T17:09:04 | FAIL | 3.9.2 | Jumpbox Ubuntu | Jumpbox Ubuntu Grafana and InfluxDB health
+2026-03-14T17:09:04 | PASS | 3.9.3 | C2-DC1 | Cockpit HTTPS endpoint
+2026-03-14T17:09:05 | FAIL | 3.9.3 | C2-DC1 | C2-DC1 Cockpit service state
+2026-03-14T17:09:10 | PASS | 3.9.4 | Jumpbox Windows | Windows Admin Center HTTPS endpoint
+2026-03-14T17:09:12 | FAIL | 3.9.4 | Jumpbox Windows | Jumpbox Windows Admin Center service
+2026-03-14T17:09:47 | PASS | 3.10.1 | Site 2 Offsite Repository | Site 2 repository VPN path (6160)
+2026-03-14T17:09:57 | PASS | 3.10.2 | Jumpbox Ubuntu | SSH to Jumpbox Ubuntu
+2026-03-14T17:09:57 | PASS | 3.10.2 | C2-DC1 | SSH to C2-DC1
+2026-03-14T17:10:07 | PASS | 3.10.2 | C1-DC1 | RDP to C1-DC1
+2026-03-14T17:10:08 | PASS | 3.10.2 | Server2 | RDP to Server2

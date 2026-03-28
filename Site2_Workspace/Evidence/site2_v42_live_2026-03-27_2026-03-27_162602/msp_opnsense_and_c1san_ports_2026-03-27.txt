@@ -1,0 +1,17 @@
+TARGET=172.30.65.177:80
+TARGET=172.30.65.177:443
+TARGET=172.30.65.177:53
+TARGET=172.30.65.186:3260
+TARGET=172.30.65.186:22
+TARGET=172.30.65.186:3389
+TARGET=172.30.65.180:445
+TARGET=172.30.65.180:9392
+
+Connection to 172.30.65.177 80 port [tcp/http] succeeded!
+nc: connect to 172.30.65.177 port 443 (tcp) timed out: Operation now in progress
+Connection to 172.30.65.177 53 port [tcp/domain] succeeded!
+nc: connect to 172.30.65.186 port 3260 (tcp) timed out: Operation now in progress
+nc: connect to 172.30.65.186 port 22 (tcp) timed out: Operation now in progress
+nc: connect to 172.30.65.186 port 3389 (tcp) timed out: Operation now in progress
+Connection to 172.30.65.180 445 port [tcp/microsoft-ds] succeeded!
+Connection to 172.30.65.180 9392 port [tcp/*] succeeded!
